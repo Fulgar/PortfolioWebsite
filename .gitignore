@@ -1,2 +1,7 @@
 src/main/java/dao/DatabaseTest.java
 src/main/java/endpoints/TestEndpoint.java
+out/*
+build/
+.gradle/*
+gradle.properties
+/.idea/
