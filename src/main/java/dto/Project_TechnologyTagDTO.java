@@ -11,6 +11,10 @@ public class Project_TechnologyTagDTO
 		this.technologyID = technologyID;
 	}
 
+	public Project_TechnologyTagDTO()
+	{
+	}
+
 	public int getProjectID()
 	{
 		return projectID;

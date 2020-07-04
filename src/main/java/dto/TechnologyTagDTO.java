@@ -11,6 +11,10 @@ public class TechnologyTagDTO
 		this.name = name;
 	}
 
+	public TechnologyTagDTO()
+	{
+	}
+
 	public int getTechnologyID()
 	{
 		return technologyID;

@@ -13,6 +13,10 @@ public class CourseDTO
 		this.courseName = courseName;
 	}
 
+	public CourseDTO()
+	{
+	}
+
 	public int getCourseID()
 	{
 		return courseID;
