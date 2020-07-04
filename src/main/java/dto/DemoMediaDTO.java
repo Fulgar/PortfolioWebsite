@@ -15,6 +15,10 @@ public class DemoMediaDTO
 		this.projectID = projectID;
 	}
 
+	public DemoMediaDTO()
+	{
+	}
+
 	public int getDemoMediaID()
 	{
 		return demoMediaID;

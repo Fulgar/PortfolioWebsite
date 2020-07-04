@@ -11,6 +11,10 @@ public class Project_CourseDTO
 		this.courseID = courseID;
 	}
 
+	public Project_CourseDTO()
+	{
+	}
+
 	public int getProjectID()
 	{
 		return projectID;

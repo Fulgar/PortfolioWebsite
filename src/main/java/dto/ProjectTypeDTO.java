@@ -11,6 +11,10 @@ public class ProjectTypeDTO
 		this.name = name;
 	}
 
+	public ProjectTypeDTO()
+	{
+	}
+
 	public int getProjectTypeID()
 	{
 		return projectTypeID;

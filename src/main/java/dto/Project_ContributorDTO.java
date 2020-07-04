@@ -11,6 +11,10 @@ public class Project_ContributorDTO
 		this.contributorID = contributorID;
 	}
 
+	public Project_ContributorDTO()
+	{
+	}
+
 	public int getProjectID()
 	{
 		return projectID;
