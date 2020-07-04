@@ -15,6 +15,10 @@ public class ContributorDTO
 		this.githubProfileLink = githubProfileLink;
 	}
 
+	public ContributorDTO()
+	{
+	}
+
 	public int getContributorID()
 	{
 		return contributorID;
