@@ -12,7 +12,7 @@ public class ProjectTypeMapper implements RowMapper <ProjectTypeDTO>
 	{
 		ProjectTypeDTO projectType = new ProjectTypeDTO();
 		projectType.setProjectTypeID(rs.getInt("ID"));
-		projectType.setName(rs.getString("Name"));
+		projectType.setName(rs.getString("TypeName"));
 		return projectType;
 	}
 }

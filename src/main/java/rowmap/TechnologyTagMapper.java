@@ -12,7 +12,7 @@ public class TechnologyTagMapper implements RowMapper <TechnologyTagDTO>
 	{
 		TechnologyTagDTO technologyTag = new TechnologyTagDTO();
 		technologyTag.setTechnologyID(rs.getInt("ID"));
-		technologyTag.setName(rs.getString("Name"));
+		technologyTag.setName(rs.getString("TechnologyName"));
 		return technologyTag;
 	}
 }

@@ -13,7 +13,7 @@ public class ProjectMapper implements RowMapper <ProjectDTO>
 		ProjectDTO project = new ProjectDTO();
 		project.setProjectID(rs.getInt("ID"));
 		project.setTitle(rs.getString("Title"));
-		project.setDescription(rs.getString("Description"));
+		project.setDescription(rs.getString("ProjectDescription"));
 		project.setGithubLink(rs.getString("GithubLink"));
 		project.setProjectTypeID(rs.getInt("ProjectTypeID"));
 		return project;
