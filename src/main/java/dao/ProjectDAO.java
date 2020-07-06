@@ -62,7 +62,8 @@ public class ProjectDAO
 		QUERY += project.getTitle() + ", ";
 		QUERY += project.getDescription() + ", ";
 		QUERY += project.getGithubLink() + ", ";
-		QUERY += project.getProjectTypeID() + ")";
+		QUERY += project.getProjectTypeID() + ", ";
+		QUERY += project.getCourseID() + ")";
 
 		// Executes statement
 		ResultSet rs = DatabaseWrapper.getQueryResult(QUERY);
@@ -78,7 +79,8 @@ public class ProjectDAO
 		QUERY += "Title='" + project.getTitle() + "', ";
 		QUERY += "ProjectDescription='" + project.getDescription() + "', ";
 		QUERY += "GithubLink='" + project.getGithubLink() + "', ";
-		QUERY += "ProjectTypeID='" + project.getProjectTypeID() + "' ";
+		QUERY += "ProjectTypeID='" + project.getProjectTypeID() + "', ";
+		QUERY += "CourseID='" + project.getProjectTypeID() + "' ";
 		QUERY += "WHERE ID=" + project.getProjectID();
 
 		// Executes statement
