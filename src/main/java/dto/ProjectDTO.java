@@ -7,14 +7,16 @@ public class ProjectDTO
 	private String description;
 	private String githubLink;
 	private int projectTypeID;
+	private Integer courseID; // Can be null
 
-	public ProjectDTO(int projectID, String title, String description, String githubLink, int projectTypeID)
+	public ProjectDTO(int projectID, String title, String description, String githubLink, int projectTypeID, Integer courseID)
 	{
 		this.projectID = projectID;
 		this.title = title;
 		this.description = description;
 		this.githubLink = githubLink;
 		this.projectTypeID = projectTypeID;
+		this.courseID = courseID;
 	}
 
 	public ProjectDTO()
@@ -69,5 +71,15 @@ public class ProjectDTO
 	public void setProjectTypeID(int projectTypeID)
 	{
 		this.projectTypeID = projectTypeID;
+	}
+
+	public Integer getCourseID()
+	{
+		return courseID;
+	}
+
+	public void setCourseID(Integer courseID)
+	{
+		this.courseID = courseID;
 	}
 }

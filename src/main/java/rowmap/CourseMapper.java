@@ -12,7 +12,7 @@ public class CourseMapper implements RowMapper <CourseDTO>
 	{
 		CourseDTO course = new CourseDTO();
 		course.setCourseID(rs.getInt("ID"));
-		course.setSubject(rs.getString("Subject"));
+		course.setSubject(rs.getString("SubjectName"));
 		course.setCourseName(rs.getString("CourseName"));
 		return course;
 	}
