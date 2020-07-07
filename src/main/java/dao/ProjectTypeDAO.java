@@ -57,8 +57,7 @@ public class ProjectTypeDAO
 	{
 
 		// SQL Query statement
-		String QUERY = "INSERT INTO PROJECT_TYPES VALUES (";
-		QUERY += projectType.getProjectTypeID() + ", ";
+		String QUERY = "INSERT INTO PROJECT_TYPES (TypeName) VALUES (";
 		QUERY += projectType.getName() + ")";
 
 		// Executes statement

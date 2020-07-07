@@ -56,8 +56,7 @@ public class CourseDAO
 	{
 
 		// SQL Query statement
-		String QUERY = "INSERT INTO COURSES VALUES (";
-		QUERY += course.getCourseID() + ", ";
+		String QUERY = "INSERT INTO COURSES (SubjectName, CourseName) VALUES (";
 		QUERY += course.getSubject() + ", ";
 		QUERY += course.getCourseName() + ")";
 

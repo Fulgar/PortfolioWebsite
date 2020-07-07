@@ -56,8 +56,7 @@ public class ContributorDAO
 	{
 
 		// SQL Query statement
-		String QUERY = "INSERT INTO CONTRIBUTORS VALUES (";
-		QUERY += contributor.getContributorID() + ", ";
+		String QUERY = "INSERT INTO CONTRIBUTORS (FirstName, LastName, GithubProfileLink) VALUES (";
 		QUERY += contributor.getFirstName() + ", ";
 		QUERY += contributor.getLastName() + ", ";
 		QUERY += contributor.getGithubProfileLink() + ")";

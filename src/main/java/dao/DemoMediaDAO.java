@@ -56,8 +56,7 @@ public class DemoMediaDAO
 	{
 
 		// SQL Query statement
-		String QUERY = "INSERT INTO DEMO_MEDIA VALUES (";
-		QUERY += demoMedia.getDemoMediaID() + ", ";
+		String QUERY = "INSERT INTO DEMO_MEDIA (URL, MediaType, ProjectID) VALUES (";
 		QUERY += demoMedia.getUrl() + ", ";
 		QUERY += demoMedia.getMediaType() + ", ";
 		QUERY += demoMedia.getProjectID() + ")";
