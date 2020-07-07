@@ -79,8 +79,8 @@ public class ProjectDAO
 		QUERY += "Title='" + project.getTitle() + "', ";
 		QUERY += "ProjectDescription='" + project.getDescription() + "', ";
 		QUERY += "GithubLink='" + project.getGithubLink() + "', ";
-		QUERY += "ProjectTypeID='" + project.getProjectTypeID() + "', ";
-		QUERY += "CourseID='" + project.getProjectTypeID() + "' ";
+		QUERY += "ProjectTypeID=" + project.getProjectTypeID() + ", ";
+		QUERY += "CourseID=" + project.getProjectTypeID() + " ";
 		QUERY += "WHERE ID=" + project.getProjectID();
 
 		// Executes statement

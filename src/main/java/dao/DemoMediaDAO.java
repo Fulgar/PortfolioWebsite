@@ -75,7 +75,7 @@ public class DemoMediaDAO
 		String QUERY = "UPDATE DEMO_MEDIA SET ";
 		QUERY += "URL='" + demoMedia.getUrl() + "', ";
 		QUERY += "MediaType='" + demoMedia.getMediaType() + "', ";
-		QUERY += "ProjectID='" + demoMedia.getProjectID() + "' ";
+		QUERY += "ProjectID=" + demoMedia.getProjectID() + " ";
 		QUERY += "WHERE ID=" + demoMedia.getDemoMediaID();
 
 		// Executes statement
