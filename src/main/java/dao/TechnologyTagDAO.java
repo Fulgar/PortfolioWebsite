@@ -56,8 +56,7 @@ public class TechnologyTagDAO
 	{
 
 		// SQL Query statement
-		String QUERY = "INSERT INTO TECHNOLOGY_TAGS VALUES (";
-		QUERY += technologyTag.getTechnologyID() + ", ";
+		String QUERY = "INSERT INTO TECHNOLOGY_TAGS (TechnologyName) VALUES (";
 		QUERY += technologyTag.getName() + ")";
 
 		// Executes statement

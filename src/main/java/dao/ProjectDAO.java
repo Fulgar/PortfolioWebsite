@@ -57,8 +57,7 @@ public class ProjectDAO
 	{
 
 		// SQL Query statement
-		String QUERY = "INSERT INTO PROJECTS VALUES (";
-		QUERY += project.getProjectID() + ", ";
+		String QUERY = "INSERT INTO PROJECTS (Title, ProjectDescription, GithubLink, ProjectTypeID, CourseID) VALUES (";
 		QUERY += project.getTitle() + ", ";
 		QUERY += project.getDescription() + ", ";
 		QUERY += project.getGithubLink() + ", ";
