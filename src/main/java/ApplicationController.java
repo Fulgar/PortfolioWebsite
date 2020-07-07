@@ -1,4 +1,4 @@
-import endpoints.TestEndpoint;
+//import endpoints.TestEndpoint;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
@@ -11,7 +11,7 @@ public class ApplicationController extends Application
 
 	// Adds endpoints
 	public ApplicationController() {
-		singletons.add(new TestEndpoint());
+		// singletons.add(new TestEndpoint());
 	}
 
 	@Override

@@ -88,7 +88,7 @@ public class ProjectDAO
 		return project;
 	}
 
-	// Deletes project
+	// Deletes project from database
 	public void deleteProject (ProjectDTO project) throws SQLException
 	{
 		// SQL Query statement

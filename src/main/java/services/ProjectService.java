@@ -54,9 +54,37 @@ public class ProjectService
 	}
 
 
+	/**
+	 * Inserts project into database table
+	 * @param project
+	 * @return Created project
+	 * @throws SQLException
+	 */
 	public ProjectDTO createProject (ProjectDTO project) throws SQLException
 	{
-		ProjectDTO result = projectDAO.createProject(project);
-		return result;
+		return projectDAO.createProject(project);
+	}
+
+
+	/**
+	 * Updates all fields (regardless of change) using ID
+	 * @param project
+	 * @return Updated project
+	 * @throws SQLException
+	 */
+	public ProjectDTO updateProject (ProjectDTO project) throws SQLException
+	{
+		return projectDAO.updateProject(project);
+	}
+
+
+	/**
+	 * Deletes project from database
+	 * @param project
+	 * @throws SQLException
+	 */
+	public void deleteProject (ProjectDTO project) throws SQLException
+	{
+		projectDAO.deleteProject(project);
 	}
 }
