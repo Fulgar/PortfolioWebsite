@@ -1,5 +1,6 @@
 package dao;
 
+import dto.Project_ContributorDTO;
 import dto.Project_TechnologyTagDTO;
 import rowmap.Project_TechnologyTagMapper;
 
@@ -79,11 +80,11 @@ public class Project_TechnologyTagDAO
 		return allProject_TechnologyTags;
 	}
 
-	// Retrieves list of Project_TechnologyTags via ProjectID AND TechnologyTagID in DTO form
-	public List<Project_TechnologyTagDTO> getProject_TechnologyTagByBothID(int projectID, int technologyTagID) throws SQLException
+	// Retrieves list of Project_TechnologyTag via ProjectID AND TechnologyTagID in DTO form
+	public Project_TechnologyTagDTO getProject_TechnologyTagByBothID(int projectID, int technologyTagID) throws SQLException
 	{
 		// Result
-		List<Project_TechnologyTagDTO> allProject_TechnologyTags = new ArrayList<>();
+		Project_TechnologyTagDTO projectTechnologyTagDTO = null;
 
 		// SQL Query statement
 		String QUERY = "SELECT * FROM PROJECTS_TECHNOLOGY_TAGS WHERE ProjectID=" + projectID + " AND TechnologyTagID=" + technologyTagID;
@@ -92,14 +93,9 @@ public class Project_TechnologyTagDAO
 
 		Project_TechnologyTagMapper mapper = new Project_TechnologyTagMapper();
 
-		// Iterate through results and map database entries into DTO objects
-		while(rs.next())
-		{
-			Project_TechnologyTagDTO newProject_TechnologyTag = mapper.rowMap(rs);
-			allProject_TechnologyTags.add(newProject_TechnologyTag);
-		}
+		projectTechnologyTagDTO = mapper.rowMap(rs);
 
-		return allProject_TechnologyTags;
+		return projectTechnologyTagDTO;
 	}
 
 	// Inserts project_TechnologyTag into database table

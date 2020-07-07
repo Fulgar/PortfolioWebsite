@@ -1,5 +1,6 @@
 package dao;
 
+import dto.DemoMediaDTO;
 import dto.Project_ContributorDTO;
 import rowmap.Project_ContributorMapper;
 
@@ -79,11 +80,11 @@ public class Project_ContributorDAO
 		return allProject_Contributors;
 	}
 
-	// Retrieves list of Project_Contributors via ProjectID AND ContributorID in DTO form
-	public List<Project_ContributorDTO> getProject_ContributorByBothID(int projectID, int contributorID) throws SQLException
+	// Retrieves Project_Contributor via ProjectID AND ContributorID in DTO form
+	public Project_ContributorDTO getProject_ContributorByBothID(int projectID, int contributorID) throws SQLException
 	{
 		// Result
-		List<Project_ContributorDTO> allProject_Contributors = new ArrayList<>();
+		Project_ContributorDTO projectContributorDTO = null;
 
 		// SQL Query statement
 		String QUERY = "SELECT * FROM PROJECTS_CONTRIBUTORS WHERE ProjectID=" + projectID + " AND ContributorID=" + contributorID;
@@ -92,14 +93,9 @@ public class Project_ContributorDAO
 
 		Project_ContributorMapper mapper = new Project_ContributorMapper();
 
-		// Iterate through results and map database entries into DTO objects
-		while(rs.next())
-		{
-			Project_ContributorDTO newProject_Contributor = mapper.rowMap(rs);
-			allProject_Contributors.add(newProject_Contributor);
-		}
+		projectContributorDTO = mapper.rowMap(rs);
 
-		return allProject_Contributors;
+		return projectContributorDTO;
 	}
 
 	// Inserts project_Contributor into database table
