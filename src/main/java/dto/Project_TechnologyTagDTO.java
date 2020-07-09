@@ -1,14 +1,16 @@
 package dto;
 
-public class Project_TechnologyTagDTO
+import java.io.Serializable;
+
+public class Project_TechnologyTagDTO implements Serializable
 {
 	private int projectID;
-	private int technologyID;
+	private int technologyTagID;
 
-	public Project_TechnologyTagDTO(int projectID, int technologyID)
+	public Project_TechnologyTagDTO(int projectID, int technologyTagID)
 	{
 		this.projectID = projectID;
-		this.technologyID = technologyID;
+		this.technologyTagID = technologyTagID;
 	}
 
 	public Project_TechnologyTagDTO()
@@ -25,13 +27,13 @@ public class Project_TechnologyTagDTO
 		this.projectID = projectID;
 	}
 
-	public int getTechnologyID()
+	public int getTechnologyTagID()
 	{
-		return technologyID;
+		return technologyTagID;
 	}
 
-	public void setTechnologyID(int technologyID)
+	public void setTechnologyTagID(int technologyTagID)
 	{
-		this.technologyID = technologyID;
+		this.technologyTagID = technologyTagID;
 	}
 }

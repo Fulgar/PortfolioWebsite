@@ -79,11 +79,11 @@ public class ContributorService
 
 	/**
 	 * Deletes contributor from database
-	 * @param contributor
+	 * @param contributorID
 	 * @throws SQLException
 	 */
-	public void deleteContributor (ContributorDTO contributor) throws SQLException
+	public void deleteContributor (int contributorID) throws SQLException
 	{
-		contributorDAO.deleteContributor(contributor);
+		contributorDAO.deleteContributor(contributorID);
 	}
 }

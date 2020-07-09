@@ -1,6 +1,8 @@
 package dto;
 
-public class DemoMediaDTO
+import java.io.Serializable;
+
+public class DemoMediaDTO implements Serializable
 {
 	private int demoMediaID;
 	private String url;

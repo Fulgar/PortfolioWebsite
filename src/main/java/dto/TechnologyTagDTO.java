@@ -1,14 +1,16 @@
 package dto;
 
-public class TechnologyTagDTO
+import java.io.Serializable;
+
+public class TechnologyTagDTO implements Serializable
 {
 	private int technologyID;
-	private String name;
+	private String technologyName;
 
-	public TechnologyTagDTO(int technologyID, String name)
+	public TechnologyTagDTO(int technologyID, String technologyName)
 	{
 		this.technologyID = technologyID;
-		this.name = name;
+		this.technologyName = technologyName;
 	}
 
 	public TechnologyTagDTO()
@@ -25,13 +27,13 @@ public class TechnologyTagDTO
 		this.technologyID = technologyID;
 	}
 
-	public String getName()
+	public String getTechnologyName()
 	{
-		return name;
+		return technologyName;
 	}
 
-	public void setName(String name)
+	public void setTechnologyName(String technologyName)
 	{
-		this.name = name;
+		this.technologyName = technologyName;
 	}
 }

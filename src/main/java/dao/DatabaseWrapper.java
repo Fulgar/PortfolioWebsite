@@ -4,23 +4,38 @@ import java.sql.*;
 
 public class DatabaseWrapper
 {
-	private static Connection dbConnection;
-	private final String URL = "jdbc:mysql://localhost:3306/test";
-	private final String USER = "Wildfly";
-	private final String PASS = "SecretPassword1234!";
+	public static final String URL = "jdbc:mysql://localhost:3306/test";
+	public static final String USER = "Wildfly";
+	public static final String PASS = "SecretPassword1234!";
 
-	public DatabaseWrapper() throws SQLException
+
+	/**
+	 * Executes READ queries
+	 * @param query
+	 * @param dbConnection
+	 * @return Result set of READ query
+	 * @throws SQLException
+	 */
+	public static ResultSet getQueryResult(String query, Connection dbConnection) throws SQLException
 	{
-		dbConnection = DriverManager.getConnection(URL, USER, PASS);
+		PreparedStatement stmnt = dbConnection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		ResultSet rs = stmnt.executeQuery(query);
+		return rs;
 	}
 
 
-	public static ResultSet getQueryResult(String query) throws SQLException
+	/**
+	 * Executes queries that modify the database
+	 * @param query
+	 * @param dbConnection
+	 * @return Modifying query status integer
+	 * @throws SQLException
+	 */
+	public static int getQueryUpdate(String query, Connection dbConnection) throws SQLException
 	{
-		Statement stmnt = dbConnection.createStatement();
-		ResultSet rs = stmnt.executeQuery(query);
-		dbConnection.close();
-		return rs;
+		PreparedStatement stmnt = dbConnection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		int update = stmnt.executeUpdate(query);
+		return update;
 	}
 
 }

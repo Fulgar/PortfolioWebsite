@@ -1,6 +1,8 @@
 package dto;
 
-public class ProjectDTO
+import java.io.Serializable;
+
+public class ProjectDTO implements Serializable
 {
 	private int projectID;
 	private String title;

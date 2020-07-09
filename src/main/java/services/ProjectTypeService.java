@@ -79,11 +79,11 @@ public class ProjectTypeService
 
 	/**
 	 * Deletes projectType from database
-	 * @param projectType
+	 * @param projectTypeID
 	 * @throws SQLException
 	 */
-	public void deleteProjectType (ProjectTypeDTO projectType) throws SQLException
+	public void deleteProjectType (int projectTypeID) throws SQLException
 	{
-		projectTypeDAO.deleteProjectType(projectType);
+		projectTypeDAO.deleteProjectType(projectTypeID);
 	}
 }

@@ -3,6 +3,8 @@ package dao;
 import dto.ContributorDTO;
 import rowmap.ContributorMapper;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,13 +15,15 @@ public class ContributorDAO
 	// Retrieves all contributors from database
 	public List<ContributorDTO> getAllContributors() throws SQLException
 	{
+		Connection dbConnection = DriverManager.getConnection(DatabaseWrapper.URL, DatabaseWrapper.USER, DatabaseWrapper.PASS);
+
 		// List of all contributors in DTO form
 		List<ContributorDTO> allContributors = new ArrayList<>();
 
 		// SQL Query statement
 		String QUERY = "SELECT * FROM CONTRIBUTORS";
 
-		ResultSet rs = DatabaseWrapper.getQueryResult(QUERY);
+		ResultSet rs = DatabaseWrapper.getQueryResult(QUERY, dbConnection);
 
 		ContributorMapper mapper = new ContributorMapper();
 
@@ -30,23 +34,31 @@ public class ContributorDAO
 			allContributors.add(newContributor);
 		}
 
+		dbConnection.close();
+
 		return allContributors;
 	}
 
 	// Retrieves Contributor via ID in DTO form
 	public ContributorDTO getContributorByID(int ID) throws SQLException
 	{
+		Connection dbConnection = DriverManager.getConnection(DatabaseWrapper.URL, DatabaseWrapper.USER, DatabaseWrapper.PASS);
+
 		// Result
 		ContributorDTO contributor = null;
 
 		// SQL Query statement
 		String QUERY = "SELECT * FROM CONTRIBUTORS WHERE ID=" + ID;
 
-		ResultSet rs = DatabaseWrapper.getQueryResult(QUERY);
+		ResultSet rs = DatabaseWrapper.getQueryResult(QUERY, dbConnection);
 
 		ContributorMapper mapper = new ContributorMapper();
 
+		rs.first();
 		contributor = mapper.rowMap(rs);
+
+
+		dbConnection.close();
 
 		return contributor;
 	}
@@ -54,15 +66,18 @@ public class ContributorDAO
 	// Inserts contributor into database table
 	public ContributorDTO createContributor (ContributorDTO contributor) throws SQLException
 	{
+		Connection dbConnection = DriverManager.getConnection(DatabaseWrapper.URL, DatabaseWrapper.USER, DatabaseWrapper.PASS);
 
 		// SQL Query statement
 		String QUERY = "INSERT INTO CONTRIBUTORS (FirstName, LastName, GithubProfileLink) VALUES (";
-		QUERY += contributor.getFirstName() + ", ";
-		QUERY += contributor.getLastName() + ", ";
-		QUERY += contributor.getGithubProfileLink() + ")";
+		QUERY += "'" + contributor.getFirstName() + "', ";
+		QUERY += "'" + contributor.getLastName() + "', ";
+		QUERY += "'" + contributor.getGithubProfileLink() + "')";
 
 		// Executes statement
-		ResultSet rs = DatabaseWrapper.getQueryResult(QUERY);
+		int update = DatabaseWrapper.getQueryUpdate(QUERY, dbConnection);
+
+		dbConnection.close();
 
 		return contributor;
 	}
@@ -70,6 +85,8 @@ public class ContributorDAO
 	// Updates all fields (regardless of change) using ID
 	public ContributorDTO updateContributor (ContributorDTO contributor) throws SQLException
 	{
+		Connection dbConnection = DriverManager.getConnection(DatabaseWrapper.URL, DatabaseWrapper.USER, DatabaseWrapper.PASS);
+
 		// SQL Query statement
 		String QUERY = "UPDATE CONTRIBUTORS SET ";
 		QUERY += "FirstName='" + contributor.getFirstName() + "', ";
@@ -78,18 +95,24 @@ public class ContributorDAO
 		QUERY += "WHERE ID=" + contributor.getContributorID();
 
 		// Executes statement
-		ResultSet rs = DatabaseWrapper.getQueryResult(QUERY);
+		int update = DatabaseWrapper.getQueryUpdate(QUERY, dbConnection);
+
+		dbConnection.close();
 
 		return contributor;
 	}
 
 	// Deletes contributor
-	public void deleteContributor (ContributorDTO contributor) throws SQLException
+	public void deleteContributor (int contributorID) throws SQLException
 	{
+		Connection dbConnection = DriverManager.getConnection(DatabaseWrapper.URL, DatabaseWrapper.USER, DatabaseWrapper.PASS);
+
 		// SQL Query statement
-		String QUERY = "DELETE FROM CONTRIBUTORS WHERE ID=" + contributor.getContributorID();
+		String QUERY = "DELETE FROM CONTRIBUTORS WHERE ID=" + contributorID;
 
 		// Executes statement
-		ResultSet rs = DatabaseWrapper.getQueryResult(QUERY);
+		int update = DatabaseWrapper.getQueryUpdate(QUERY, dbConnection);
+
+		dbConnection.close();
 	}
 }

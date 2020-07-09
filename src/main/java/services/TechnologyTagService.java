@@ -79,11 +79,11 @@ public class TechnologyTagService
 
 	/**
 	 * Deletes technologyTag from database
-	 * @param technologyTag
+	 * @param technologyTagID
 	 * @throws SQLException
 	 */
-	public void deleteTechnologyTag (TechnologyTagDTO technologyTag) throws SQLException
+	public void deleteTechnologyTag (int technologyTagID) throws SQLException
 	{
-		technologyTagDAO.deleteTechnologyTag(technologyTag);
+		technologyTagDAO.deleteTechnologyTag(technologyTagID);
 	}
 }

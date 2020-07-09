@@ -1,5 +1,7 @@
 //import endpoints.TestEndpoint;
 
+import endpoints.*;
+
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 import java.util.HashSet;
@@ -11,7 +13,14 @@ public class ApplicationController extends Application
 
 	// Adds endpoints
 	public ApplicationController() {
-		// singletons.add(new TestEndpoint());
+		singletons.add(new ContributorEndpoint());
+		singletons.add(new CourseEndpoint());
+		singletons.add(new DemoMediaEndpoint());
+		singletons.add(new Project_ContributorEndpoint());
+		singletons.add(new Project_TechnologyTagEndpoint());
+		singletons.add(new ProjectEndpoint());
+		singletons.add(new ProjectTypeEndpoint());
+		singletons.add(new TechnologyTagEndpoint());
 	}
 
 	@Override

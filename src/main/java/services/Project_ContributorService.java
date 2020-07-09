@@ -115,11 +115,12 @@ public class Project_ContributorService
 
 	/**
 	 * Deletes project_Contributor from database
-	 * @param project_Contributor
+	 * @param projectID
+	 * @param contributorID
 	 * @throws SQLException
 	 */
-	public void deleteProject_Contributor (Project_ContributorDTO project_Contributor) throws SQLException
+	public void deleteProject_Contributor (int projectID, int contributorID) throws SQLException
 	{
-		project_ContributorDAO.deleteProject_Contributor(project_Contributor);
+		project_ContributorDAO.deleteProject_Contributor(projectID, contributorID);
 	}
 }

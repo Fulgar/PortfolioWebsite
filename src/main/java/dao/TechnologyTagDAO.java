@@ -3,6 +3,8 @@ package dao;
 import dto.TechnologyTagDTO;
 import rowmap.TechnologyTagMapper;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,13 +15,15 @@ public class TechnologyTagDAO
 	// Retrieves all technologyTags from database
 	public List<TechnologyTagDTO> getAllTechnologyTags() throws SQLException
 	{
+		Connection dbConnection = DriverManager.getConnection(DatabaseWrapper.URL, DatabaseWrapper.USER, DatabaseWrapper.PASS);
+
 		// List of all technologyTags in DTO form
 		List<TechnologyTagDTO> allTechnologyTags = new ArrayList<>();
 
 		// SQL Query statement
 		String QUERY = "SELECT * FROM TECHNOLOGY_TAGS";
 
-		ResultSet rs = DatabaseWrapper.getQueryResult(QUERY);
+		ResultSet rs = DatabaseWrapper.getQueryResult(QUERY, dbConnection);
 
 		TechnologyTagMapper mapper = new TechnologyTagMapper();
 
@@ -30,23 +34,30 @@ public class TechnologyTagDAO
 			allTechnologyTags.add(newTechnologyTag);
 		}
 
+		dbConnection.close();
+
 		return allTechnologyTags;
 	}
 
 	// Retrieves TechnologyTag via ID in DTO form
 	public TechnologyTagDTO getTechnologyTagByID(int ID) throws SQLException
 	{
+		Connection dbConnection = DriverManager.getConnection(DatabaseWrapper.URL, DatabaseWrapper.USER, DatabaseWrapper.PASS);
+
 		// Result
 		TechnologyTagDTO technologyTag = null;
 
 		// SQL Query statement
 		String QUERY = "SELECT * FROM TECHNOLOGY_TAGS WHERE ID=" + ID;
 
-		ResultSet rs = DatabaseWrapper.getQueryResult(QUERY);
+		ResultSet rs = DatabaseWrapper.getQueryResult(QUERY, dbConnection);
 
 		TechnologyTagMapper mapper = new TechnologyTagMapper();
 
+		rs.first();
 		technologyTag = mapper.rowMap(rs);
+
+		dbConnection.close();
 
 		return technologyTag;
 	}
@@ -54,13 +65,16 @@ public class TechnologyTagDAO
 	// Inserts technologyTag into database table
 	public TechnologyTagDTO createTechnologyTag (TechnologyTagDTO technologyTag) throws SQLException
 	{
+		Connection dbConnection = DriverManager.getConnection(DatabaseWrapper.URL, DatabaseWrapper.USER, DatabaseWrapper.PASS);
 
 		// SQL Query statement
 		String QUERY = "INSERT INTO TECHNOLOGY_TAGS (TechnologyName) VALUES (";
-		QUERY += technologyTag.getName() + ")";
+		QUERY += "'" + technologyTag.getTechnologyName() + "')";
 
 		// Executes statement
-		ResultSet rs = DatabaseWrapper.getQueryResult(QUERY);
+		int update = DatabaseWrapper.getQueryUpdate(QUERY, dbConnection);
+
+		dbConnection.close();
 
 		return technologyTag;
 	}
@@ -68,24 +82,32 @@ public class TechnologyTagDAO
 	// Updates all fields (regardless of change) using ID
 	public TechnologyTagDTO updateTechnologyTag (TechnologyTagDTO technologyTag) throws SQLException
 	{
+		Connection dbConnection = DriverManager.getConnection(DatabaseWrapper.URL, DatabaseWrapper.USER, DatabaseWrapper.PASS);
+
 		// SQL Query statement
 		String QUERY = "UPDATE TECHNOLOGY_TAGS SET ";
-		QUERY += "TechnologyName='" + technologyTag.getName() + "' ";
+		QUERY += "TechnologyName='" + technologyTag.getTechnologyName() + "' ";
 		QUERY += "WHERE ID=" + technologyTag.getTechnologyID();
 
 		// Executes statement
-		ResultSet rs = DatabaseWrapper.getQueryResult(QUERY);
+		int update = DatabaseWrapper.getQueryUpdate(QUERY, dbConnection);
+
+		dbConnection.close();
 
 		return technologyTag;
 	}
 
 	// Deletes technologyTag
-	public void deleteTechnologyTag (TechnologyTagDTO technologyTag) throws SQLException
+	public void deleteTechnologyTag (int technologyTagID) throws SQLException
 	{
+		Connection dbConnection = DriverManager.getConnection(DatabaseWrapper.URL, DatabaseWrapper.USER, DatabaseWrapper.PASS);
+
 		// SQL Query statement
-		String QUERY = "DELETE FROM TECHNOLOGY_TAGS WHERE ID=" + technologyTag.getTechnologyID();
+		String QUERY = "DELETE FROM TECHNOLOGY_TAGS WHERE ID=" + technologyTagID;
 
 		// Executes statement
-		ResultSet rs = DatabaseWrapper.getQueryResult(QUERY);
+		int update = DatabaseWrapper.getQueryUpdate(QUERY, dbConnection);
+
+		dbConnection.close();
 	}
 }
