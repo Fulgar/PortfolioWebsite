@@ -54,6 +54,7 @@ public class TechnologyTagDAO
 
 		TechnologyTagMapper mapper = new TechnologyTagMapper();
 
+		rs.first();
 		technologyTag = mapper.rowMap(rs);
 
 		dbConnection.close();
@@ -68,7 +69,7 @@ public class TechnologyTagDAO
 
 		// SQL Query statement
 		String QUERY = "INSERT INTO TECHNOLOGY_TAGS (TechnologyName) VALUES (";
-		QUERY += "'" + technologyTag.getName() + "')";
+		QUERY += "'" + technologyTag.getTechnologyName() + "')";
 
 		// Executes statement
 		int update = DatabaseWrapper.getQueryUpdate(QUERY, dbConnection);
@@ -85,7 +86,7 @@ public class TechnologyTagDAO
 
 		// SQL Query statement
 		String QUERY = "UPDATE TECHNOLOGY_TAGS SET ";
-		QUERY += "TechnologyName='" + technologyTag.getName() + "' ";
+		QUERY += "TechnologyName='" + technologyTag.getTechnologyName() + "' ";
 		QUERY += "WHERE ID=" + technologyTag.getTechnologyID();
 
 		// Executes statement
@@ -97,12 +98,12 @@ public class TechnologyTagDAO
 	}
 
 	// Deletes technologyTag
-	public void deleteTechnologyTag (TechnologyTagDTO technologyTag) throws SQLException
+	public void deleteTechnologyTag (int technologyTagID) throws SQLException
 	{
 		Connection dbConnection = DriverManager.getConnection(DatabaseWrapper.URL, DatabaseWrapper.USER, DatabaseWrapper.PASS);
 
 		// SQL Query statement
-		String QUERY = "DELETE FROM TECHNOLOGY_TAGS WHERE ID=" + technologyTag.getTechnologyID();
+		String QUERY = "DELETE FROM TECHNOLOGY_TAGS WHERE ID=" + technologyTagID;
 
 		// Executes statement
 		int update = DatabaseWrapper.getQueryUpdate(QUERY, dbConnection);

@@ -79,11 +79,11 @@ public class DemoMediaService
 
 	/**
 	 * Deletes demoMedia from database
-	 * @param demoMedia
+	 * @param demoMediaID
 	 * @throws SQLException
 	 */
-	public void deleteDemoMedia (DemoMediaDTO demoMedia) throws SQLException
+	public void deleteDemoMedia (int demoMediaID) throws SQLException
 	{
-		demoMediaDAO.deleteDemoMedia(demoMedia);
+		demoMediaDAO.deleteDemoMedia(demoMediaID);
 	}
 }

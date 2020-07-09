@@ -55,6 +55,7 @@ public class ProjectTypeDAO
 
 		ProjectTypeMapper mapper = new ProjectTypeMapper();
 
+		rs.first();
 		projectType = mapper.rowMap(rs);
 
 		dbConnection.close();
@@ -98,12 +99,12 @@ public class ProjectTypeDAO
 	}
 
 	// Deletes projectType
-	public void deleteProjectType (ProjectTypeDTO projectType) throws SQLException
+	public void deleteProjectType (int projectTypeID) throws SQLException
 	{
 		Connection dbConnection = DriverManager.getConnection(DatabaseWrapper.URL, DatabaseWrapper.USER, DatabaseWrapper.PASS);
 
 		// SQL Query statement
-		String QUERY = "DELETE FROM PROJECT_TYPES WHERE ID=" + projectType.getProjectTypeID();
+		String QUERY = "DELETE FROM PROJECT_TYPES WHERE ID=" + projectTypeID;
 
 		// Executes statement
 		int update = DatabaseWrapper.getQueryUpdate(QUERY, dbConnection);

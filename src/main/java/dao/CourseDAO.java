@@ -54,6 +54,7 @@ public class CourseDAO
 
 		CourseMapper mapper = new CourseMapper();
 
+		rs.first();
 		course = mapper.rowMap(rs);
 
 		dbConnection.close();
@@ -68,7 +69,7 @@ public class CourseDAO
 
 		// SQL Query statement
 		String QUERY = "INSERT INTO COURSES (SubjectName, CourseName) VALUES (";
-		QUERY += "'" + course.getSubject() + "', ";
+		QUERY += "'" + course.getSubjectName() + "', ";
 		QUERY += "'" + course.getCourseName() + "')";
 
 		// Executes statement
@@ -86,7 +87,7 @@ public class CourseDAO
 
 		// SQL Query statement
 		String QUERY = "UPDATE COURSES SET ";
-		QUERY += "SubjectName='" + course.getSubject() + "', ";
+		QUERY += "SubjectName='" + course.getSubjectName() + "', ";
 		QUERY += "CourseName='" + course.getCourseName() + "' ";
 		QUERY += "WHERE ID=" + course.getCourseID();
 
@@ -99,12 +100,12 @@ public class CourseDAO
 	}
 
 	// Deletes course
-	public void deleteCourse (CourseDTO course) throws SQLException
+	public void deleteCourse (int courseID) throws SQLException
 	{
 		Connection dbConnection = DriverManager.getConnection(DatabaseWrapper.URL, DatabaseWrapper.USER, DatabaseWrapper.PASS);
 
 		// SQL Query statement
-		String QUERY = "DELETE FROM COURSES WHERE ID=" + course.getCourseID();
+		String QUERY = "DELETE FROM COURSES WHERE ID=" + courseID;
 
 		// Executes statement
 		int update = DatabaseWrapper.getQueryUpdate(QUERY, dbConnection);

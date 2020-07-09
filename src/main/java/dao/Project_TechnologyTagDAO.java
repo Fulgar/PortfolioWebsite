@@ -1,6 +1,5 @@
 package dao;
 
-import dto.Project_ContributorDTO;
 import dto.Project_TechnologyTagDTO;
 import rowmap.Project_TechnologyTagMapper;
 
@@ -109,6 +108,7 @@ public class Project_TechnologyTagDAO
 
 		Project_TechnologyTagMapper mapper = new Project_TechnologyTagMapper();
 
+		rs.first();
 		projectTechnologyTagDTO = mapper.rowMap(rs);
 
 		dbConnection.close();
@@ -124,7 +124,7 @@ public class Project_TechnologyTagDAO
 		// SQL Query statement
 		String QUERY = "INSERT INTO PROJECTS_TECHNOLOGY_TAGS VALUES (";
 		QUERY += project_TechnologyTag.getProjectID() + ", ";
-		QUERY += project_TechnologyTag.getTechnologyID() + ")";
+		QUERY += project_TechnologyTag.getTechnologyTagID() + ")";
 
 		// Executes statement
 		int update = DatabaseWrapper.getQueryUpdate(QUERY, dbConnection);
@@ -137,12 +137,9 @@ public class Project_TechnologyTagDAO
 	// No Update method needed for junction/association table
 
 	// Deletes project_TechnologyTag
-	public void deleteProject_TechnologyTag (Project_TechnologyTagDTO project_TechnologyTag) throws SQLException
+	public void deleteProject_TechnologyTag (int projectID, int technologyTagID) throws SQLException
 	{
 		Connection dbConnection = DriverManager.getConnection(DatabaseWrapper.URL, DatabaseWrapper.USER, DatabaseWrapper.PASS);
-
-		int projectID = project_TechnologyTag.getProjectID();
-		int technologyTagID = project_TechnologyTag.getTechnologyID();
 
 		// SQL Query statement
 		String QUERY = "DELETE FROM PROJECTS_TECHNOLOGY_TAGS WHERE ProjectID=" + projectID + " AND TechnologyTagID=" + technologyTagID;

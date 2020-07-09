@@ -45,10 +45,10 @@ public class ContributorEndpoint
 	}
 
 	@DELETE
-	@Path("/remove")
+	@Path("/{ID}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void remove(ContributorDTO contributorDTO) throws SQLException
+	public void remove(@PathParam("ID") int ID) throws SQLException
 	{
-		contributorService.deleteContributor(contributorDTO);
+		contributorService.deleteContributor(ID);
 	}
 }

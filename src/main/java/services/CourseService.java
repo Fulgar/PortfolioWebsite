@@ -79,11 +79,11 @@ public class CourseService
 
 	/**
 	 * Deletes course from database
-	 * @param course
+	 * @param courseID
 	 * @throws SQLException
 	 */
-	public void deleteCourse (CourseDTO course) throws SQLException
+	public void deleteCourse (int courseID) throws SQLException
 	{
-		courseDAO.deleteCourse(course);
+		courseDAO.deleteCourse(courseID);
 	}
 }

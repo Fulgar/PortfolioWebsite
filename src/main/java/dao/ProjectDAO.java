@@ -54,6 +54,7 @@ public class ProjectDAO
 
 		ProjectMapper mapper = new ProjectMapper();
 
+		rs.first();
 		project = mapper.rowMap(rs);
 
 		dbConnection.close();
@@ -105,12 +106,12 @@ public class ProjectDAO
 	}
 
 	// Deletes project from database
-	public void deleteProject (ProjectDTO project) throws SQLException
+	public void deleteProject (int projectID) throws SQLException
 	{
 		Connection dbConnection = DriverManager.getConnection(DatabaseWrapper.URL, DatabaseWrapper.USER, DatabaseWrapper.PASS);
 
 		// SQL Query statement
-		String QUERY = "DELETE FROM PROJECTS WHERE ID=" + project.getProjectID();
+		String QUERY = "DELETE FROM PROJECTS WHERE ID=" + projectID;
 
 		// Executes statement
 		int update = DatabaseWrapper.getQueryUpdate(QUERY, dbConnection);

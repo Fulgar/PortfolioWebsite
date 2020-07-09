@@ -80,11 +80,11 @@ public class ProjectService
 
 	/**
 	 * Deletes project from database
-	 * @param project
+	 * @param projectID
 	 * @throws SQLException
 	 */
-	public void deleteProject (ProjectDTO project) throws SQLException
+	public void deleteProject (int projectID) throws SQLException
 	{
-		projectDAO.deleteProject(project);
+		projectDAO.deleteProject(projectID);
 	}
 }

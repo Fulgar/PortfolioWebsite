@@ -5,13 +5,13 @@ import java.io.Serializable;
 public class CourseDTO implements Serializable
 {
 	private int courseID;
-	private String subject;
+	private String subjectName;
 	private String courseName;
 
-	public CourseDTO(int courseID, String subject, String courseName)
+	public CourseDTO(int courseID, String subjectName, String courseName)
 	{
 		this.courseID = courseID;
-		this.subject = subject;
+		this.subjectName = subjectName;
 		this.courseName = courseName;
 	}
 
@@ -29,14 +29,14 @@ public class CourseDTO implements Serializable
 		this.courseID = courseID;
 	}
 
-	public String getSubject()
+	public String getSubjectName()
 	{
-		return subject;
+		return subjectName;
 	}
 
-	public void setSubject(String subject)
+	public void setSubjectName(String subjectName)
 	{
-		this.subject = subject;
+		this.subjectName = subjectName;
 	}
 
 	public String getCourseName()

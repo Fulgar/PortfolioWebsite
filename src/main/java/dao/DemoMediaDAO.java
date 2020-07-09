@@ -54,6 +54,7 @@ public class DemoMediaDAO
 
 		DemoMediaMapper mapper = new DemoMediaMapper();
 
+		rs.first();
 		demoMedia = mapper.rowMap(rs);
 
 		dbConnection.close();
@@ -101,12 +102,12 @@ public class DemoMediaDAO
 	}
 
 	// Deletes demoMedia
-	public void deleteDemoMedia (DemoMediaDTO demoMedia) throws SQLException
+	public void deleteDemoMedia (int demoMediaID) throws SQLException
 	{
 		Connection dbConnection = DriverManager.getConnection(DatabaseWrapper.URL, DatabaseWrapper.USER, DatabaseWrapper.PASS);
 
 		// SQL Query statement
-		String QUERY = "DELETE FROM DEMO_MEDIA WHERE ID=" + demoMedia.getDemoMediaID();
+		String QUERY = "DELETE FROM DEMO_MEDIA WHERE ID=" + demoMediaID;
 
 		// Executes statement
 		int update = DatabaseWrapper.getQueryUpdate(QUERY, dbConnection);

@@ -109,6 +109,7 @@ public class Project_ContributorDAO
 
 		Project_ContributorMapper mapper = new Project_ContributorMapper();
 
+		rs.first();
 		projectContributorDTO = mapper.rowMap(rs);
 
 		dbConnection.close();
@@ -137,12 +138,9 @@ public class Project_ContributorDAO
 	// No Update method needed for junction/association table
 
 	// Deletes project_Contributor
-	public void deleteProject_Contributor (Project_ContributorDTO project_Contributor) throws SQLException
+	public void deleteProject_Contributor (int projectID, int contributorID) throws SQLException
 	{
 		Connection dbConnection = DriverManager.getConnection(DatabaseWrapper.URL, DatabaseWrapper.USER, DatabaseWrapper.PASS);
-
-		int projectID = project_Contributor.getProjectID();
-		int contributorID = project_Contributor.getContributorID();
 
 		// SQL Query statement
 		String QUERY = "DELETE FROM PROJECTS_CONTRIBUTORS WHERE ProjectID=" + projectID + " AND ContributorID=" + contributorID;

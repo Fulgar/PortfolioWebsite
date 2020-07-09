@@ -103,12 +103,12 @@ public class ContributorDAO
 	}
 
 	// Deletes contributor
-	public void deleteContributor (ContributorDTO contributor) throws SQLException
+	public void deleteContributor (int contributorID) throws SQLException
 	{
 		Connection dbConnection = DriverManager.getConnection(DatabaseWrapper.URL, DatabaseWrapper.USER, DatabaseWrapper.PASS);
 
 		// SQL Query statement
-		String QUERY = "DELETE FROM CONTRIBUTORS WHERE ID=" + contributor.getContributorID();
+		String QUERY = "DELETE FROM CONTRIBUTORS WHERE ID=" + contributorID;
 
 		// Executes statement
 		int update = DatabaseWrapper.getQueryUpdate(QUERY, dbConnection);
