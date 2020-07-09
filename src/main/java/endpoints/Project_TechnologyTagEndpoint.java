@@ -1,5 +1,6 @@
 package endpoints;
 
+import dto.Project_ContributorDTO;
 import dto.Project_TechnologyTagDTO;
 import services.DTONullException;
 import services.ListEmptyException;
@@ -31,6 +32,24 @@ public class Project_TechnologyTagEndpoint
 	public Project_TechnologyTagDTO getByID(@PathParam("ProjectID") int projectID, @PathParam("TechnologyTagID") int technologyTagID) throws SQLException, DTONullException
 	{
 		return project_TechnologyTagService.getProject_TechnologyTagByBothID(projectID, technologyTagID);
+	}
+
+
+	@GET
+	@Path("/projectID/{ProjectID}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Project_TechnologyTagDTO> getListByProjectID(@PathParam("ProjectID") int projectID) throws SQLException, ListEmptyException
+	{
+		return project_TechnologyTagService.getProject_TechnologyTagsByProjectID(projectID);
+	}
+
+
+	@GET
+	@Path("/technologyTagID/{TechnologyTagID}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Project_TechnologyTagDTO> getListByContributorID(@PathParam("TechnologyTagID") int technologyTagID) throws SQLException, ListEmptyException
+	{
+		return project_TechnologyTagService.getProject_TechnologyTagsByProjectID(technologyTagID);
 	}
 
 

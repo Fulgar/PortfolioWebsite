@@ -34,6 +34,24 @@ public class Project_ContributorEndpoint
 	}
 
 
+	@GET
+	@Path("/projectID/{ProjectID}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Project_ContributorDTO> getListByProjectID(@PathParam("ProjectID") int projectID) throws SQLException, ListEmptyException
+	{
+		return project_ContributorService.getProject_ContributorsByProjectID(projectID);
+	}
+
+
+	@GET
+	@Path("/contributorID/{ContributorID}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Project_ContributorDTO> getListByContributorID(@PathParam("ContributorID") int contributorID) throws SQLException, ListEmptyException
+	{
+		return project_ContributorService.getProject_ContributorsByProjectID(contributorID);
+	}
+
+
 	@POST
 	@Path("/create")
 	@Produces(MediaType.APPLICATION_JSON)
