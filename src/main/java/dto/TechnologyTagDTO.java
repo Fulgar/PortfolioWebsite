@@ -1,6 +1,8 @@
 package dto;
 
-public class TechnologyTagDTO
+import java.io.Serializable;
+
+public class TechnologyTagDTO implements Serializable
 {
 	private int technologyID;
 	private String name;

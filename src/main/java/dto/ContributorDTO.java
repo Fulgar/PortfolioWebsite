@@ -1,6 +1,8 @@
 package dto;
 
-public class ContributorDTO
+import java.io.Serializable;
+
+public class ContributorDTO implements Serializable
 {
 	private int contributorID;
 	private String firstName;

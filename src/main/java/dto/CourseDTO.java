@@ -1,6 +1,8 @@
 package dto;
 
-public class CourseDTO
+import java.io.Serializable;
+
+public class CourseDTO implements Serializable
 {
 	private int courseID;
 	private String subject;

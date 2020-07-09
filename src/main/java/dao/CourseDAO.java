@@ -3,6 +3,8 @@ package dao;
 import dto.CourseDTO;
 import rowmap.CourseMapper;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,13 +15,15 @@ public class CourseDAO
 	// Retrieves all courses from database
 	public List<CourseDTO> getAllCourses() throws SQLException
 	{
+		Connection dbConnection = DriverManager.getConnection(DatabaseWrapper.URL, DatabaseWrapper.USER, DatabaseWrapper.PASS);
+
 		// List of all courses in DTO form
 		List<CourseDTO> allCourses = new ArrayList<>();
 
 		// SQL Query statement
 		String QUERY = "SELECT * FROM COURSES";
 
-		ResultSet rs = DatabaseWrapper.getQueryResult(QUERY);
+		ResultSet rs = DatabaseWrapper.getQueryResult(QUERY, dbConnection);
 
 		CourseMapper mapper = new CourseMapper();
 
@@ -30,23 +34,29 @@ public class CourseDAO
 			allCourses.add(newCourse);
 		}
 
+		dbConnection.close();
+
 		return allCourses;
 	}
 
 	// Retrieves Course via ID in DTO form
 	public CourseDTO getCourseByID(int ID) throws SQLException
 	{
+		Connection dbConnection = DriverManager.getConnection(DatabaseWrapper.URL, DatabaseWrapper.USER, DatabaseWrapper.PASS);
+
 		// Result
 		CourseDTO course = null;
 
 		// SQL Query statement
 		String QUERY = "SELECT * FROM COURSES WHERE ID=" + ID;
 
-		ResultSet rs = DatabaseWrapper.getQueryResult(QUERY);
+		ResultSet rs = DatabaseWrapper.getQueryResult(QUERY, dbConnection);
 
 		CourseMapper mapper = new CourseMapper();
 
 		course = mapper.rowMap(rs);
+
+		dbConnection.close();
 
 		return course;
 	}
@@ -54,14 +64,17 @@ public class CourseDAO
 	// Inserts course into database table
 	public CourseDTO createCourse (CourseDTO course) throws SQLException
 	{
+		Connection dbConnection = DriverManager.getConnection(DatabaseWrapper.URL, DatabaseWrapper.USER, DatabaseWrapper.PASS);
 
 		// SQL Query statement
 		String QUERY = "INSERT INTO COURSES (SubjectName, CourseName) VALUES (";
-		QUERY += course.getSubject() + ", ";
-		QUERY += course.getCourseName() + ")";
+		QUERY += "'" + course.getSubject() + "', ";
+		QUERY += "'" + course.getCourseName() + "')";
 
 		// Executes statement
-		ResultSet rs = DatabaseWrapper.getQueryResult(QUERY);
+		int update = DatabaseWrapper.getQueryUpdate(QUERY, dbConnection);
+
+		dbConnection.close();
 
 		return course;
 	}
@@ -69,6 +82,8 @@ public class CourseDAO
 	// Updates all fields (regardless of change) using ID
 	public CourseDTO updateCourse (CourseDTO course) throws SQLException
 	{
+		Connection dbConnection = DriverManager.getConnection(DatabaseWrapper.URL, DatabaseWrapper.USER, DatabaseWrapper.PASS);
+
 		// SQL Query statement
 		String QUERY = "UPDATE COURSES SET ";
 		QUERY += "SubjectName='" + course.getSubject() + "', ";
@@ -76,7 +91,9 @@ public class CourseDAO
 		QUERY += "WHERE ID=" + course.getCourseID();
 
 		// Executes statement
-		ResultSet rs = DatabaseWrapper.getQueryResult(QUERY);
+		int update = DatabaseWrapper.getQueryUpdate(QUERY, dbConnection);
+
+		dbConnection.close();
 
 		return course;
 	}
@@ -84,10 +101,14 @@ public class CourseDAO
 	// Deletes course
 	public void deleteCourse (CourseDTO course) throws SQLException
 	{
+		Connection dbConnection = DriverManager.getConnection(DatabaseWrapper.URL, DatabaseWrapper.USER, DatabaseWrapper.PASS);
+
 		// SQL Query statement
 		String QUERY = "DELETE FROM COURSES WHERE ID=" + course.getCourseID();
 
 		// Executes statement
-		ResultSet rs = DatabaseWrapper.getQueryResult(QUERY);
+		int update = DatabaseWrapper.getQueryUpdate(QUERY, dbConnection);
+
+		dbConnection.close();
 	}
 }
