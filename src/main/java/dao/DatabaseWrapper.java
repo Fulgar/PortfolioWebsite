@@ -4,9 +4,39 @@ import java.sql.*;
 
 public class DatabaseWrapper
 {
+	// MySQL Login Data
 	public static final String URL = "jdbc:mysql://localhost:3306/test";
 	public static final String USER = "Wildfly";
-	public static final String PASS = "SecretPassword1234!";
+	public static String PASS;
+
+	static
+	{
+		try
+		{
+			PASS = getDatabaseLogin();
+		} catch (DatabaseLoginNullException e)
+		{
+			System.err.println(e.errorMessage());
+			e.printStackTrace();
+		}
+	}
+
+
+	/**
+	 * Retrieves the MySQL password via user-defined environment variable "MYSQL_LOGIN"
+	 * @return Database login password
+	 * @throws DatabaseLoginNullException
+	 */
+	private static String getDatabaseLogin() throws DatabaseLoginNullException
+	{
+		String password = System.getenv("MYSQL_LOGINs");
+		if (password == null)
+		{
+			throw new DatabaseLoginNullException();
+		}
+
+		return password;
+	}
 
 
 	/**
