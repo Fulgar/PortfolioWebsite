@@ -30,9 +30,9 @@ function App() {
                     <Route exact path={ "/" }>
                         <Homepage/>
                     </Route>
-                    {/*<Route>*/}
-                    {/*    <b>Unknown page URL</b>*/}
-                    {/*</Route>*/}
+                    <Route>
+                        <b style={{fontSize: 2 + 'em'}}>Unknown page URL</b>
+                    </Route>
                 </Switch>
             </div>
         </Router>
