@@ -29,7 +29,7 @@ public class DatabaseWrapper
 	 */
 	private static String getDatabaseLogin() throws DatabaseLoginNullException
 	{
-		String password = System.getenv("MYSQL_LOGINs");
+		String password = System.getenv("MYSQL_LOGIN");
 		if (password == null)
 		{
 			throw new DatabaseLoginNullException();
