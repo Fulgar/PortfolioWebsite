@@ -1,0 +1,32 @@
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.top-nav {
+  min-height: 5vh;
+  min-width: 100vw;
+  background-color : green;
+  position: fixed;
+  display: flex;
+  top: 0;
+}
+
+.main-body {
+  bottom: 0;
+  position: fixed;
+  min-height: 95vh;
+  min-width: 100vw;
+  max-height: 95vh;
+  overflow-y: scroll;
+}
