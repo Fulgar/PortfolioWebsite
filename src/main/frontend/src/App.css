@@ -28,5 +28,5 @@
   min-height: 95vh;
   min-width: 100vw;
   max-height: 95vh;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
