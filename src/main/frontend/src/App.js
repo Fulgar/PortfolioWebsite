@@ -27,7 +27,19 @@ const theme = createMuiTheme({
             paper: "#E5E5E5",
             default: "#242F40"
         },
+        text: {
+          primary: "#242F40"
+        },
         divider: "#242F40"
+    },
+    overrides: {
+        MuiDivider: {
+            root: {
+                marginTop: 1 + "em",
+                marginBottom: 1 + "em"
+            }
+        }
+
     }
 });
 
