@@ -10,7 +10,7 @@ const AboutMe = () => (
           ABOUT ME
       </Typography>
       <div className={ "mid-content" }>
-          <Paper className={ "about-paper"} style={{ borderColor: "#CCA43B", borderWidth: 0.25 + "em"}}  variant={"outlined"}>
+          <Paper className={ "about-paper"} style={{ borderColor: "#CCA43B", borderWidth: 0.40 + "em"}}  variant={"outlined"}>
               <Typography variant={"body1"}>
                   Hello World
               </Typography>

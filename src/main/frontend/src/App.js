@@ -26,7 +26,8 @@ const theme = createMuiTheme({
         background: {
             paper: "#E5E5E5",
             default: "#242F40"
-        }
+        },
+        divider: "#242F40"
     }
 });
 
