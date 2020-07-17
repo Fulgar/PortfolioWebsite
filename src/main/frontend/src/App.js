@@ -11,30 +11,49 @@ import {
 } from "react-router-dom";
 import AboutMe from "./components/AboutMe/AboutMe";
 import Projects from "./components/Projects/Projects";
+import {Button, createMuiTheme, MuiThemeProvider} from '@material-ui/core';
+import CssBaseline from "@material-ui/core/CssBaseline"
+import { AppBar, Toolbar, Typography } from "@material-ui/core";
+
+const theme = createMuiTheme({
+    palette: {
+        primary: {
+            main: "#242F40"
+        },
+        secondary: {
+            main: "#CCA43B"
+        },
+        background: {
+            paper: "#E5E5E5",
+            default: "#242F40"
+        }
+    }
+});
 
 function App() {
   return (
     <div className="App">
-        <header className={ "top-nav" }>
-            <NavBar/>
-        </header>
         <Router>
-            <div className={ "main-body" }>
-                <Switch>
-                    <Route path={ "/about" }>
-                        <AboutMe/>
-                    </Route>
-                    <Route path={ "/projects" }>
-                        <Projects/>
-                    </Route>
-                    <Route exact path={ "/" }>
-                        <Homepage/>
-                    </Route>
-                    <Route>
-                        <b style={{fontSize: 2 + 'em'}}>Unknown page URL</b>
-                    </Route>
-                </Switch>
-            </div>
+            <MuiThemeProvider theme={ theme }>
+                <CssBaseline/>
+                <NavBar/>
+                <div className={ "main-body" }>
+                    <Switch>
+                        <Route path={ "/about" }>
+                            <AboutMe/>
+                        </Route>
+                        <Route path={ "/projects" }>
+                            <Projects/>
+                        </Route>
+                        <Route exact path={ "/" }>
+                            <Homepage/>
+                        </Route>
+                        <Route>
+                            <b style={{fontSize: 2 + 'em'}}>Unknown page URL</b>
+                        </Route>
+                    </Switch>
+                </div>
+            </MuiThemeProvider>
         </Router>
     </div>
   );

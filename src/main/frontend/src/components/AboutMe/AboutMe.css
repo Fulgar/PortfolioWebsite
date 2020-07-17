@@ -1,1 +1,11 @@
 .AboutMe {}
+
+.mid-content {
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    padding-left: 25%;
+    padding-right: 25%;
+    flex-direction: column;
+}
+

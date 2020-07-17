@@ -13,20 +13,20 @@
   color: white;
 }
 
-.top-nav {
-  min-height: 5vh;
-  min-width: 100vw;
-  background-color : green;
-  position: fixed;
-  display: flex;
-  top: 0;
-}
+/*.top-nav {*/
+/*  min-height: 5vh;*/
+/*  min-width: 100vw;*/
+/*  !*background-color : green;*!*/
+/*  position: fixed;*/
+/*  display: flex;*/
+/*  top: 0;*/
+/*}*/
 
-.main-body {
-  bottom: 0;
-  position: fixed;
-  min-height: 95vh;
-  min-width: 100vw;
-  max-height: 95vh;
-  overflow-y: auto;
-}
+/*.main-body {*/
+/*  bottom: 0;*/
+/*  position: fixed;*/
+/*  min-height: 95vh;*/
+/*  min-width: 100vw;*/
+/*  max-height: 95vh;*/
+/*  overflow-y: auto;*/
+/*}*/
