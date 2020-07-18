@@ -16,21 +16,6 @@ repositories {
     mavenCentral()
 }
 
-task stage() {
-    dependsOn clean, buildReact, war
-}
-war.mustRunAfter(buildReact)
-buildReact.mustRunAfter(clean)
-
-task copyToLib(type: Copy) {
-    into "$buildDir/server"
-    from(configurations.compile) {
-        include "webapp-runner*"
-    }
-}
-
-stage.dependsOn(copyToLib)
-
 task buildReact(type: Exec, dependsOn: ['npmInstall']) {
     workingDir("src/main/frontend")
     inputs.dir("src/main/frontend")
@@ -53,6 +38,21 @@ task npmInstall(type: Exec) {
         commandLine("npm", "install")
     }
 }
+
+task stage() {
+    dependsOn clean, buildReact, war
+}
+war.mustRunAfter(buildReact)
+buildReact.mustRunAfter(clean)
+
+task copyToLib(type: Copy) {
+    into "$buildDir/server"
+    from(configurations.compile) {
+        include "webapp-runner*"
+    }
+}
+
+stage.dependsOn(copyToLib)
 
 build.dependsOn buildReact
 
