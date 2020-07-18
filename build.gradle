@@ -17,16 +17,10 @@ repositories {
     mavenCentral()
 }
 
-task buildReact(type: Exec, dependsOn: ['npmInstallVariant']) {
-    workingDir("src/main/frontend")
+task buildReact(type: NpmTask, dependsOn: ['npmInstallVariant']) {
     inputs.dir("src/main/frontend")
     group BasePlugin.BUILD_GROUP
-    if (System.getProperty("os.name").toUpperCase().contains("WINDOWS")){
-        commandLine("npm.cmd", "run", "webpack")
-    } else {
-        commandLine("npm", "run", "webpack")
-    }
-
+    args = ["--prefix", "src/main/frontend", "run", "webpack"]
 }
 
 task npmInstallVariant() {
