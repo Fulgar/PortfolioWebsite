@@ -54,12 +54,24 @@ const AboutMe = () => (
                   look at the “Projects” page/tab.
               </Typography>
 
+              <Divider variant={"middle"}/>
 
-              <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-              <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-              <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+              <Typography variant={"h6"}>
+                  Relevant Links & Contact Info
+              </Typography>
 
-              <b>Hello</b>
+              <a href={"https://www.linkedin.com/in/jason-james-011762146/"}>
+                  <Typography variant={"body1"}>LinkedIn Profile</Typography>
+              </a>
+
+              <a href={"https://github.com/Fulgar"}>
+                  <Typography variant={"body1"}>GitHub Profile</Typography>
+              </a>
+
+              <Typography variant={"body1"}>Professional Email: jjames541907@gmail.com</Typography>
+
+              <Typography variant={"body1"}>For Phone Contact Please Send Email First</Typography>
+
           </Paper>
       </div>
   </div>
