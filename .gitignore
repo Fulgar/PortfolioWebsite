@@ -6,4 +6,3 @@ build/
 gradle.properties
 /.idea/
 /src/main/java/services/TestService.java
-src/main/webapp/react/app.js
