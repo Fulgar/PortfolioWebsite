@@ -29,7 +29,7 @@ const NavBar = () => {
     // Content
     return(
   <div className="NavBar">
-      <AppBar style={{background: "#363636"}} position={"static"}>
+      <AppBar style={{background: "#363636"}} position={"fixed"}>
           <Toolbar>
               <Tabs value={window.location.pathname} onChange={handlePageChange}>
                   <Tab label={"Home"} value={"/"} component={Link} to={"/"}/>
