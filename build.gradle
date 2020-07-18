@@ -29,15 +29,10 @@ task buildReact(type: Exec, dependsOn: ['npmInstallVariant']) {
 
 }
 
-task npmInstallVariant(type: Exec) {
-    workingDir("src/main/frontend")
+task npmInstallVariant() {
     inputs.dir("src/main/frontend")
     group BasePlugin.BUILD_GROUP
-    if (System.getProperty("os.name").toUpperCase().contains("WINDOWS")){
-        commandLine("npm.cmd", "install")
-    } else {
-        commandLine("npm", "install")
-    }
+    npmInstall
 }
 
 task stage() {
