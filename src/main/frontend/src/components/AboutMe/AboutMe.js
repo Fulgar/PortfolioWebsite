@@ -53,6 +53,13 @@ const AboutMe = () => (
                   DBMS, and React frontend. For more detailed information on my past projects, please take a
                   look at the “Projects” page/tab.
               </Typography>
+
+
+              <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+              <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+              <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+              <b>Hello</b>
           </Paper>
       </div>
   </div>
