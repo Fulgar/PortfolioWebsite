@@ -1,1 +1,12 @@
 .Homepage {}
+
+.main-content {
+    padding-top: 1em;
+}
+
+.portrait-img {
+    min-width: 75px;
+    min-height: 100px;
+    max-width: 50%;
+    max-height: 50%;
+}

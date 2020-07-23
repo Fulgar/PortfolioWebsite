@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './Homepage.css';
+import portrait from "../../images/JacketTie1.jpg"
 
 const Homepage = () => (
-  <div className="Homepage">
-    <b>HOMEPAGE</b>
-  </div>
+    <div className="Homepage">
+        <div className={"main-content"}>
+            <img className={"portrait-img"} src={portrait} alt={"Jason James"}/>
+        </div>
+    </div>
 );
 
 Homepage.propTypes = {};
