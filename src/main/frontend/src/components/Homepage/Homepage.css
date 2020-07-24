@@ -1,1 +1,45 @@
-.Homepage {}
+.Homepage {
+    height: calc(100vh - 5em);
+    overflow-y: auto;
+}
+
+.main-content {
+    padding-top: 1em;
+    padding-bottom: 1em;
+    padding-left: 1em;
+    display: grid;
+    grid-template-columns: minmax(calc(100px + 10em), 25%) auto;
+    height: 100%
+}
+
+.portrait-img {
+    min-width: 75px;
+    min-height: 100px;
+    max-width: 75%;
+    max-height: 75%;
+    border-radius: 50%;
+    box-shadow: 0 4px 6px 2px black;
+}
+
+.social-media-logo {
+    width: 1.5em;
+    height: 1.5em;
+    margin-right: 1em;
+}
+
+.tech-logo-img {
+    width: 4em;
+    height: 4em;
+    margin: 1em;
+}
+
+.right-content {
+    padding-top: 1em;
+    display: flex;
+    flex-direction: column;
+}
+
+.tech-logo-spotlight {
+    margin-top: auto;
+    margin-bottom: auto;
+}
