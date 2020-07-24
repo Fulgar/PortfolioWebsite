@@ -19,13 +19,13 @@ const AboutMe = () => (
                   A Brief History & Introduction
               </Typography>
               <Typography style={{textAlign: "left"}} variant={"body1"}>
-                  Hello, my name is Jason James, and welcome to my website! I am a 24-year-old college student and soon-to-be
+                  Hello, my name is Jason James, and welcome to my website! I am a 24-year-old recent
                   college graduate, who is seeking employment in Software Engineering. I have lived in Cobb County, GA throughout my
                   entire life. My hobbies consist of programming, video games, and running (mostly when the weather is nice!). I started
                   programming some time back in early high school by developing mods and server plugins (Java) for the video game,
                   “Minecraft”, for my friends and I to enjoy. Programming has always excited me ever since as it allows for so many
                   challenging problems and puzzles to solve. I am currently seeking a career in Web Development as either a Full Stack,
-                  Frontend, or Backend Engineer.
+                  Frontend, or Backend Engineer at an entry level capacity.
               </Typography>
 
               <Divider variant={"middle"}/>
@@ -34,7 +34,7 @@ const AboutMe = () => (
                   Education
               </Typography>
               <Typography style={{textAlign: "left"}} variant={"body1"}>
-                  I will be graduating in the Summer of 2020 from Kennesaw State University with a Bachelor of
+                  I have just graduated in the Summer of 2020 from Kennesaw State University with a Bachelor of
                   Science Degree in Computer Science. I am also largely self-taught.
               </Typography>
 
@@ -50,8 +50,9 @@ const AboutMe = () => (
                   have successfully worked in a group/team environment for my Senior Project (capstone) at
                   Kennesaw State University, in which we developed a modified variant of chess with AI support,
                   in which we used Git with GitHub. I developed this website with a Java EE backend, MySQL
-                  DBMS, and React frontend. For more detailed information on my past projects, please take a
-                  look at the “Projects” page/tab.
+                  DBMS, and React frontend. I also have experience with setting up, deploying, and managing a
+                  Linux server. For more detailed information on my past projects, please take a look at the
+                  “Projects” page/tab.
               </Typography>
 
               <Divider variant={"middle"}/>
