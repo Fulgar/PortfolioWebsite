@@ -9,8 +9,31 @@ import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
 
+// Styles Object
+const styles = {
+    tableCell: {
+        borderLeftWidth: 1 + "px", borderRightWidth: 1 + "px",
+        borderLeftStyle: "solid", borderRightStyle: "solid",
+        borderTopWidth: 0 + "px", borderBottomWidth: 0 + "px",
+        borderColor: "#242F40"
+    },
+    tableHead: {
+        borderBottomWidth: 1 + "px", borderBottomStyle: "solid", borderColor: "#242F40"
+    },
+    table: {
+        borderWidth: 1 + "px", borderBottomWidth: 2 + "px", borderRightWidth: 2 + "px",
+        borderColor: "#242F40", borderStyle: "solid"
+    }
+};
+
+
+
+
 const Projects = () => {
-    const [data, setData] = useState([
+    // Data state
+    // Currently holding temp data
+    // Will contain and call HTTP request method
+    const [data] = useState([
         {
             "projectID": 1,
             "title" : "Project A",
@@ -64,6 +87,8 @@ const Projects = () => {
         }
     ]);
 
+    const [itemKey, setItemKey] = useState(0);
+
     return (
         <div className="Projects">
             <Typography style={{padding: 1 + "em"}} color={"secondary"} variant={"h3"}>
@@ -74,25 +99,25 @@ const Projects = () => {
                 borderColor: "#CCA43B", borderWidth: 0.40 + "em", padding: 5 + "em"}}
                    variant={"outlined"}>
                 <TableContainer>
-                    <Table>
-                        <TableHead>
-                            <TableRow>
+                    <Table style={styles.table}>
+                        <TableHead style={styles.tableHead}>
+                            <TableRow component={ Paper } elevation={15}>
                                 {
-                                    header.map((head) => {
-                                        return <TableCell>{head.name}</TableCell>
+                                    header.map((head, i) => {
+                                        return <TableCell style={styles.tableCell} key={`th-${i}`}>{head.name}</TableCell>
                                     })
                                 }
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {
-                                data.map((body) => {
-                                    return<TableRow>
-                                        <TableCell>{body.projectID}</TableCell>
-                                        <TableCell>{body.title}</TableCell>
-                                        <TableCell>{body.description}</TableCell>
-                                        <TableCell>{body.projectTypeID}</TableCell>
-                                        <TableCell>{body.courseID}</TableCell>
+                                data.map((body, i) => {
+                                    return<TableRow component={ Paper } elevation={15} key={`tr-${i}`}>
+                                        <TableCell style={styles.tableCell}>{body.projectID}</TableCell>
+                                        <TableCell style={styles.tableCell}>{body.title}</TableCell>
+                                        <TableCell style={styles.tableCell}>{body.description}</TableCell>
+                                        <TableCell style={styles.tableCell}>{body.projectTypeID}</TableCell>
+                                        <TableCell style={styles.tableCell}>{body.courseID}</TableCell>
                                     </TableRow>
                                 })
                             }
