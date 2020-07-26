@@ -209,11 +209,7 @@ const Projects = () => {
 
             // Sets the state field of bodyData to new data
             setBodyData(newBodyData);
-
         }
-
-
-
 
         // Render
         return (
@@ -245,7 +241,7 @@ const Projects = () => {
                                             <TableCell style={styles.tableCell}>{body.projectTypeName}</TableCell>
                                             <TableCell style={styles.tableCell}>{body.subjectName}</TableCell>
                                             <TableCell style={styles.tableCell}>{body.courseName}</TableCell>
-                                            <TableCell style={styles.tableCell}>{body.technologyTagNames}</TableCell>
+                                            <TableCell style={styles.tableCell}>{body.technologyTagNames.join(", ")}</TableCell>
                                         </TableRow>
                                     })
                                 }
