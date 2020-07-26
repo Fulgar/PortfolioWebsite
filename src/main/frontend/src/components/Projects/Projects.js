@@ -233,11 +233,10 @@ const Projects = () => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {console.log(bodyData)}
                                 {
                                     bodyData.map((body, i) => {
                                         return <TableRow component={ Paper } elevation={15} key={`tr-${i}`}>
-                                            <TableCell style={styles.tableCell}>{body.projectTitle}</TableCell>
+                                            <TableCell style={styles.tableCell}><a href={`/projects/${body.projectID}`}>{body.projectTitle}</a></TableCell>
                                             <TableCell style={styles.tableCell}>{body.projectTypeName}</TableCell>
                                             <TableCell style={styles.tableCell}>{body.subjectName}</TableCell>
                                             <TableCell style={styles.tableCell}>{body.courseName}</TableCell>
