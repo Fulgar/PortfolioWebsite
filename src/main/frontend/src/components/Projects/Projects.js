@@ -165,7 +165,6 @@ const Projects = () => {
         // If bodyData has already been set, then this execution is a rerender and should not not be re-executed
         // Without this one condition the program runs into an infinite loop that crashes due to "Too many Re-Renders"
         if (bodyData.length === 0) {
-            console.log("Entering");
             let newBodyData = [];
             for (let i = 0; i < projectData.length; i++) {
                 // Set various table body fields
@@ -176,9 +175,15 @@ const Projects = () => {
                 let projectTypeDataObj = projectTypeData.find(element => element["projectTypeID"] === projectTypeID);
                 let projectTypeName = projectTypeDataObj["name"];
                 let courseID = projectDataObj["courseID"];
-                const courseDataObj = courseData.find(element => element["courseID"] === courseID);
-                let subjectName = courseDataObj["subjectName"];
-                let courseName = courseDataObj["courseName"];
+
+                // CourseID and its associations can be null/undefined
+                let subjectName = "";
+                let courseName = "";
+                if (courseID !== undefined) {
+                    const courseDataObj = courseData.find(element => element["courseID"] === courseID);
+                    subjectName = courseDataObj["subjectName"];
+                    courseName = courseDataObj["courseName"];
+                }
 
                 // Set technology tag names
                 let techTagNames = [];
