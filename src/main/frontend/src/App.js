@@ -14,6 +14,7 @@ import Projects from "./components/Projects/Projects";
 import {Button, createMuiTheme, MuiThemeProvider} from '@material-ui/core';
 import CssBaseline from "@material-ui/core/CssBaseline"
 import { AppBar, Toolbar, Typography } from "@material-ui/core";
+import ProjectPage from "./components/ProjectPage/ProjectPage";
 
 const theme = createMuiTheme({
     palette: {
@@ -55,12 +56,19 @@ function App() {
                         <Route path={ "/about" }>
                             <AboutMe/>
                         </Route>
-                        <Route path={ "/projects" }>
+
+                        <Route exact path={ "/projects" }>
                             <Projects/>
                         </Route>
+
+                        <Route path={ `/projects/:projectID` } render={(props) => {
+                            return <ProjectPage projectID={props.match.params.projectID}/>
+                        }}/>
+
                         <Route exact path={ "/" }>
                             <Homepage/>
                         </Route>
+
                         <Route>
                             <b style={{fontSize: 2 + 'em'}}>Unknown page URL</b>
                         </Route>
