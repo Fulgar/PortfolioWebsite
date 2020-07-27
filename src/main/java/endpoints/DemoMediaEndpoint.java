@@ -34,6 +34,15 @@ public class DemoMediaEndpoint
 	}
 
 
+	@GET
+	@Path("/byProject/{ProjectID}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<DemoMediaDTO> getByProjectID(@PathParam("ProjectID") int ProjectID) throws SQLException, DTONullException
+	{
+		return demoMediaService.getDemoMediaByProjectID(ProjectID);
+	}
+
+
 	@POST
 	@Path("/create")
 	@Produces(MediaType.APPLICATION_JSON)

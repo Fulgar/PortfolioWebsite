@@ -62,6 +62,35 @@ public class DemoMediaDAO
 		return demoMedia;
 	}
 
+
+	// Retrieves demoMedia via ProjectID
+	public List<DemoMediaDTO> getDemoMediaByProjectID(int ProjectID) throws SQLException
+	{
+		Connection dbConnection = DriverManager.getConnection(DatabaseWrapper.URL, DatabaseWrapper.USER, DatabaseWrapper.PASS);
+
+		// List of all demoMedia in DTO form
+		List<DemoMediaDTO> allDemoMedia = new ArrayList<>();
+
+		// SQL Query statement
+		String QUERY = "SELECT * FROM DEMO_MEDIA WHERE ProjectID=" + ProjectID;
+
+		ResultSet rs = DatabaseWrapper.getQueryResult(QUERY, dbConnection);
+
+		DemoMediaMapper mapper = new DemoMediaMapper();
+
+		// Iterate through results and map database entries into DTO objects
+		while(rs.next())
+		{
+			DemoMediaDTO newDemoMedia = mapper.rowMap(rs);
+			allDemoMedia.add(newDemoMedia);
+		}
+
+		dbConnection.close();
+
+		return allDemoMedia;
+	}
+
+
 	// Inserts demoMedia into database table
 	public DemoMediaDTO createDemoMedia (DemoMediaDTO demoMedia) throws SQLException
 	{

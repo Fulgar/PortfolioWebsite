@@ -55,6 +55,21 @@ public class DemoMediaService
 
 
 	/**
+	 * Retrieves DemoMedia via ProjectID in DTO form
+	 * @param ProjectID
+	 * @return DemoMedia via ProjectID
+	 * @throws SQLException
+	 */
+	public List<DemoMediaDTO> getDemoMediaByProjectID(int ProjectID) throws SQLException
+	{
+		// Unsanitized result
+		List<DemoMediaDTO> result = demoMediaDAO.getDemoMediaByProjectID(ProjectID);
+
+		return result;
+	}
+
+
+	/**
 	 * Inserts demoMedia into database table
 	 * @param demoMedia
 	 * @return Created demoMedia
