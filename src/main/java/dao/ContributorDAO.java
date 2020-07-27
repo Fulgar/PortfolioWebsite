@@ -73,7 +73,10 @@ public class ContributorDAO
 		List<ContributorDTO> allContributors = new ArrayList<>();
 
 		// SQL Query statement
-		String QUERY = "SELECT * FROM CONTRIBUTORS WHERE CONTRIBUTORS.ID=(SELECT ContributorID FROM PROJECTS_CONTRIBUTORS WHERE ProjectID=" + ProjectID + ")";
+		String QUERY = "SELECT CONTRIBUTORS.ID, CONTRIBUTORS.FirstName, CONTRIBUTORS.LastName, CONTRIBUTORS.GithubProfileLink " +
+				"FROM CONTRIBUTORS " +
+				"INNER JOIN PROJECTS_CONTRIBUTORS ON CONTRIBUTORS.ID=PROJECTS_CONTRIBUTORS.ContributorID " +
+				"WHERE PROJECTS_CONTRIBUTORS.ProjectID=" + ProjectID;
 
 		ResultSet rs = DatabaseWrapper.getQueryResult(QUERY, dbConnection);
 
