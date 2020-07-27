@@ -8,15 +8,26 @@ import TableHead from "@material-ui/core/TableHead";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
+import orderBy from "lodash/orderBy";
+import {ArrowUpward, ArrowDownward} from "@material-ui/icons";
 
 
 // Styles Object
 const styles = {
-    tableCell: {
+    tableBodyCell: {
         borderLeftWidth: 1 + "px", borderRightWidth: 1 + "px",
         borderLeftStyle: "solid", borderRightStyle: "solid",
         borderTopWidth: 0 + "px", borderBottomWidth: 0 + "px",
         borderColor: "#242F40"
+    },
+    tableHeadCell: {
+        borderLeftWidth: 1 + "px", borderRightWidth: 1 + "px",
+        borderLeftStyle: "solid", borderRightStyle: "solid",
+        borderTopWidth: 0 + "px", borderBottomWidth: 0 + "px",
+        borderColor: "#242F40"
+    },
+    tableHeadCellInner: {
+        display: "flex", justifyContent: "center", alignItems: "center"
     },
     tableHead: {
         borderBottomWidth: 1 + "px", borderBottomStyle: "solid", borderColor: "#242F40"
@@ -55,6 +66,12 @@ const Projects = () => {
     const [isTechnologyTagLoaded, setIsTechnologyTagLoaded] = useState(false);
     const [isProject_TechnologyTagLoaded, setIsProject_TechnologyTagLoaded] = useState(false);
 
+    // Maps the opposite sort direction to each direction
+    const reverseSort = {
+        "asc": "desc",
+        "desc": "asc"
+    };
+
     // Contains corresponding labels and properties for Table head
     const [header, setHeader] = useState([
         {
@@ -78,6 +95,15 @@ const Projects = () => {
             prop: "technologyTagNames"
         }
     ]);
+
+    let sortedBodyData = [];
+
+    // Handles sorting
+    // Contains current column that is being sorted
+    const [selectedColumn, setSelectedColumn] = useState("projectTypeName");
+
+    // Contains sorting direction for selected column, using Lodash library sorting strings as values
+    const [sortMode, setSortMode] = useState("asc");
 
     // Is executed only on first render of Projects component
     useEffect(() => {
@@ -165,7 +191,6 @@ const Projects = () => {
         // If bodyData has already been set, then this execution is a rerender and should not not be re-executed
         // Without this one condition the program runs into an infinite loop that crashes due to "Too many Re-Renders"
         if (bodyData.length === 0) {
-            console.log("Entering");
             let newBodyData = [];
             for (let i = 0; i < projectData.length; i++) {
                 // Set various table body fields
@@ -176,9 +201,15 @@ const Projects = () => {
                 let projectTypeDataObj = projectTypeData.find(element => element["projectTypeID"] === projectTypeID);
                 let projectTypeName = projectTypeDataObj["name"];
                 let courseID = projectDataObj["courseID"];
-                const courseDataObj = courseData.find(element => element["courseID"] === courseID);
-                let subjectName = courseDataObj["subjectName"];
-                let courseName = courseDataObj["courseName"];
+
+                // CourseID and its associations can be null/undefined
+                let subjectName = "";
+                let courseName = "";
+                if (courseID !== undefined) {
+                    const courseDataObj = courseData.find(element => element["courseID"] === courseID);
+                    subjectName = courseDataObj["subjectName"];
+                    courseName = courseDataObj["courseName"];
+                }
 
                 // Set technology tag names
                 let techTagNames = [];
@@ -204,9 +235,11 @@ const Projects = () => {
 
             // Sets the state field of bodyData to new data
             setBodyData(newBodyData);
-
+            sortedBodyData = orderBy(bodyData, selectedColumn, sortMode);
         }
-
+        else {
+            sortedBodyData = orderBy(bodyData, selectedColumn, sortMode);
+        }
 
 
 
@@ -223,24 +256,38 @@ const Projects = () => {
                     <TableContainer>
                         <Table style={styles.table}>
                             <TableHead style={styles.tableHead}>
-                                <TableRow component={ Paper } elevation={15}>
+                                <TableRow style={{cursor: "pointer"}} component={ Paper } elevation={15}>
                                     {
                                         header.map((head, i) => {
-                                            return <TableCell style={styles.tableCell} key={`th-${i}`}>{head.name}</TableCell>
+                                            return <TableCell style={styles.tableHeadCell} key={`th-${i}`} onClick={() => {
+                                                if (head.prop === selectedColumn) {
+                                                    setSortMode(reverseSort[sortMode]);
+                                                }
+                                                else if (head.prop !== selectedColumn && head.prop !== "technologyTagNames") {
+                                                    setSelectedColumn(head.prop);
+                                                }
+                                            }}>
+                                                <div style={styles.tableHeadCellInner}>
+                                                    <span>
+                                                        {head.name}
+                                                    </span>
+
+                                                    {selectedColumn === head.prop ? (sortMode === "asc" ? <ArrowUpward/> : <ArrowDownward/>) : ""}
+                                                </div>
+                                            </TableCell>
                                         })
                                     }
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {console.log(bodyData)}
                                 {
-                                    bodyData.map((body, i) => {
+                                    sortedBodyData.map((body, i) => {
                                         return <TableRow component={ Paper } elevation={15} key={`tr-${i}`}>
-                                            <TableCell style={styles.tableCell}>{body.projectTitle}</TableCell>
-                                            <TableCell style={styles.tableCell}>{body.projectTypeName}</TableCell>
-                                            <TableCell style={styles.tableCell}>{body.subjectName}</TableCell>
-                                            <TableCell style={styles.tableCell}>{body.courseName}</TableCell>
-                                            <TableCell style={styles.tableCell}>{body.technologyTagNames}</TableCell>
+                                            <TableCell style={styles.tableBodyCell}><a href={`/projects/${body.projectID}`}>{body.projectTitle}</a></TableCell>
+                                            <TableCell style={styles.tableBodyCell}>{body.projectTypeName}</TableCell>
+                                            <TableCell style={styles.tableBodyCell}>{body.subjectName}</TableCell>
+                                            <TableCell style={styles.tableBodyCell}>{body.courseName}</TableCell>
+                                            <TableCell style={styles.tableBodyCell}>{body.technologyTagNames.join(", ")}</TableCell>
                                         </TableRow>
                                     })
                                 }

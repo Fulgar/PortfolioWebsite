@@ -18,7 +18,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "webpack": "webpack --mode development ./src/index.js --output ../webapp/react/app.js"
+    "webpack": "webpack -d --mode development ./src/index.js --output ../webapp/react/app.js"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -39,6 +39,7 @@
     "@babel/core": "^7.3.4",
     "@babel/preset-env": "^7.3.4",
     "@babel/preset-react": "^7.0.0",
+    "@material-ui/icons": "^4.9.1",
     "babel-loader": "^8.0.5",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "webpack": "^4.42.0",
