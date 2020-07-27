@@ -55,6 +55,28 @@ public class CourseService
 
 
 	/**
+	 * Retrieves Course via ProjectID in DTO form
+	 * @param ProjectID
+	 * @return Course via ProjectID
+	 * @throws SQLException
+	 * @throws DTONullException
+	 */
+	public CourseDTO getCourseByProjectID(int ProjectID) throws SQLException, DTONullException
+	{
+		// Unsanitized result
+		CourseDTO result = courseDAO.getCourseByProjectID(ProjectID);
+
+		// If list is empty throw exception
+		if (result == null)
+		{
+			throw new DTONullException();
+		}
+
+		return result;
+	}
+
+
+	/**
 	 * Inserts course into database table
 	 * @param course
 	 * @return Created course

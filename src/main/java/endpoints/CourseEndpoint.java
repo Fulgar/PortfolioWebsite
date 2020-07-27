@@ -34,6 +34,15 @@ public class CourseEndpoint
 	}
 
 
+	@GET
+	@Path("/byProject/{ProjectID}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public CourseDTO getByProjectID(@PathParam("ProjectID") int ProjectID) throws SQLException, DTONullException
+	{
+		return courseService.getCourseByProjectID(ProjectID);
+	}
+
+
 	@POST
 	@Path("/create")
 	@Produces(MediaType.APPLICATION_JSON)
