@@ -13,7 +13,7 @@ import java.util.List;
 
 public class ProjectTypeDAO
 {
-	// Retrieves all projects from database
+	// Retrieves all project types from database
 	public List<ProjectTypeDTO> getAllProjectTypes() throws SQLException
 	{
 		Connection dbConnection = DriverManager.getConnection(DatabaseWrapper.URL, DatabaseWrapper.USER, DatabaseWrapper.PASS);
@@ -40,7 +40,7 @@ public class ProjectTypeDAO
 		return allProjectTypes;
 	}
 
-	// Retrieves Project via ID in DTO form
+	// Retrieves Project Type via ProjectTypeID in DTO form
 	public ProjectTypeDTO getProjectTypeByID(int ID) throws SQLException
 	{
 		Connection dbConnection = DriverManager.getConnection(DatabaseWrapper.URL, DatabaseWrapper.USER, DatabaseWrapper.PASS);
@@ -50,6 +50,29 @@ public class ProjectTypeDAO
 
 		// SQL Query statement
 		String QUERY = "SELECT * FROM PROJECT_TYPES WHERE ID=" + ID;
+
+		ResultSet rs = DatabaseWrapper.getQueryResult(QUERY, dbConnection);
+
+		ProjectTypeMapper mapper = new ProjectTypeMapper();
+
+		rs.first();
+		projectType = mapper.rowMap(rs);
+
+		dbConnection.close();
+
+		return projectType;
+	}
+
+	// Retrieves Project Type via ProjectID in DTO
+	public ProjectTypeDTO getProjectTypeByProjectID(int ProjectID) throws SQLException
+	{
+		Connection dbConnection = DriverManager.getConnection(DatabaseWrapper.URL, DatabaseWrapper.USER, DatabaseWrapper.PASS);
+
+		// Result
+		ProjectTypeDTO projectType = null;
+
+		// SQL Query statement
+		String QUERY = "SELECT * FROM PROJECT_TYPES WHERE PROJECT_TYPES.ID=(SELECT ProjectTypeID FROM PROJECTS WHERE PROJECTS.ID=" + ProjectID + ")";
 
 		ResultSet rs = DatabaseWrapper.getQueryResult(QUERY, dbConnection);
 
