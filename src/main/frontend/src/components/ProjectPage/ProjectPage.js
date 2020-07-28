@@ -112,21 +112,30 @@ const ProjectPage = (props) => {
                     setTechnologyTagError(error);
                 }
             );
+    }, []); // Explicitly defines that it will not re-execute after first render, because it does not depend on any change
 
-        // Fetch selected Course database data via GET request
-        fetch("/portfolio/course/byProject/" + projectID)
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    setCourseData(result);
-                    setIsCourseLoaded(true);
-                },
-                (error) => {
-                    console.error(error);
-                    setCourseError(error);
-                }
-            );
-    }, []);
+    // Will only execute again after first render if "isProjectLoaded" is changed
+    useEffect(() => {
+        // Only fetch Course data if project data has loaded and have determined if CourseID exists for project
+        if (isProjectLoaded) {
+            if (projectData["courseID"] !== undefined) {
+                // Fetch selected Course database data via GET request
+                fetch("/portfolio/course/byProject/" + projectID)
+                    .then(res => res.json())
+                    .then(
+                        (result) => {
+                            setCourseData(result);
+                            setIsCourseLoaded(true);
+                        },
+                        (error) => {
+                            console.error(error);
+                            setCourseError(error);
+                        }
+                    );
+            }
+        }
+    }
+    , [isProjectLoaded]); // Depends on isProjectLoaded changing in order to re-execute
 
     return (
         <div className="ProjectPage">
