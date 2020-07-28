@@ -294,6 +294,10 @@ const Projects = () => {
                             </TableBody>
                         </Table>
                     </TableContainer>
+
+                    <Typography style={{marginTop: 2 + "em"}} variant={"caption"}>
+                        * - Indicates column data only applies to University-type projects
+                    </Typography>
                 </Paper>
             </div>
         );
