@@ -1,1 +1,8 @@
-.ProjectPage {}
+.ProjectPage {
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    padding-left: 12.5%;
+    padding-right: 12.5%;
+    flex-direction: column;
+}
