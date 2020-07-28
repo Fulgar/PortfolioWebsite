@@ -250,7 +250,7 @@ const Projects = () => {
                     PROJECTS
                 </Typography>
 
-                <Paper className={"about-paper"} style={{
+                <Paper className={"projects-paper"} style={{
                     borderColor: "#CCA43B", borderWidth: 0.40 + "em", padding: 5 + "em"}}
                        variant={"outlined"}>
                     <TableContainer>
