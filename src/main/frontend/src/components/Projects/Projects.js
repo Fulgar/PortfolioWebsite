@@ -297,25 +297,31 @@ const Projects = () => {
                 <Paper className={"projects-paper"} style={{
                     borderColor: "#CCA43B", borderWidth: 0.40 + "em", padding: 5 + "em"}}
                        variant={"outlined"}>
-                    {console.log("Making menu: " + filterList)}
-                    <List component={"nav"} aria-label={"Filter Settings"}>
-                        <ListItem button aria-haspopup={"true"} aria-controls={"filter-menu"}
-                                  aria-label={"Filter by tech tags"} onClick={handleClickListItem}>
-                            <ListItemText primary={"Filter By Technology Tags"}
-                            secondary={filterList[filterIndex]}/>
-                        </ListItem>
-                    </List>
-                    <Menu id={"filter-menu"} anchorEl={anchorEl} keepMounted
-                          open={Boolean(anchorEl)} onClose={handleClose}>
-                        {
-                            filterList.map((filterItem, i) => (
-                                <MenuItem key={filterItem} selected={i === filterIndex}
-                                          onClick={(event) => handleMenuItemClick(event, i)}>
-                                    {filterItem}
-                                </MenuItem>
-                            ))
-                        }
-                    </Menu>
+                    <div style={{textAlign: "right", alignItems: "right", float: "right"}}
+                         className={"filter-menu-container"}>
+                        <List component={"nav"} aria-label={"Filter Settings"}>
+                            <ListItem button aria-haspopup={"true"} aria-controls={"filter-menu"}
+                                      aria-label={"Filter by tech tags"} onClick={handleClickListItem}
+                                      style={{marginLeft: "auto"}}>
+                                <ListItemText primary={"Filter By Technology Tags"}
+                                              secondary={filterList[filterIndex]}
+                                              style={{marginLeft: "auto", textAlign: "right", alignItems: "right",}}/>
+                            </ListItem>
+                        </List>
+                        <Menu id={"filter-menu"} anchorEl={anchorEl} keepMounted
+                              open={Boolean(anchorEl)} onClose={handleClose}
+                              style={{marginLeft: "auto", textAlign: "right", alignItems: "right"}}>
+                            {
+                                filterList.map((filterItem, i) => (
+                                    <MenuItem key={filterItem} selected={i === filterIndex}
+                                              onClick={(event) => handleMenuItemClick(event, i)}>
+                                        {filterItem}
+                                    </MenuItem>
+                                ))
+                            }
+                        </Menu>
+                    </div>
+
                     <TableContainer>
                         <Table style={styles.table}>
                             <TableHead style={styles.tableHead}>
