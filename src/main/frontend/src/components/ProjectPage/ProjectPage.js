@@ -39,6 +39,8 @@ const ProjectPage = (props) => {
     const [isTechnologyTagLoaded, setIsTechnologyTagLoaded] = useState(false);
     const [courseError, setCourseError] = useState(null);
     const [isCourseLoaded, setIsCourseLoaded] = useState(false);
+    const [projectTypeError, setProjectTypeError] = useState(null);
+    const [isProjectTypeLoaded, setIsProjectTypeLoaded] = useState(false);
 
     // Container for all selected Project data
     const [projectData, setProjectData] = useState({});
@@ -54,6 +56,9 @@ const ProjectPage = (props) => {
 
     // Container for all selected Course data
     const [courseData, setCourseData] = useState({});
+
+    // Container for all selected Project data
+    const [projectTypeData, setProjectTypeData] = useState({});
 
     // Is executed only on first render of Projects component
     useEffect(() => {
@@ -112,6 +117,20 @@ const ProjectPage = (props) => {
                     setTechnologyTagError(error);
                 }
             );
+
+        // Fetch selected ProjectType database data via GET request
+        fetch("/portfolio/projectType/byProject/" + projectID)
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    setProjectTypeData(result);
+                    setIsProjectTypeLoaded(true);
+                },
+                (error) => {
+                    console.error(error);
+                    setProjectTypeError(error);
+                }
+            );
     }, []); // Explicitly defines that it will not re-execute after first render, because it does not depend on any change
 
     // Will only execute again after first render if "isProjectLoaded" is changed
@@ -166,6 +185,34 @@ const ProjectPage = (props) => {
                     </Typography>
                 </Paper>
 
+                <div style={styles.halfPaperContainer} className={"top-half-paper-container"}>
+                    <Paper style={{margin: 2 + "em", padding: 1 + "em"}} className={"github-project-paper"} elevation={10}>
+                        <Typography variant={"h6"}>Github Project:</Typography>
+                        <Typography variant={"body1"}>
+                            {
+                                // If projectData is loaded display project description
+                                // If not display nothing
+                                (isProjectLoaded === true)
+                                    ? (<span><a href={projectData["githubLink"]}>Link</a></span>)
+                                    : (<span> </span>)
+                            }
+                        </Typography>
+                    </Paper>
+
+                    <Paper style={{margin: 2 + "em", padding: 1 + "em"}} className={"project-type-paper"} elevation={10}>
+                        <Typography variant={"h6"}>Project Type:</Typography>
+                        <Typography variant={"body1"}>
+                            {
+                                // If projectData is loaded display project description
+                                // If not display nothing
+                                (isProjectTypeLoaded === true)
+                                    ? (<span>{projectTypeData["name"]}</span>)
+                                    : (<span> </span>)
+                            }
+                        </Typography>
+                    </Paper>
+                </div>
+
                 <Paper style={{margin: 2 + "em", padding: 1 + "em"}} className={"demo-media"} elevation={10}>
                     <Typography variant={"h6"}>Demo Media:</Typography>
                     {
@@ -178,7 +225,7 @@ const ProjectPage = (props) => {
                     }
                 </Paper>
 
-                <div style={styles.halfPaperContainer} className={"half-paper-container"}>
+                <div style={styles.halfPaperContainer} className={"bottom-half-paper-container"}>
                     <Paper style={{marginRight: 2 + "em", padding: 1 + "em"}} className={"contributors-paper"} elevation={10}>
                         <Typography variant={"h6"}>Contributors:</Typography>
                         {
