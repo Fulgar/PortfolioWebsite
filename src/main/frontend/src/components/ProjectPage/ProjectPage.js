@@ -186,7 +186,7 @@ const ProjectPage = (props) => {
                 </Paper>
 
                 <div style={styles.halfPaperContainer} className={"top-half-paper-container"}>
-                    <Paper style={{margin: 2 + "em", padding: 1 + "em"}} className={"github-project-paper"} elevation={10}>
+                    <Paper style={{marginRight: 2 + "em", padding: 1 + "em"}} className={"github-project-paper"} elevation={10}>
                         <Typography variant={"h6"}>Github Project:</Typography>
                         <Typography variant={"body1"}>
                             {
@@ -199,7 +199,7 @@ const ProjectPage = (props) => {
                         </Typography>
                     </Paper>
 
-                    <Paper style={{margin: 2 + "em", padding: 1 + "em"}} className={"project-type-paper"} elevation={10}>
+                    <Paper style={{marginLeft: 2 + "em", padding: 1 + "em"}} className={"project-type-paper"} elevation={10}>
                         <Typography variant={"h6"}>Project Type:</Typography>
                         <Typography variant={"body1"}>
                             {
