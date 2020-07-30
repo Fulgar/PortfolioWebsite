@@ -63,6 +63,38 @@ public class ContributorDAO
 		return contributor;
 	}
 
+
+	// Retrieves Contributors via ProjectID in DTO form
+	public List<ContributorDTO> getContributorsByProjectID(int ProjectID) throws SQLException
+	{
+		Connection dbConnection = DriverManager.getConnection(DatabaseWrapper.URL, DatabaseWrapper.USER, DatabaseWrapper.PASS);
+
+		// List of all contributors in DTO form
+		List<ContributorDTO> allContributors = new ArrayList<>();
+
+		// SQL Query statement
+		String QUERY = "SELECT CONTRIBUTORS.ID, CONTRIBUTORS.FirstName, CONTRIBUTORS.LastName, CONTRIBUTORS.GithubProfileLink " +
+				"FROM CONTRIBUTORS " +
+				"INNER JOIN PROJECTS_CONTRIBUTORS ON CONTRIBUTORS.ID=PROJECTS_CONTRIBUTORS.ContributorID " +
+				"WHERE PROJECTS_CONTRIBUTORS.ProjectID=" + ProjectID;
+
+		ResultSet rs = DatabaseWrapper.getQueryResult(QUERY, dbConnection);
+
+		ContributorMapper mapper = new ContributorMapper();
+
+		// Iterate through results and map database entries into DTO objects
+		while(rs.next())
+		{
+			ContributorDTO newContributor = mapper.rowMap(rs);
+			allContributors.add(newContributor);
+		}
+
+		dbConnection.close();
+
+		return allContributors;
+	}
+
+
 	// Inserts contributor into database table
 	public ContributorDTO createContributor (ContributorDTO contributor) throws SQLException
 	{

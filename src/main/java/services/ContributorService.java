@@ -55,6 +55,29 @@ public class ContributorService
 
 
 	/**
+	 * Retrieves Contributors via ProjectID in DTO form
+	 * @param ProjectID
+	 * @return Contributor via ProjectID
+	 * @throws SQLException
+	 * @throws DTONullException
+	 */
+	public List<ContributorDTO> getContributorsByProjectID(int ProjectID) throws SQLException, ListEmptyException
+	{
+		// Unsanitized result
+		List<ContributorDTO> result = contributorDAO.getContributorsByProjectID(ProjectID);
+
+		// If list is empty throw exception
+		if (result.size() == 0)
+		{
+			throw new ListEmptyException();
+		}
+
+		return result;
+	}
+
+
+
+	/**
 	 * Inserts contributor into database table
 	 * @param contributor
 	 * @return Created contributor

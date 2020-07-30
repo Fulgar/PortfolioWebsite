@@ -33,9 +33,9 @@ public class ProjectTypeService
 
 
 	/**
-	 * Retrieves ProjectType via ID in DTO form
+	 * Retrieves ProjectType via ProjectTypeID in DTO form
 	 * @param ID
-	 * @return ProjectType via ID
+	 * @return ProjectType via ProjectTypeID
 	 * @throws SQLException
 	 * @throws DTONullException
 	 */
@@ -43,6 +43,28 @@ public class ProjectTypeService
 	{
 		// Unsanitized result
 		ProjectTypeDTO result = projectTypeDAO.getProjectTypeByID(ID);
+
+		// If list is empty throw exception
+		if (result == null)
+		{
+			throw new DTONullException();
+		}
+
+		return result;
+	}
+
+
+	/**
+	 * Retrieves ProjectType via ProjectID in DTO form
+	 * @param ProjectID
+	 * @return ProjectType via ProjectID
+	 * @throws SQLException
+	 * @throws DTONullException
+	 */
+	public ProjectTypeDTO getProjectTypeByProjectID(int ProjectID) throws SQLException, DTONullException
+	{
+		// Unsanitized result
+		ProjectTypeDTO result = projectTypeDAO.getProjectTypeByProjectID(ProjectID);
 
 		// If list is empty throw exception
 		if (result == null)

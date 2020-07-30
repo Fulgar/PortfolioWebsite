@@ -2,6 +2,7 @@ package services;
 
 import dao.TechnologyTagDAO;
 import dto.TechnologyTagDTO;
+import dto.TechnologyTagDTO;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -48,6 +49,28 @@ public class TechnologyTagService
 		if (result == null)
 		{
 			throw new DTONullException();
+		}
+
+		return result;
+	}
+
+
+	/**
+	 * Retrieves TechnologyTags via ProjectID in DTO form
+	 * @param ProjectID
+	 * @return TechnologyTag via ProjectID
+	 * @throws SQLException
+	 * @throws DTONullException
+	 */
+	public List<TechnologyTagDTO> getTechnologyTagsByProjectID(int ProjectID) throws SQLException, ListEmptyException
+	{
+		// Unsanitized result
+		List<TechnologyTagDTO> result = technologyTagDAO.getTechnologyTagsByProjectID(ProjectID);
+
+		// If list is empty throw exception
+		if (result.size() == 0)
+		{
+			throw new ListEmptyException();
 		}
 
 		return result;

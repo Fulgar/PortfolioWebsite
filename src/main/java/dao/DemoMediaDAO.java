@@ -62,15 +62,46 @@ public class DemoMediaDAO
 		return demoMedia;
 	}
 
+
+	// Retrieves demoMedia via ProjectID
+	public List<DemoMediaDTO> getDemoMediaByProjectID(int ProjectID) throws SQLException
+	{
+		Connection dbConnection = DriverManager.getConnection(DatabaseWrapper.URL, DatabaseWrapper.USER, DatabaseWrapper.PASS);
+
+		// List of all demoMedia in DTO form
+		List<DemoMediaDTO> allDemoMedia = new ArrayList<>();
+
+		// SQL Query statement
+		String QUERY = "SELECT * FROM DEMO_MEDIA WHERE ProjectID=" + ProjectID;
+
+		ResultSet rs = DatabaseWrapper.getQueryResult(QUERY, dbConnection);
+
+		DemoMediaMapper mapper = new DemoMediaMapper();
+
+		// Iterate through results and map database entries into DTO objects
+		while(rs.next())
+		{
+			DemoMediaDTO newDemoMedia = mapper.rowMap(rs);
+			allDemoMedia.add(newDemoMedia);
+		}
+
+		dbConnection.close();
+
+		return allDemoMedia;
+	}
+
+
 	// Inserts demoMedia into database table
 	public DemoMediaDTO createDemoMedia (DemoMediaDTO demoMedia) throws SQLException
 	{
 		Connection dbConnection = DriverManager.getConnection(DatabaseWrapper.URL, DatabaseWrapper.USER, DatabaseWrapper.PASS);
 
 		// SQL Query statement
-		String QUERY = "INSERT INTO DEMO_MEDIA (URL, MediaType, ProjectID) VALUES (";
+		String QUERY = "INSERT INTO DEMO_MEDIA (URL, MediaType, MediaTitle, MediaCaption, ProjectID) VALUES (";
 		QUERY += "'" + demoMedia.getUrl() + "', ";
 		QUERY += "'" + demoMedia.getMediaType() + "', ";
+		QUERY += "'" + demoMedia.getMediaTitle() + "', ";
+		QUERY += "'" + demoMedia.getMediaCaption() + "', ";
 		QUERY += demoMedia.getProjectID() + ")";
 
 		// Executes statement
@@ -90,6 +121,8 @@ public class DemoMediaDAO
 		String QUERY = "UPDATE DEMO_MEDIA SET ";
 		QUERY += "URL='" + demoMedia.getUrl() + "', ";
 		QUERY += "MediaType='" + demoMedia.getMediaType() + "', ";
+		QUERY += "MediaTitle='" + demoMedia.getMediaTitle() + "', ";
+		QUERY += "MediaCaption='" + demoMedia.getMediaCaption() + "', ";
 		QUERY += "ProjectID=" + demoMedia.getProjectID() + " ";
 		QUERY += "WHERE ID=" + demoMedia.getDemoMediaID();
 

@@ -10,6 +10,11 @@ import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
 import orderBy from "lodash/orderBy";
 import {ArrowUpward, ArrowDownward} from "@material-ui/icons";
+import Menu from "@material-ui/core/Menu";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import MenuItem from "@material-ui/core/MenuItem";
 
 
 // Styles Object
@@ -66,10 +71,35 @@ const Projects = () => {
     const [isTechnologyTagLoaded, setIsTechnologyTagLoaded] = useState(false);
     const [isProject_TechnologyTagLoaded, setIsProject_TechnologyTagLoaded] = useState(false);
 
+    // Controls the anchor element in the filter menu
+    const [anchorEl, setAnchorEl] = useState(null);
+
     // Maps the opposite sort direction to each direction
     const reverseSort = {
         "asc": "desc",
         "desc": "asc"
+    };
+
+    // Contains the list of possible filter options for Tech tags
+    const [filterList, setFilterList] = useState(["No filter"]);
+
+    // Contains the current index for the filterList
+    const [filterIndex, setFilterIndex] = useState(0); // Default will be 0, so first item is "No filter"
+
+    // Function that handles when filter listItem is clicked
+    const handleClickListItem = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    // Function that handles when filter menuItem is clicked
+    const handleMenuItemClick = (event, index) => {
+        setFilterIndex(index);
+        setAnchorEl(null);
+    };
+
+    // Handles the closing of the menu
+    const handleClose = () => {
+        setAnchorEl(null);
     };
 
     // Contains corresponding labels and properties for Table head
@@ -96,6 +126,7 @@ const Projects = () => {
         }
     ]);
 
+    // Contains the revised and order bodyData
     let sortedBodyData = [];
 
     // Handles sorting
@@ -104,6 +135,19 @@ const Projects = () => {
 
     // Contains sorting direction for selected column, using Lodash library sorting strings as values
     const [sortMode, setSortMode] = useState("asc");
+
+    // Is executed after first render only if isTechnologyTagLoaded is changed
+    useEffect(() => {
+        if (isTechnologyTagLoaded) {
+            let newFilterList = [...filterList];
+            technologyTagData.map((techRow, i) => {
+                newFilterList.push(techRow["technologyName"])
+            });
+            setFilterList(newFilterList);
+            console.log("Use effect called");
+            console.log(filterList);
+        }
+    }, [isTechnologyTagLoaded]);
 
     // Is executed only on first render of Projects component
     useEffect(() => {
@@ -250,9 +294,34 @@ const Projects = () => {
                     PROJECTS
                 </Typography>
 
-                <Paper className={"about-paper"} style={{
+                <Paper className={"projects-paper"} style={{
                     borderColor: "#CCA43B", borderWidth: 0.40 + "em", padding: 5 + "em"}}
                        variant={"outlined"}>
+                    <div style={{textAlign: "right", alignItems: "right", float: "right"}}
+                         className={"filter-menu-container"}>
+                        <List component={"nav"} aria-label={"Filter Settings"}>
+                            <ListItem button aria-haspopup={"true"} aria-controls={"filter-menu"}
+                                      aria-label={"Filter by tech tags"} onClick={handleClickListItem}
+                                      style={{marginLeft: "auto"}}>
+                                <ListItemText primary={"Filter By Technology Tags"}
+                                              secondary={filterList[filterIndex]}
+                                              style={{marginLeft: "auto", textAlign: "right", alignItems: "right",}}/>
+                            </ListItem>
+                        </List>
+                        <Menu id={"filter-menu"} anchorEl={anchorEl} keepMounted
+                              open={Boolean(anchorEl)} onClose={handleClose}
+                              style={{marginLeft: "auto", textAlign: "right", alignItems: "right"}}>
+                            {
+                                filterList.map((filterItem, i) => (
+                                    <MenuItem key={filterItem} selected={i === filterIndex}
+                                              onClick={(event) => handleMenuItemClick(event, i)}>
+                                        {filterItem}
+                                    </MenuItem>
+                                ))
+                            }
+                        </Menu>
+                    </div>
+
                     <TableContainer>
                         <Table style={styles.table}>
                             <TableHead style={styles.tableHead}>
@@ -282,7 +351,9 @@ const Projects = () => {
                             <TableBody>
                                 {
                                     sortedBodyData.map((body, i) => {
-                                        return <TableRow component={ Paper } elevation={15} key={`tr-${i}`}>
+                                        // Only return body row if there are no current filter rules against it
+                                        if (filterIndex === 0 || (filterIndex !== 0 && body.technologyTagNames.includes(filterList[filterIndex])))
+                                            return <TableRow component={ Paper } elevation={15} key={`tr-${i}`}>
                                             <TableCell style={styles.tableBodyCell}><a href={`/projects/${body.projectID}`}>{body.projectTitle}</a></TableCell>
                                             <TableCell style={styles.tableBodyCell}>{body.projectTypeName}</TableCell>
                                             <TableCell style={styles.tableBodyCell}>{body.subjectName}</TableCell>
@@ -294,6 +365,10 @@ const Projects = () => {
                             </TableBody>
                         </Table>
                     </TableContainer>
+
+                    <Typography style={{marginTop: 2 + "em"}} variant={"caption"}>
+                        * - Indicates column data only applies to University-type projects
+                    </Typography>
                 </Paper>
             </div>
         );

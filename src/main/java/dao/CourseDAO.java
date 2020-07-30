@@ -62,6 +62,31 @@ public class CourseDAO
 		return course;
 	}
 
+
+	// Retrieves Course via ProjectID in DTO form
+	public CourseDTO getCourseByProjectID(int ProjectID) throws SQLException
+	{
+		Connection dbConnection = DriverManager.getConnection(DatabaseWrapper.URL, DatabaseWrapper.USER, DatabaseWrapper.PASS);
+
+		// Result
+		CourseDTO course = null;
+
+		// SQL Query statement
+		String QUERY = "SELECT * FROM COURSES WHERE COURSES.ID=(SELECT CourseID FROM PROJECTS WHERE PROJECTS.ID=" + ProjectID + ")";
+
+		ResultSet rs = DatabaseWrapper.getQueryResult(QUERY, dbConnection);
+
+		CourseMapper mapper = new CourseMapper();
+
+		rs.first();
+		course = mapper.rowMap(rs);
+
+		dbConnection.close();
+
+		return course;
+	}
+
+
 	// Inserts course into database table
 	public CourseDTO createCourse (CourseDTO course) throws SQLException
 	{
