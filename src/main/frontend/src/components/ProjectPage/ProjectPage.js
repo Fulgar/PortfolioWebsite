@@ -333,7 +333,7 @@ const ProjectPage = (props) => {
                         // TODO: DemoMedia display
                         // If demoMedia data is loaded then display content
                         // If not, then display if there is an error or if it is currently still loading
-                        (isDemoMediaLoaded === true)
+                        (isDemoMediaLoaded === true && demoMediaData[demoMediaIndex] !== undefined)
                             ? (<div style={styles.demoMediaPlayer} className={"demo-media-player"}>
                                     <div style={styles.demoMediaContent} className={"demo-media-content"}>
                                         {
@@ -358,7 +358,7 @@ const ProjectPage = (props) => {
                                     }} onClick={handleRightButton}/>
                                 </div>
                             )
-                            : ((demoMediaError) ? (<span>DEMO MEDIA NOT FOUND</span>) : (<span>DEMO MEDIA DATA LOADING</span>))
+                            : ((demoMediaError) ? (<span>DEMO MEDIA NOT FOUND</span>) : (<span>There is no Demo Media associated with this project</span>))
                     }
                 </Paper>
 
