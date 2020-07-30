@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
+import {ArrowForward, ArrowBack} from "@material-ui/icons";
 
 
 const styles = {
@@ -19,6 +20,14 @@ const styles = {
     },
     listItem: {
        textAlign: "center"
+    },
+    demoMediaPlayer: {
+        minWidth: 100 + "%",
+        minHeight: 100 + "%"
+    },
+    demoMediaContent: {
+        maxWidth: 100 + "%",
+        maxHeight: 100 + "%"
     }
 };
 
@@ -220,7 +229,24 @@ const ProjectPage = (props) => {
                         // If demoMedia data is loaded then display content
                         // If not, then display if there is an error or if it is currently still loading
                         (isDemoMediaLoaded === true)
-                            ? (<span>Coming Soon. Not yet implemented.</span>)
+                            ? (<div style={styles.demoMediaPlayer} className={"demo-media-player"}>
+                                    <div style={styles.demoMediaContent} className={"demo-media-content"}>
+                                        {
+
+                                        }
+                                    </div>
+
+                                    <ArrowBack style={{
+                                        width: 3 + "em", height: 3 + "em",
+                                        marin: "auto auto auto 0"
+                                    }}/>
+
+                                    <ArrowForward style={{
+                                        width: 3 + "em", height: 3 + "em",
+                                        marin: "auto 0 auto auto"
+                                    }}/>
+                                </div>
+                            )
                             : ((demoMediaError) ? (<span>DEMO MEDIA NOT FOUND</span>) : (<span>DEMO MEDIA DATA LOADING</span>))
                     }
                 </Paper>
