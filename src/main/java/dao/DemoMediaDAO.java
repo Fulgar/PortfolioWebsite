@@ -97,9 +97,11 @@ public class DemoMediaDAO
 		Connection dbConnection = DriverManager.getConnection(DatabaseWrapper.URL, DatabaseWrapper.USER, DatabaseWrapper.PASS);
 
 		// SQL Query statement
-		String QUERY = "INSERT INTO DEMO_MEDIA (URL, MediaType, ProjectID) VALUES (";
+		String QUERY = "INSERT INTO DEMO_MEDIA (URL, MediaType, MediaTitle, MediaCaption, ProjectID) VALUES (";
 		QUERY += "'" + demoMedia.getUrl() + "', ";
 		QUERY += "'" + demoMedia.getMediaType() + "', ";
+		QUERY += "'" + demoMedia.getMediaTitle() + "', ";
+		QUERY += "'" + demoMedia.getMediaCaption() + "', ";
 		QUERY += demoMedia.getProjectID() + ")";
 
 		// Executes statement
@@ -119,6 +121,8 @@ public class DemoMediaDAO
 		String QUERY = "UPDATE DEMO_MEDIA SET ";
 		QUERY += "URL='" + demoMedia.getUrl() + "', ";
 		QUERY += "MediaType='" + demoMedia.getMediaType() + "', ";
+		QUERY += "MediaTitle='" + demoMedia.getMediaTitle() + "', ";
+		QUERY += "MediaCaption='" + demoMedia.getMediaCaption() + "', ";
 		QUERY += "ProjectID=" + demoMedia.getProjectID() + " ";
 		QUERY += "WHERE ID=" + demoMedia.getDemoMediaID();
 

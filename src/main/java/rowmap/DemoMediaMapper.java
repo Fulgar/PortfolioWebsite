@@ -15,6 +15,8 @@ public class DemoMediaMapper implements RowMapper <DemoMediaDTO>
 		demoMediaDTO.setDemoMediaID(rs.getInt("ID"));
 		demoMediaDTO.setUrl(rs.getString("URL"));
 		demoMediaDTO.setMediaType(rs.getString("MediaType"));
+		demoMediaDTO.setMediaTitle(rs.getString("MediaTitle"));
+		demoMediaDTO.setMediaCaption(rs.getString("MediaCaption"));
 		demoMediaDTO.setProjectID(rs.getInt("ProjectID"));
 		return demoMediaDTO;
 	}
