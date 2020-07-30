@@ -342,6 +342,12 @@ const ProjectPage = (props) => {
                                         }
                                     </div>
 
+                                    <Paper className={"demo-caption"} style={{margin: "1.5em 4em 1.5em", padding: 1 + "em"}} elevation={10}>
+                                        <Typography variant={"h6"}
+                                                    style={{fontSize: 1.25 + "em"}}>{demoMediaData[demoMediaIndex]["mediaTitle"]}: </Typography>
+                                        <Typography variant={"body1"}>{demoMediaData[demoMediaIndex]["mediaCaption"]}</Typography>
+                                    </Paper>
+
                                     <ArrowBack button style={{
                                         width: 3 + "em", height: 3 + "em",
                                         marin: "auto auto auto 0", cursor: getLeftButtonCursor()
