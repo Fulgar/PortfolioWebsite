@@ -75,7 +75,6 @@ const ProjectPage = (props) => {
 
     // Method for returning DemoMedia of IMG type
     const getDemoImage = (url, altText) => {
-        console.log("Image time");
         return (<img src={url} alt={altText}
             style={{maxWidth: "inherit", maxHeight: "inherit"}}/>
         );
