@@ -22,12 +22,12 @@ const styles = {
        textAlign: "center"
     },
     demoMediaPlayer: {
-        minWidth: 100 + "%",
-        minHeight: 100 + "%"
+        maxWidth: 100 + "%",
+        maxHeight: 100 + "%"
     },
     demoMediaContent: {
         maxWidth: 100 + "%",
-        maxHeight: 100 + "%"
+        maxHeight: 80 + "vh"
     }
 };
 
@@ -68,6 +68,112 @@ const ProjectPage = (props) => {
 
     // Container for all selected Project data
     const [projectTypeData, setProjectTypeData] = useState({});
+
+
+    // Contains the index of the currently viewed demoMedia file
+    const [demoMediaIndex, setDemoMediaIndex] = useState(0);
+
+    // Method for returning DemoMedia of IMG type
+    const getDemoImage = (url, altText) => {
+        console.log("Image time");
+        return (<img src={url} alt={altText}
+            style={{maxWidth: "inherit", maxHeight: "inherit"}}/>
+        );
+    };
+
+    // Method for returning DemoMedia of VID type
+    const getDemoVideo = (url) => {
+        return (<video style={{maxWidth: "inherit", maxHeight: "inherit"}}>
+                <source src={url} type={"video/mp4"}/>
+            </video>
+        );
+    };
+
+    // Method for returning DemoMedia of TXT type
+    const getDemoText = (url) => {
+        return (<p><iframe src={url} style={{maxWidth: "inherit", maxHeight: "inherit", frameBorder: 0}}>
+                Browser not compatible
+            </iframe></p>
+        );
+    };
+
+    // Method for returning appropriate DemoMedia content
+    const getDemoContent = () => {
+        if (isDemoMediaLoaded) {
+            if (demoMediaData[demoMediaIndex] !== undefined) {
+                const demoRow = demoMediaData[demoMediaIndex];
+                const mediaType = demoRow["mediaType"];
+                const mediaTitle = demoRow["mediaTitle"];
+                const mediaCaption = demoRow["mediaCaption"];
+                const mediaURL = demoRow["url"];
+
+                switch (mediaType) {
+                    case "IMG":
+                        return getDemoImage(mediaURL, mediaTitle);
+                    case "VID":
+                        return getDemoVideo(mediaURL);
+                    case "TXT":
+                        return getDemoText(mediaURL);
+                    default:
+                        return (<Typography variant={"body1"}>Demo Media does not exist</Typography>);
+                }
+            }
+        }
+    };
+
+    // Method that determines if there is a previous demoMedia
+    const doesLeftMediaExist = () => {
+        if (isDemoMediaLoaded) {
+            if (demoMediaData[demoMediaIndex] !== undefined) {
+                return demoMediaData[demoMediaIndex - 1] !== undefined;
+            }
+        }
+    };
+
+    // Method that determines if there is a next demoMedia
+    const doesRightMediaExist = () => {
+        if (isDemoMediaLoaded) {
+            if (demoMediaData[demoMediaIndex] !== undefined) {
+                return demoMediaData[demoMediaIndex + 1] !== undefined;
+            }
+        }
+    };
+
+    // Determines mouse cursor over Left button
+    const getLeftButtonCursor = () => {
+        let result = "default";
+        if (isDemoMediaLoaded) {
+            if (doesLeftMediaExist()) {
+                result = "pointer";
+            }
+        }
+        return result;
+    };
+
+    // Determines mouse cursor over Right button
+    const getRightButtonCursor = () => {
+        let result = "default";
+        if (isDemoMediaLoaded) {
+            if (doesRightMediaExist()) {
+                result = "pointer";
+            }
+        }
+        return result;
+    };
+
+    // Method that handles the onClick of the Left DemoMedia navigation button
+    const handleLeftButton = () => {
+        if (doesLeftMediaExist()) {
+            setDemoMediaIndex(demoMediaIndex - 1);
+        }
+    };
+
+    // Method that handles the onClick of the Right DemoMedia navigation button
+    const handleRightButton = () => {
+        if (doesRightMediaExist()) {
+            setDemoMediaIndex(demoMediaIndex + 1);
+        }
+    };
 
     // Is executed only on first render of Projects component
     useEffect(() => {
@@ -232,19 +338,19 @@ const ProjectPage = (props) => {
                             ? (<div style={styles.demoMediaPlayer} className={"demo-media-player"}>
                                     <div style={styles.demoMediaContent} className={"demo-media-content"}>
                                         {
-
+                                            getDemoContent()
                                         }
                                     </div>
 
-                                    <ArrowBack style={{
+                                    <ArrowBack button style={{
                                         width: 3 + "em", height: 3 + "em",
-                                        marin: "auto auto auto 0"
-                                    }}/>
+                                        marin: "auto auto auto 0", cursor: getLeftButtonCursor()
+                                    }} onClick={handleLeftButton}/>
 
-                                    <ArrowForward style={{
+                                    <ArrowForward button style={{
                                         width: 3 + "em", height: 3 + "em",
-                                        marin: "auto 0 auto auto"
-                                    }}/>
+                                        marin: "auto 0 auto auto", cursor: getRightButtonCursor()
+                                    }} onClick={handleRightButton}/>
                                 </div>
                             )
                             : ((demoMediaError) ? (<span>DEMO MEDIA NOT FOUND</span>) : (<span>DEMO MEDIA DATA LOADING</span>))
