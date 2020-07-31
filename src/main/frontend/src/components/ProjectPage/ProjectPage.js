@@ -90,7 +90,8 @@ const ProjectPage = (props) => {
 
     // Method for returning DemoMedia of TXT type
     const getDemoText = (url) => {
-        return (<p><iframe src={url} style={{maxWidth: "inherit", maxHeight: "inherit", frameBorder: 0}}>
+        return (<p><iframe src={url} style={{maxWidth: "inherit", maxHeight: "inherit", frameBorder: 0,
+                minWidth: 100 + "%", minHeight: 50 + "vh"}}>
                 Browser not compatible
             </iframe></p>
         );
