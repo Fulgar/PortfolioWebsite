@@ -82,7 +82,7 @@ const ProjectPage = (props) => {
 
     // Method for returning DemoMedia of VID type
     const getDemoVideo = (url) => {
-        return (<video style={{maxWidth: "inherit", maxHeight: "inherit"}}>
+        return (<video controls={true} style={{maxWidth: "inherit", maxHeight: "inherit"}}>
                 <source src={url} type={"video/mp4"}/>
             </video>
         );
