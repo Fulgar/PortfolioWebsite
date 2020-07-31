@@ -96,6 +96,15 @@ const ProjectPage = (props) => {
         );
     };
 
+    // Method for returning DemoMedia of PDF type
+    const getDemoPDF = (url) => {
+        return (<iframe src={url} style={{maxWidth: "inherit", maxHeight: 100 + "%", frameBorder: 0,
+            minWidth: 100 + "%", minHeight: 80 + "vh"}}>
+                Browser not compatible
+            </iframe>
+        );
+    };
+
     // Method for returning appropriate DemoMedia content
     const getDemoContent = () => {
         if (isDemoMediaLoaded) {
@@ -113,6 +122,8 @@ const ProjectPage = (props) => {
                         return getDemoVideo(mediaURL);
                     case "TXT":
                         return getDemoText(mediaURL);
+                    case "PDF":
+                        return getDemoPDF(mediaURL);
                     default:
                         return (<Typography variant={"body1"}>Demo Media does not exist</Typography>);
                 }
