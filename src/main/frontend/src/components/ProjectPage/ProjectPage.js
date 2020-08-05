@@ -113,7 +113,6 @@ const ProjectPage = (props) => {
                 const demoRow = demoMediaData[demoMediaIndex];
                 const mediaType = demoRow["mediaType"];
                 const mediaTitle = demoRow["mediaTitle"];
-                const mediaCaption = demoRow["mediaCaption"];
                 const mediaURL = demoRow["url"];
 
                 switch (mediaType) {
