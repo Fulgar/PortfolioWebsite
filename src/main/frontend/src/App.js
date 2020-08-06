@@ -14,6 +14,7 @@ import {Button, createMuiTheme, MuiThemeProvider} from '@material-ui/core';
 import CssBaseline from "@material-ui/core/CssBaseline"
 import { AppBar, Toolbar, Typography } from "@material-ui/core";
 import ProjectPage from "./components/ProjectPage/ProjectPage";
+import AdminConsole from "./components/AdminConsole/AdminConsole";
 
 const theme = createMuiTheme({
     palette: {
@@ -64,12 +65,16 @@ function App() {
                             return <ProjectPage projectID={props.match.params.projectID}/>
                         }}/>
 
+                        <Route path={ "/admin" }>
+                            <AdminConsole/>
+                        </Route>
+
                         <Route exact path={ "/" }>
                             <Homepage/>
                         </Route>
 
                         <Route>
-                            <b style={{fontSize: 2 + 'em'}}>Unknown page URL</b>
+                            <Typography color={"secondary"} variant={"h6"}>Unknown Page URL</Typography>
                         </Route>
                     </Switch>
                 </div>
