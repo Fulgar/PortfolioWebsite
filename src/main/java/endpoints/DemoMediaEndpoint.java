@@ -54,6 +54,18 @@ public class DemoMediaEndpoint
 		return demoMediaService.createDemoMedia(demoMediaDTO);
 	}
 
+
+	@PUT
+	@RolesAllowed({"User"})
+	@Path("/update")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public DemoMediaDTO update(DemoMediaDTO demoMediaDTO) throws SQLException
+	{
+		return demoMediaService.updateDemoMedia(demoMediaDTO);
+	}
+
+
 	@DELETE
 	@RolesAllowed({"User"})
 	@Path("/{ID}")

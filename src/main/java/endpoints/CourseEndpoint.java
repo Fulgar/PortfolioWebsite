@@ -54,6 +54,18 @@ public class CourseEndpoint
 		return courseService.createCourse(courseDTO);
 	}
 
+
+	@PUT
+	@RolesAllowed({"User"})
+	@Path("/update")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public CourseDTO update(CourseDTO courseDTO) throws SQLException
+	{
+		return courseService.updateCourse(courseDTO);
+	}
+
+
 	@DELETE
 	@RolesAllowed({"User"})
 	@Path("/{ID}")

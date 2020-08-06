@@ -54,6 +54,18 @@ public class ProjectTypeEndpoint
 		return projectTypeService.createProjectType(projectTypeDTO);
 	}
 
+
+	@PUT
+	@RolesAllowed({"User"})
+	@Path("/update")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public ProjectTypeDTO update(ProjectTypeDTO projectTypeDTO) throws SQLException
+	{
+		return projectTypeService.updateProjectType(projectTypeDTO);
+	}
+
+
 	@DELETE
 	@RolesAllowed({"User"})
 	@Path("/{ID}")

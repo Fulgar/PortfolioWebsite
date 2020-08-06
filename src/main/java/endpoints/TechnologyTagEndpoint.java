@@ -55,6 +55,18 @@ public class TechnologyTagEndpoint
 		return technologyTagService.createTechnologyTag(technologyTagDTO);
 	}
 
+
+	@PUT
+	@RolesAllowed({"User"})
+	@Path("/update")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public TechnologyTagDTO update(TechnologyTagDTO technologyTagDTO) throws SQLException
+	{
+		return technologyTagService.updateTechnologyTag(technologyTagDTO);
+	}
+
+
 	@DELETE
 	@RolesAllowed({"User"})
 	@Path("/{ID}")

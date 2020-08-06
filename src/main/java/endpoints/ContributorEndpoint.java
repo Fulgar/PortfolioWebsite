@@ -55,6 +55,18 @@ public class ContributorEndpoint
 		return contributorService.createContributor(contributorDTO);
 	}
 
+
+	@PUT
+	@RolesAllowed({"User"})
+	@Path("/update")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public ContributorDTO update(ContributorDTO contributorDTO) throws SQLException
+	{
+		return contributorService.updateContributor(contributorDTO);
+	}
+
+
 	@DELETE
 	@RolesAllowed({"User"})
 	@Path("/{ID}")
