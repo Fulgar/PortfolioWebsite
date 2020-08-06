@@ -1,15 +1,17 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, {Component} from 'react';
 import './PrivateRoute.css';
+import {Redirect, Route} from "react-router-dom";
 
-const PrivateRoute = () => (
-  <div className="PrivateRoute">
-    PrivateRoute Component
-  </div>
-);
+function PrivateRoute ({component: Component, authorized, ...rest}) {
+    return (
+        <Route
+            {...rest}
+            render={(props) => authorized === true
+                ? <Component {...props} />
+                : <Redirect to={{pathname: '/admin', state: {from: props.location}}} />}
+        />
+    )
+}
 
-PrivateRoute.propTypes = {};
-
-PrivateRoute.defaultProps = {};
 
 export default PrivateRoute;

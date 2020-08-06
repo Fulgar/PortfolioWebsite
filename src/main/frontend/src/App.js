@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import Homepage from "./components/Homepage/Homepage";
 import NavBar from "./components/NavBar/NavBar";
@@ -16,6 +16,7 @@ import { AppBar, Toolbar, Typography } from "@material-ui/core";
 import ProjectPage from "./components/ProjectPage/ProjectPage";
 import AdminConsole from "./components/AdminConsole/AdminConsole";
 import AdminLogin from "./components/AdminLogin/AdminLogin";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 
 const theme = createMuiTheme({
     palette: {
@@ -46,46 +47,47 @@ const theme = createMuiTheme({
 });
 
 function App() {
-  return (
-    <div className="App">
-        <Router>
-            <MuiThemeProvider theme={ theme }>
-                <CssBaseline/>
-                <NavBar/>
-                <div className={ "main-body" }>
-                    <Switch>
-                        <Route path={ "/about" }>
-                            <AboutMe/>
-                        </Route>
+    // Admin Authorization
+    const [authorized, setAuthorized] = useState(false);
 
-                        <Route exact path={ "/projects" }>
-                            <Projects/>
-                        </Route>
+    return (
+        <div className="App">
+            <Router>
+                <MuiThemeProvider theme={ theme }>
+                    <CssBaseline/>
+                    <NavBar/>
+                    <div className={ "main-body" }>
+                        <Switch>
+                            <Route path={ "/about" }>
+                                <AboutMe/>
+                            </Route>
 
-                        <Route path={ `/projects/:projectID` } render={(props) => {
-                            return <ProjectPage projectID={props.match.params.projectID}/>
-                        }}/>
+                            <Route exact path={ "/projects" }>
+                                <Projects/>
+                            </Route>
 
-                        <Route exact path={ "/admin" }>
-                            <AdminLogin/>
-                        </Route>
+                            <Route path={ `/projects/:projectID` } render={(props) => {
+                                return <ProjectPage projectID={props.match.params.projectID}/>
+                            }}/>
 
-                        <Route exact path={ "/admin/view" }>
-                            <AdminConsole/>
-                        </Route>
+                            <Route exact path={ "/admin" }>
+                                <AdminLogin/>
+                            </Route>
 
-                        <Route exact path={ "/" }>
-                            <Homepage/>
-                        </Route>
+                            <PrivateRoute path={ "/admin/view" } authorized={useState(authorized)} component={ AdminConsole }/>
 
-                        <Route>
-                            <Typography color={"secondary"} variant={"h6"}>Unknown Page URL</Typography>
-                        </Route>
-                    </Switch>
-                </div>
-            </MuiThemeProvider>
-        </Router>
-    </div>
+                            <Route exact path={ "/" }>
+                                <Homepage/>
+                            </Route>
+
+                            <Route>
+                                <Typography color={"secondary"} variant={"h6"}>Unknown Page URL</Typography>
+                            </Route>
+                        </Switch>
+                    </div>
+                </MuiThemeProvider>
+            </Router>
+        </div>
   );
 }
 
