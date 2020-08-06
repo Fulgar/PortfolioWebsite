@@ -15,6 +15,7 @@ import CssBaseline from "@material-ui/core/CssBaseline"
 import { AppBar, Toolbar, Typography } from "@material-ui/core";
 import ProjectPage from "./components/ProjectPage/ProjectPage";
 import AdminConsole from "./components/AdminConsole/AdminConsole";
+import AdminLogin from "./components/AdminLogin/AdminLogin";
 
 const theme = createMuiTheme({
     palette: {
@@ -65,7 +66,11 @@ function App() {
                             return <ProjectPage projectID={props.match.params.projectID}/>
                         }}/>
 
-                        <Route path={ "/admin" }>
+                        <Route exact path={ "/admin" }>
+                            <AdminLogin/>
+                        </Route>
+
+                        <Route exact path={ "/admin/view" }>
                             <AdminConsole/>
                         </Route>
 
