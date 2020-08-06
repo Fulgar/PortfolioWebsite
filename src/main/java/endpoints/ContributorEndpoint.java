@@ -5,6 +5,7 @@ import services.ContributorService;
 import services.DTONullException;
 import services.ListEmptyException;
 
+import javax.annotation.security.RolesAllowed;
 import javax.print.attribute.standard.Media;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -45,6 +46,7 @@ public class ContributorEndpoint
 
 
 	@POST
+	@RolesAllowed({"User"})
 	@Path("/create")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -54,6 +56,7 @@ public class ContributorEndpoint
 	}
 
 	@DELETE
+	@RolesAllowed({"User"})
 	@Path("/{ID}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void remove(@PathParam("ID") int ID) throws SQLException

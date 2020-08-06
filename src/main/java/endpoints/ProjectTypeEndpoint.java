@@ -5,6 +5,7 @@ import services.ProjectTypeService;
 import services.DTONullException;
 import services.ListEmptyException;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.sql.SQLException;
@@ -44,6 +45,7 @@ public class ProjectTypeEndpoint
 
 
 	@POST
+	@RolesAllowed({"User"})
 	@Path("/create")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -53,6 +55,7 @@ public class ProjectTypeEndpoint
 	}
 
 	@DELETE
+	@RolesAllowed({"User"})
 	@Path("/{ID}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void remove(@PathParam("ID") int ID) throws SQLException

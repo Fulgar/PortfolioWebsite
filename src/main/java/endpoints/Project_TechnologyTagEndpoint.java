@@ -6,6 +6,7 @@ import services.DTONullException;
 import services.ListEmptyException;
 import services.Project_TechnologyTagService;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.sql.SQLException;
@@ -54,6 +55,7 @@ public class Project_TechnologyTagEndpoint
 
 
 	@POST
+	@RolesAllowed({"User"})
 	@Path("/create")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -63,6 +65,7 @@ public class Project_TechnologyTagEndpoint
 	}
 
 	@DELETE
+	@RolesAllowed({"User"})
 	@Path("/{ProjectID}/{TechnologyTagID}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void remove(@PathParam("ProjectID") int projectID, @PathParam("TechnologyTagID") int technologyTagID) throws SQLException
