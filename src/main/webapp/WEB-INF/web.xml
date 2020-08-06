@@ -25,6 +25,15 @@
         <role-name>User</role-name>
     </security-role>
 
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>AdminForm</realm-name>
+        <form-login-config>
+            <form-login-page>/admin</form-login-page>
+            <form-error-page>/admin</form-error-page>
+        </form-login-config>
+    </login-config>
+
     <context-param>
         <param-name>resteasy.role.based.security</param-name>
         <param-value>true</param-value>
