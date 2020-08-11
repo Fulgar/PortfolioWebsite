@@ -14,7 +14,7 @@
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>PortfolioProjectResource</web-resource-name>
-            <url-pattern>/portfolio/*</url-pattern>
+            <url-pattern>/portfolio/getAuthorization</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <role-name>User</role-name>
@@ -24,15 +24,6 @@
     <security-role>
         <role-name>User</role-name>
     </security-role>
-
-    <login-config>
-        <auth-method>FORM</auth-method>
-        <realm-name>AdminForm</realm-name>
-        <form-login-config>
-            <form-login-page>/admin</form-login-page>
-            <form-error-page>/admin</form-error-page>
-        </form-login-config>
-    </login-config>
 
     <context-param>
         <param-name>resteasy.role.based.security</param-name>

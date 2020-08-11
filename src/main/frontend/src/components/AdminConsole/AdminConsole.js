@@ -1,10 +1,17 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './AdminConsole.css';
+import Typography from "@material-ui/core/Typography";
 
-const AdminConsole = () => (
-  <div className="AdminConsole">
+const AdminConsole = (props) => {
 
-  </div>
-);
+  return (
+      <div className="AdminConsole">
+        <Typography style={{padding: 1 + "em"}} color={"secondary"} variant={"h3"}>
+          ADMIN PANEL
+        </Typography>
+
+      </div>
+  );
+};
 
 export default AdminConsole;

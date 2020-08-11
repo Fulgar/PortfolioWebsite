@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 import Homepage from "./components/Homepage/Homepage";
 import NavBar from "./components/NavBar/NavBar";
@@ -6,7 +6,7 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
+    Link, Redirect
 } from "react-router-dom";
 import AboutMe from "./components/AboutMe/AboutMe";
 import Projects from "./components/Projects/Projects";
@@ -48,7 +48,11 @@ const theme = createMuiTheme({
 
 function App() {
     // Admin Authorization
-    const [authorized, setAuthorized] = useState(false);
+    const [authorizedAdmin, setAuthorizedAdmin] = useState(false);
+
+    function handleAuthChange(newValue) {
+        setAuthorizedAdmin(newValue);
+    }
 
     return (
         <div className="App">
@@ -71,10 +75,15 @@ function App() {
                             }}/>
 
                             <Route exact path={ "/admin" }>
-                                <AdminLogin/>
+                                {
+                                    authorizedAdmin
+                                        ? <Redirect to={"/admin/view"}/>
+                                        : <AdminLogin authorizedAdmin={authorizedAdmin} onChange={(newValue) => handleAuthChange(newValue)}
+                                    />
+                                }
                             </Route>
 
-                            <PrivateRoute path={ "/admin/view" } authorized={useState(authorized)} component={ AdminConsole }/>
+                            <PrivateRoute path={ "/admin/view" } authorizedAdmin={authorizedAdmin} component={ AdminConsole }/>
 
                             <Route exact path={ "/" }>
                                 <Homepage/>

@@ -144,8 +144,6 @@ const Projects = () => {
                 newFilterList.push(techRow["technologyName"])
             });
             setFilterList(newFilterList);
-            console.log("Use effect called");
-            console.log(filterList);
         }
     }, [isTechnologyTagLoaded]);
 

@@ -21,6 +21,7 @@ public class ApplicationController extends Application
 		singletons.add(new ProjectEndpoint());
 		singletons.add(new ProjectTypeEndpoint());
 		singletons.add(new TechnologyTagEndpoint());
+		singletons.add(new AuthEndpoint());
 	}
 
 	@Override
