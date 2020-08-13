@@ -6,7 +6,8 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import TableCell from "@material-ui/core/TableCell";
-import {ArrowDownward, ArrowUpward} from "@material-ui/icons";
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 import TableBody from "@material-ui/core/TableBody";
 import TableContainer from "@material-ui/core/TableContainer";
 
@@ -17,6 +18,9 @@ const styles = {
         borderLeftStyle: "solid", borderRightStyle: "solid",
         borderTopWidth: 0 + "px", borderBottomWidth: 0 + "px",
         borderColor: "#242F40"
+    },
+    tableBodyCellInner: {
+        display: "flex", justifyContent: "center", alignItems: "center"
     },
     tableHeadCell: {
         borderLeftWidth: 1 + "px", borderRightWidth: 1 + "px",
@@ -50,6 +54,14 @@ const AdminContributorTable = () => {
         {
             name: "Github Profile",
             prop: "githubProfileLink"
+        },
+        {
+            name: "Edit",
+            prop: "edit"
+        },
+        {
+            name: "Delete",
+            prop: "delete"
         }
     ]);
 
@@ -138,9 +150,11 @@ const AdminContributorTable = () => {
                                     // Only return body row if there are no current filter rules against it
                                     return (
                                         <TableRow component={Paper} elevation={15} key={`tr-${i}`}>
-                                            <TableCell style={styles.tableBodyCell}>{body.firstName}</TableCell>
-                                            <TableCell style={styles.tableBodyCell}>{body.lastName}</TableCell>
-                                            <TableCell style={styles.tableBodyCell}>{body.githubProfileLink}</TableCell>
+                                            <TableCell style={styles.tableBodyCell}><span style={styles.tableBodyCellInner}>{body.firstName}</span></TableCell>
+                                            <TableCell style={styles.tableBodyCell}><span style={styles.tableBodyCellInner}>{body.lastName}</span></TableCell>
+                                            <TableCell style={styles.tableBodyCell}><span style={styles.tableBodyCellInner}>{body.githubProfileLink}</span></TableCell>
+                                            <TableCell style={styles.tableBodyCell}><span style={styles.tableBodyCellInner}><a><EditIcon/></a></span></TableCell>
+                                            <TableCell style={styles.tableBodyCell}><span style={styles.tableBodyCellInner}><a><DeleteIcon/></a></span></TableCell>
                                         </TableRow>
                                     );
                                 })
