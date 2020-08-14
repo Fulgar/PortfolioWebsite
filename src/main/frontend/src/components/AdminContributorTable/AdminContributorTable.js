@@ -174,12 +174,12 @@ const AdminContributorTable = (props) => {
                                             <TableCell style={styles.tableBodyCell}><span style={styles.tableBodyCellInner}>{body.githubProfileLink}</span></TableCell>
                                             <TableCell style={styles.tableBodyCell}>
                                                 <span style={styles.tableBodyCellInner}>
-                                                    <a><EditIcon/></a>
+                                                    <a style={{cursor: "pointer"}}><EditIcon/></a>
                                                 </span>
                                             </TableCell>
                                             <TableCell style={styles.tableBodyCell}>
                                                 <span style={styles.tableBodyCellInner}>
-                                                    <a onClick={() => {deleteModal(body.contributorID)}}><DeleteIcon/></a>
+                                                    <a style={{cursor: "pointer"}} onClick={() => {deleteModal(body.contributorID)}}><DeleteIcon/></a>
                                                 </span>
                                             </TableCell>
                                         </TableRow>
