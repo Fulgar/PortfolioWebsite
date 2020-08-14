@@ -3,6 +3,7 @@ import './AdminConsole.css';
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import AdminContributorTable from "../AdminContributorTable/AdminContributorTable";
+import Modal from "@material-ui/core/Modal";
 
 const AdminConsole = (props) => {
 
@@ -14,6 +15,13 @@ const AdminConsole = (props) => {
 
           <Paper className={"contributor-view"} elevation={10}>
               <AdminContributorTable/>
+              <Modal
+                  className={"admin-contributor-add-modal"}
+                  open={contributorAddOpen}
+                  onClose={handleContributorAddClose}
+              >
+
+              </Modal>
           </Paper>
       </div>
   );
