@@ -13,14 +13,14 @@ const styles = {
         display: "flex", justifyContent: "center", alignItems: "center"
     },
     button: {
-        marginRight: "auto", display: "block", marginBottom: 0.5 + "em"
+        marginRight: "auto", marginLeft: "auto", display: "block", marginBottom: 0.5 + "em"
     },
     paper: {
         padding: 1 + "em"
     },
     paperInner: {
         display: "block"
-    }
+    },
 };
 
 const AdminConsole = (props) => {
@@ -50,9 +50,17 @@ const AdminConsole = (props) => {
 
           <Paper style={styles.paper} className={"contributor-view"} elevation={10}>
               <div className={"paper-inner"} style={styles.paperInner}>
-                  <Button style={styles.button} variant={"contained"} color={"primary"} onClick={handleContributorAddOpen}>
-                      <span style={styles.addButtonInner}><AddIcon/> Add Contributor</span>
-                  </Button>
+                  <span>
+                      <Typography color={"primary"} variant={"h4"}>
+                          Contributors
+                      </Typography>
+
+                      <Button style={styles.button} variant={"contained"} color={"primary"} onClick={handleContributorAddOpen}>
+                          <span style={styles.addButtonInner}><AddIcon/> Add Contributor</span>
+                      </Button>
+                  </span>
+
+
                   <AdminContributorTable renderCount={contributorRerenderCount}/>
                   <Modal
                       className={"admin-contributor-add-modal"}
