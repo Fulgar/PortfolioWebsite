@@ -11,6 +11,15 @@ import AddIcon from '@material-ui/icons/Add';
 const styles = {
     addButtonInner: {
         display: "flex", justifyContent: "center", alignItems: "center"
+    },
+    button: {
+        marginRight: "auto", display: "block", marginBottom: 0.5 + "em"
+    },
+    paper: {
+        padding: 1 + "em"
+    },
+    paperInner: {
+        display: "block"
     }
 };
 
@@ -39,18 +48,20 @@ const AdminConsole = (props) => {
               ADMIN PANEL
           </Typography>
 
-          <Paper className={"contributor-view"} elevation={10}>
-              <Button variant={"contained"} color={"primary"} onClick={handleContributorAddOpen}>
-                  <span style={styles.addButtonInner}><AddIcon/> Add Contributor</span>
-              </Button>
-              <AdminContributorTable renderCount={contributorRerenderCount}/>
-              <Modal
-                  className={"admin-contributor-add-modal"}
-                  open={contributorAddOpen}
-                  onClose={handleContributorAddClose}
-              >
-                  <AdminContributorAddModal onChange={() => {handleContributorAddUpdate()}}/>
-              </Modal>
+          <Paper style={styles.paper} className={"contributor-view"} elevation={10}>
+              <div className={"paper-inner"} style={styles.paperInner}>
+                  <Button style={styles.button} variant={"contained"} color={"primary"} onClick={handleContributorAddOpen}>
+                      <span style={styles.addButtonInner}><AddIcon/> Add Contributor</span>
+                  </Button>
+                  <AdminContributorTable renderCount={contributorRerenderCount}/>
+                  <Modal
+                      className={"admin-contributor-add-modal"}
+                      open={contributorAddOpen}
+                      onClose={handleContributorAddClose}
+                  >
+                      <AdminContributorAddModal onChange={() => {handleContributorAddUpdate()}}/>
+                  </Modal>
+              </div>
           </Paper>
       </div>
   );
