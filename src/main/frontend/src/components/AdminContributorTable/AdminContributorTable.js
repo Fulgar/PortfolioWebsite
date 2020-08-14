@@ -10,6 +10,8 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import TableBody from "@material-ui/core/TableBody";
 import TableContainer from "@material-ui/core/TableContainer";
+import Modal from "@material-ui/core/Modal";
+import AdminContributorDeleteModal from "./AdminContributorDeleteModal/AdminContributorDeleteModal";
 
 // Styles Object
 const styles = {
@@ -75,7 +77,23 @@ const AdminContributorTable = (props) => {
     const [error, setError] = useState(null);
     const [isContributorLoaded, setIsContributorLoaded] = useState(false);
 
-    // Is executed only on first render of component and upon update of rerenderCounter
+    // Contributor Delete Modal fields
+    const [contributorDeleteOpen, setContributorDeleteOpen] = useState(false);
+    const handleContributorDeleteOpen = () => {
+        setContributorDeleteOpen(true);
+    };
+    const handleContributorDeleteClose = () => {
+        setContributorDeleteOpen(false);
+    };
+    // Represents the row that is selected for deletion
+    const [deleteSelectID, setDeleteSelectID] = useState(-1);
+
+    const deleteModal = (contributorID) => {
+        setDeleteSelectID(contributorID);
+        handleContributorDeleteOpen();
+    };
+
+    // Is executed only on first render of component and upon update of addRenderCount
     useEffect(() => {
         // Fetch all Contributor database data via GET request
         fetch("/portfolio/contributor/getAll")
@@ -91,7 +109,7 @@ const AdminContributorTable = (props) => {
                     setError(error);
                 }
             );
-    }, [props.renderCount]);
+    }, [props.addRenderCount]);
 
     // If HTTP or internal server error occurs
     if (error) {
@@ -108,12 +126,14 @@ const AdminContributorTable = (props) => {
             for (let i = 0; i < contributorData.length; i++) {
                 // Set various table contributor fields
                 const contributorDataObj = contributorData[i];
+                let contributorID = contributorDataObj["contributorID"];
                 let firstName = contributorDataObj["firstName"];
                 let lastName = contributorDataObj["lastName"];
                 let githubProfile = contributorDataObj["githubProfileLink"];
 
                 // Push table body data to temp container
                 newBodyData.push({
+                    contributorID: contributorID,
                     firstName: firstName,
                     lastName: lastName,
                     githubProfileLink: githubProfile
@@ -152,8 +172,16 @@ const AdminContributorTable = (props) => {
                                             <TableCell style={styles.tableBodyCell}><span style={styles.tableBodyCellInner}>{body.firstName}</span></TableCell>
                                             <TableCell style={styles.tableBodyCell}><span style={styles.tableBodyCellInner}>{body.lastName}</span></TableCell>
                                             <TableCell style={styles.tableBodyCell}><span style={styles.tableBodyCellInner}>{body.githubProfileLink}</span></TableCell>
-                                            <TableCell style={styles.tableBodyCell}><span style={styles.tableBodyCellInner}><a><EditIcon/></a></span></TableCell>
-                                            <TableCell style={styles.tableBodyCell}><span style={styles.tableBodyCellInner}><a><DeleteIcon/></a></span></TableCell>
+                                            <TableCell style={styles.tableBodyCell}>
+                                                <span style={styles.tableBodyCellInner}>
+                                                    <a><EditIcon/></a>
+                                                </span>
+                                            </TableCell>
+                                            <TableCell style={styles.tableBodyCell}>
+                                                <span style={styles.tableBodyCellInner}>
+                                                    <a onClick={() => {deleteModal(body.contributorID)}}><DeleteIcon/></a>
+                                                </span>
+                                            </TableCell>
                                         </TableRow>
                                     );
                                 })
@@ -161,6 +189,14 @@ const AdminContributorTable = (props) => {
                         </TableBody>
                     </Table>
                 </TableContainer>
+
+                <Modal
+                    className={"admin-contributor-delete-modal"}
+                    open={contributorDeleteOpen}
+                    onClose={handleContributorDeleteClose}
+                >
+                    <AdminContributorDeleteModal contributorID={deleteSelectID}/>
+                </Modal>
             </div>
         );
     }

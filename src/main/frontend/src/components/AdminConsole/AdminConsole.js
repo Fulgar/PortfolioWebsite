@@ -61,7 +61,7 @@ const AdminConsole = (props) => {
                   </span>
 
 
-                  <AdminContributorTable renderCount={contributorRerenderCount}/>
+                  <AdminContributorTable addRenderCount={contributorRerenderCount}/>
                   <Modal
                       className={"admin-contributor-add-modal"}
                       open={contributorAddOpen}
