@@ -21,9 +21,17 @@ const AdminConsole = (props) => {
     const handleContributorAddOpen = () => {
         setContributorAddOpen(true);
     };
+
     const handleContributorAddClose = () => {
         setContributorAddOpen(false);
     };
+
+    const handleContributorAddUpdate = () => {
+        handleContributorAddClose();
+        setContributorRerenderCount(contributorRerenderCount + 1);
+    };
+
+    const [contributorRerenderCount, setContributorRerenderCount] = useState(0);
 
     return (
       <div className="AdminConsole">
@@ -35,13 +43,13 @@ const AdminConsole = (props) => {
               <Button variant={"contained"} color={"primary"} onClick={handleContributorAddOpen}>
                   <span style={styles.addButtonInner}><AddIcon/> Add Contributor</span>
               </Button>
-              <AdminContributorTable/>
+              <AdminContributorTable renderCount={contributorRerenderCount}/>
               <Modal
                   className={"admin-contributor-add-modal"}
                   open={contributorAddOpen}
                   onClose={handleContributorAddClose}
               >
-                  <AdminContributorAddModal/>
+                  <AdminContributorAddModal onChange={() => {handleContributorAddUpdate()}}/>
               </Modal>
           </Paper>
       </div>

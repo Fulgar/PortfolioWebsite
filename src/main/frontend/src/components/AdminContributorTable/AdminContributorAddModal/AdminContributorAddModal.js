@@ -18,11 +18,18 @@ const styles = {
     }
 };
 
-const AdminContributorAddModal = () => {
+const AdminContributorAddModal = (props) => {
     // Form data
     const [newFirstName, setNewFirstName] = useState("");
     const [newLastName, setNewLastName] = useState("");
     const [newGithubProfile, setNewGithubProfile] = useState("");
+
+    // Submission status
+    const [submitted, setSubmitted] = useState(false);
+
+    function handleChange() {
+        props.onChange();
+    }
 
     const handleSubmit = async () => {
         const data = {
@@ -43,9 +50,12 @@ const AdminContributorAddModal = () => {
                 redirect: "follow",
                 referrerPolicy: "no-referrer",
                 body: JSON.stringify(data)
-            });
+            }).then(setSubmitted(true));
     };
 
+    if (submitted) {
+        handleChange();
+    }
     return (
         <Paper style={styles.modalStyle} elevation={10} className="AdminContributorAddModal">
             <div className={"ContributorAddModalInner"}>

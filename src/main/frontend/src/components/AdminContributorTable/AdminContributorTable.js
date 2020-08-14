@@ -40,7 +40,7 @@ const styles = {
     }
 };
 
-const AdminContributorTable = () => {
+const AdminContributorTable = (props) => {
     // Contains corresponding labels and properties for Table head
     const [header, setHeader] = useState([
         {
@@ -75,7 +75,7 @@ const AdminContributorTable = () => {
     const [error, setError] = useState(null);
     const [isContributorLoaded, setIsContributorLoaded] = useState(false);
 
-    // Is executed only on first render of component
+    // Is executed only on first render of component and upon update of rerenderCounter
     useEffect(() => {
         // Fetch all Contributor database data via GET request
         fetch("/portfolio/contributor/getAll")
@@ -84,15 +84,14 @@ const AdminContributorTable = () => {
                 (result) => {
                     setContributorData(result);
                     setIsContributorLoaded(true);
+                    setBodyData([]);
                 },
                 (error) => {
                     console.error(error);
                     setError(error);
                 }
             );
-    }, []);
-
-
+    }, [props.renderCount]);
 
     // If HTTP or internal server error occurs
     if (error) {
