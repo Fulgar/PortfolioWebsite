@@ -43,13 +43,16 @@ const AdminContributorDeleteModal = (props) => {
     // Handler method for submit button
     const handleSubmit = async () => {
         if (projectContributorData.length !== 0) {
-            await projectContributorData.map((projectAssociation, i) => {
-                deleteProjectContributor(projectAssociation.projectID);
+            projectContributorData.map(async (projectAssociation, i) => {
+                await deleteProjectContributor(projectAssociation.projectID);
+                console.log("Deleted projectContributor");
             });
             await deleteContributor();
+            console.log("Deleted contributor");
         }
         else {
             await deleteContributor();
+            console.log("Deleted contributor");
         }
 
     };
