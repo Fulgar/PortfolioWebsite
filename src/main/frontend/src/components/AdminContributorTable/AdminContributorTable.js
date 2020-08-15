@@ -92,6 +92,12 @@ const AdminContributorTable = (props) => {
         setDeleteSelectID(contributorID);
         handleContributorDeleteOpen();
     };
+    // Re-render count from deletion
+    const [deleteRenderCount, setDeleteRenderCount] = useState(0);
+    const handleContributorAddUpdate = () => {
+        handleContributorDeleteClose();
+        setDeleteRenderCount(deleteRenderCount + 1);
+    };
 
     // Is executed only on first render of component and upon update of addRenderCount
     useEffect(() => {
@@ -109,7 +115,7 @@ const AdminContributorTable = (props) => {
                     setError(error);
                 }
             );
-    }, [props.addRenderCount]);
+    }, [props.addRenderCount, deleteRenderCount]);
 
     // If HTTP or internal server error occurs
     if (error) {
@@ -195,7 +201,7 @@ const AdminContributorTable = (props) => {
                     open={contributorDeleteOpen}
                     onClose={handleContributorDeleteClose}
                 >
-                    <AdminContributorDeleteModal contributorID={deleteSelectID}/>
+                    <AdminContributorDeleteModal contributorID={deleteSelectID} onChange={() => {handleContributorAddUpdate()}}/>
                 </Modal>
             </div>
         );

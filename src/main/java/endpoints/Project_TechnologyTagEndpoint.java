@@ -50,7 +50,7 @@ public class Project_TechnologyTagEndpoint
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Project_TechnologyTagDTO> getListByContributorID(@PathParam("TechnologyTagID") int technologyTagID) throws SQLException, ListEmptyException
 	{
-		return project_TechnologyTagService.getProject_TechnologyTagsByProjectID(technologyTagID);
+		return project_TechnologyTagService.getProject_TechnologyTagsByTechnologyTagID(technologyTagID);
 	}
 
 

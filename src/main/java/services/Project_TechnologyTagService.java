@@ -40,16 +40,10 @@ public class Project_TechnologyTagService
 	 * @throws SQLException
 	 * @throws ListEmptyException
 	 */
-	public List<Project_TechnologyTagDTO> getProject_TechnologyTagsByProjectID(int projectID) throws SQLException, ListEmptyException
+	public List<Project_TechnologyTagDTO> getProject_TechnologyTagsByProjectID(int projectID) throws SQLException
 	{
 		// Unsanitized result
 		List<Project_TechnologyTagDTO> result = project_TechnologyTagDAO.getProject_TechnologyTagsByProjectID(projectID);
-
-		// If list is empty throw exception
-		if (result.size() == 0)
-		{
-			throw new ListEmptyException();
-		}
 
 		return result;
 	}
@@ -62,16 +56,10 @@ public class Project_TechnologyTagService
 	 * @throws SQLException
 	 * @throws ListEmptyException
 	 */
-	public List<Project_TechnologyTagDTO> getProject_TechnologyTagsByTechnologyTagID(int technologyTagID) throws SQLException, ListEmptyException
+	public List<Project_TechnologyTagDTO> getProject_TechnologyTagsByTechnologyTagID(int technologyTagID) throws SQLException
 	{
 		// Unsanitized result
 		List<Project_TechnologyTagDTO> result = project_TechnologyTagDAO.getProject_TechnologyTagsByTechnologyTagID(technologyTagID);
-
-		// If list is empty throw exception
-		if (result.size() == 0)
-		{
-			throw new ListEmptyException();
-		}
 
 		return result;
 	}

@@ -49,7 +49,7 @@ public class Project_ContributorEndpoint
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Project_ContributorDTO> getListByContributorID(@PathParam("ContributorID") int contributorID) throws SQLException, ListEmptyException
 	{
-		return project_ContributorService.getProject_ContributorsByProjectID(contributorID);
+		return project_ContributorService.getProject_ContributorsByContributorID(contributorID);
 	}
 
 
