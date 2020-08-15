@@ -7,6 +7,9 @@ import Modal from "@material-ui/core/Modal";
 import AdminContributorAddModal from "../AdminContributorTable/AdminContributorAddModal/AdminContributorAddModal";
 import Button from "@material-ui/core/Button";
 import AddIcon from '@material-ui/icons/Add';
+import AdminTechnologyTagTable from "../AdminTechnologyTagTable/AdminTechnologyTagTable";
+import AdminTechnologyTagAddModal
+    from "../AdminTechnologyTagTable/AdminTechnologyTagAddModal/AdminTechnologyTagAddModal";
 
 const styles = {
     addButtonInner: {
@@ -30,17 +33,30 @@ const AdminConsole = (props) => {
     const handleContributorAddOpen = () => {
         setContributorAddOpen(true);
     };
-
     const handleContributorAddClose = () => {
         setContributorAddOpen(false);
     };
-
     const handleContributorAddUpdate = () => {
         handleContributorAddClose();
         setContributorRerenderCount(contributorRerenderCount + 1);
     };
-
     const [contributorRerenderCount, setContributorRerenderCount] = useState(0);
+
+
+    // TechnologyTag Module fields
+    // TechnologyTag "Add" Modal fields
+    const [technologyTagAddOpen, setTechnologyTagAddOpen] = useState(false);
+    const handleTechnologyTagAddOpen = () => {
+        setTechnologyTagAddOpen(true);
+    };
+    const handleTechnologyTagAddClose = () => {
+        setTechnologyTagAddOpen(false);
+    };
+    const handleTechnologyTagAddUpdate = () => {
+        handleTechnologyTagAddClose();
+        setTechnologyTagRerenderCount(technologyTagRerenderCount + 1);
+    };
+    const [technologyTagRerenderCount, setTechnologyTagRerenderCount] = useState(0);
 
     return (
       <div className="AdminConsole">
@@ -68,6 +84,30 @@ const AdminConsole = (props) => {
                       onClose={handleContributorAddClose}
                   >
                       <AdminContributorAddModal onChange={() => {handleContributorAddUpdate()}}/>
+                  </Modal>
+              </div>
+          </Paper>
+
+          <Paper style={styles.paper} className={"technology-tag-view"} elevation={10}>
+              <div className={"paper-inner"} style={styles.paperInner}>
+                  <span>
+                      <Typography color={"primary"} variant={"h4"}>
+                          Technology Tags
+                      </Typography>
+
+                      <Button style={styles.button} variant={"contained"} color={"primary"} onClick={handleTechnologyTagAddOpen}>
+                          <span style={styles.addButtonInner}><AddIcon/> Add Technology Tag</span>
+                      </Button>
+                  </span>
+
+
+                  <AdminTechnologyTagTable addRenderCount={technologyTagRerenderCount}/>
+                  <Modal
+                      className={"admin-technology-tag-add-modal"}
+                      open={technologyTagAddOpen}
+                      onClose={handleTechnologyTagAddClose}
+                  >
+                      <AdminTechnologyTagAddModal onChange={() => {handleTechnologyTagAddUpdate()}}/>
                   </Modal>
               </div>
           </Paper>
