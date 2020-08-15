@@ -12,6 +12,7 @@ import TableBody from "@material-ui/core/TableBody";
 import TableContainer from "@material-ui/core/TableContainer";
 import Modal from "@material-ui/core/Modal";
 import AdminContributorDeleteModal from "./AdminContributorDeleteModal/AdminContributorDeleteModal";
+import AdminContributorEditModal from "./AdminContributorEditModal/AdminContributorEditModal";
 
 // Styles Object
 const styles = {
@@ -94,9 +95,32 @@ const AdminContributorTable = (props) => {
     };
     // Re-render count from deletion
     const [deleteRenderCount, setDeleteRenderCount] = useState(0);
-    const handleContributorAddUpdate = () => {
+    const handleContributorDeleteUpdate = () => {
         handleContributorDeleteClose();
         setDeleteRenderCount(deleteRenderCount + 1);
+    };
+
+
+    // Contributor Edit Modal fields
+    const [contributorEditOpen, setContributorEditOpen] = useState(false);
+    const handleContributorEditOpen = () => {
+        setContributorEditOpen(true);
+    };
+    const handleContributorEditClose = () => {
+        setContributorEditOpen(false);
+    };
+    // Represents the row that is selected for editing
+    const [editSelectID, setEditSelectID] = useState(-1);
+
+    const editModal = (contributorID) => {
+        setEditSelectID(contributorID);
+        handleContributorEditOpen();
+    };
+    // Re-render count from edit-update
+    const [editRenderCount, setEditRenderCount] = useState(0);
+    const handleContributorEditUpdate = () => {
+        handleContributorEditClose();
+        setEditRenderCount(editRenderCount + 1);
     };
 
     // Is executed only on first render of component and upon update of addRenderCount
@@ -115,7 +139,7 @@ const AdminContributorTable = (props) => {
                     setError(error);
                 }
             );
-    }, [props.addRenderCount, deleteRenderCount]);
+    }, [props.addRenderCount, deleteRenderCount, editRenderCount]);
 
     // If HTTP or internal server error occurs
     if (error) {
@@ -180,7 +204,7 @@ const AdminContributorTable = (props) => {
                                             <TableCell style={styles.tableBodyCell}><span style={styles.tableBodyCellInner}>{body.githubProfileLink}</span></TableCell>
                                             <TableCell style={styles.tableBodyCell}>
                                                 <span style={styles.tableBodyCellInner}>
-                                                    <a style={{cursor: "pointer"}}><EditIcon/></a>
+                                                    <a style={{cursor: "pointer"}} onClick={() => {editModal(body.contributorID)}}><EditIcon/></a>
                                                 </span>
                                             </TableCell>
                                             <TableCell style={styles.tableBodyCell}>
@@ -201,7 +225,15 @@ const AdminContributorTable = (props) => {
                     open={contributorDeleteOpen}
                     onClose={handleContributorDeleteClose}
                 >
-                    <AdminContributorDeleteModal contributorID={deleteSelectID} onChange={() => {handleContributorAddUpdate()}}/>
+                    <AdminContributorDeleteModal contributorID={deleteSelectID} onChange={() => {handleContributorDeleteUpdate()}}/>
+                </Modal>
+
+                <Modal
+                    className={"admin-contributor-edit-modal"}
+                    open={contributorEditOpen}
+                    onClose={handleContributorEditClose}
+                >
+                    <AdminContributorEditModal contributorID={editSelectID} onChange={() => {handleContributorEditUpdate()}}/>
                 </Modal>
             </div>
         );

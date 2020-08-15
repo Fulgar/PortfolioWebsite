@@ -45,14 +45,11 @@ const AdminContributorDeleteModal = (props) => {
         if (projectContributorData.length !== 0) {
             projectContributorData.map(async (projectAssociation, i) => {
                 await deleteProjectContributor(projectAssociation.projectID);
-                console.log("Deleted projectContributor");
             });
             await deleteContributor();
-            console.log("Deleted contributor");
         }
         else {
             await deleteContributor();
-            console.log("Deleted contributor");
         }
 
     };
