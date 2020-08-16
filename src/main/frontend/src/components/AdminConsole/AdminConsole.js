@@ -10,6 +10,8 @@ import AddIcon from '@material-ui/icons/Add';
 import AdminTechnologyTagTable from "../AdminTechnologyTagTable/AdminTechnologyTagTable";
 import AdminTechnologyTagAddModal
     from "../AdminTechnologyTagTable/AdminTechnologyTagAddModal/AdminTechnologyTagAddModal";
+import AdminCourseTable from "../AdminCourseTable/AdminCourseTable";
+import AdminCourseAddModal from "../AdminCourseTable/AdminCourseAddModal/AdminCourseAddModal";
 
 const styles = {
     addButtonInner: {
@@ -57,6 +59,22 @@ const AdminConsole = (props) => {
         setTechnologyTagRerenderCount(technologyTagRerenderCount + 1);
     };
     const [technologyTagRerenderCount, setTechnologyTagRerenderCount] = useState(0);
+
+
+    // Course Module fields
+    // Course "Add" Modal fields
+    const [courseAddOpen, setCourseAddOpen] = useState(false);
+    const handleCourseAddOpen = () => {
+        setCourseAddOpen(true);
+    };
+    const handleCourseAddClose = () => {
+        setCourseAddOpen(false);
+    };
+    const handleCourseAddUpdate = () => {
+        handleCourseAddClose();
+        setCourseRerenderCount(courseRerenderCount + 1);
+    };
+    const [courseRerenderCount, setCourseRerenderCount] = useState(0);
 
     return (
       <div className="AdminConsole">
@@ -108,6 +126,30 @@ const AdminConsole = (props) => {
                       onClose={handleTechnologyTagAddClose}
                   >
                       <AdminTechnologyTagAddModal onChange={() => {handleTechnologyTagAddUpdate()}}/>
+                  </Modal>
+              </div>
+          </Paper>
+
+          <Paper style={styles.paper} className={"course-view"} elevation={10}>
+              <div className={"paper-inner"} style={styles.paperInner}>
+                  <span>
+                      <Typography color={"primary"} variant={"h4"}>
+                          Courses
+                      </Typography>
+
+                      <Button style={styles.button} variant={"contained"} color={"primary"} onClick={handleCourseAddOpen}>
+                          <span style={styles.addButtonInner}><AddIcon/> Add Course</span>
+                      </Button>
+                  </span>
+
+
+                  <AdminCourseTable addRenderCount={courseRerenderCount}/>
+                  <Modal
+                      className={"admin-course-add-modal"}
+                      open={courseAddOpen}
+                      onClose={handleCourseAddClose}
+                  >
+                      <AdminCourseAddModal onChange={() => {handleCourseAddUpdate()}}/>
                   </Modal>
               </div>
           </Paper>
