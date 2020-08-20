@@ -312,7 +312,8 @@ const AdminProjectAddModal = (props) => {
                         </FormControl>
 
                         <Divider style={styles.divider}/>
-                        
+
+                        {/*TODO: AdminDemoMediaTable component (with Add, Edit, and Delete sub-components)*/}
                         <br/><br/>
                         <Button style={{margin: "1em auto"}} color={"primary"} variant={"contained"} onClick={() => {handleSubmit()}}>
                             Submit
