@@ -108,62 +108,62 @@ const AdminConsole = (props) => {
     const [projectRerenderCount, setProjectRerenderCount] = useState(0);
 
     return (
-      <div className="AdminConsole">
-          <Typography style={{padding: 1 + "em"}} color={"secondary"} variant={"h3"}>
-              ADMIN PANEL
-          </Typography>
+        <div className="AdminConsole">
+            <Typography style={{padding: 1 + "em"}} color={"secondary"} variant={"h3"}>
+                ADMIN PANEL
+            </Typography>
 
-          <Paper style={styles.paperTop} className={"project-view"} elevation={10}>
-              <div className={"paper-inner"} style={styles.paperInner}>
-                  <span>
-                      <Typography color={"primary"} variant={"h4"}>
-                          Projects
-                      </Typography>
+            <Paper style={styles.paperTop} className={"project-view"} elevation={10}>
+                <div className={"paper-inner"} style={styles.paperInner}>
+                    <span>
+                        <Typography color={"primary"} variant={"h4"}>
+                            Projects
+                        </Typography>
 
-                      <Button style={styles.button} variant={"contained"} color={"primary"} onClick={handleProjectAddOpen}>
-                          <span style={styles.addButtonInner}><AddIcon/> Add Project</span>
-                      </Button>
-                  </span>
-
-
-                  <AdminProjectTable addRenderCount={projectRerenderCount}/>
-                  <Modal
-                      className={"admin-project-add-modal"}
-                      open={projectAddOpen}
-                      onClose={handleProjectAddClose}
-                  >
-                      <AdminProjectAddModal onChange={() => {handleProjectAddUpdate()}}/>
-                  </Modal>
-              </div>
-          </Paper>
-
-          <div style={styles.triplePaperContainer}>
-              <Paper style={styles.paperLeft} className={"contributor-view"} elevation={10}>
-                  <div className={"paper-inner"} style={styles.paperInner}>
-                  <span>
-                      <Typography color={"primary"} variant={"h4"}>
-                          Contributors
-                      </Typography>
-
-                      <Button style={styles.button} variant={"contained"} color={"primary"} onClick={handleContributorAddOpen}>
-                          <span style={styles.addButtonInner}><AddIcon/> Add Contributor</span>
-                      </Button>
-                  </span>
+                        <Button style={styles.button} variant={"contained"} color={"primary"} onClick={handleProjectAddOpen}>
+                            <span style={styles.addButtonInner}><AddIcon/> Add Project</span>
+                        </Button>
+                    </span>
 
 
-                      <AdminContributorTable addRenderCount={contributorRerenderCount}/>
-                      <Modal
-                          className={"admin-contributor-add-modal"}
-                          open={contributorAddOpen}
-                          onClose={handleContributorAddClose}
-                      >
-                          <AdminContributorAddModal onChange={() => {handleContributorAddUpdate()}}/>
-                      </Modal>
-                  </div>
-              </Paper>
+                    <AdminProjectTable addRenderCount={projectRerenderCount}/>
+                    <Modal
+                        className={"admin-project-add-modal"}
+                        open={projectAddOpen}
+                        onClose={handleProjectAddClose}
+                    >
+                        <AdminProjectAddModal onChange={() => {handleProjectAddUpdate()}}/>
+                    </Modal>
+                </div>
+            </Paper>
 
-              <Paper style={styles.paperCenter} className={"technology-tag-view"} elevation={10}>
-                  <div className={"paper-inner"} style={styles.paperInner}>
+            <div style={styles.triplePaperContainer}>
+                <Paper style={styles.paperLeft} className={"contributor-view"} elevation={10}>
+                    <div className={"paper-inner"} style={styles.paperInner}>
+                        <span>
+                            <Typography color={"primary"} variant={"h4"}>
+                                Contributors
+                            </Typography>
+
+                            <Button style={styles.button} variant={"contained"} color={"primary"} onClick={handleContributorAddOpen}>
+                                <span style={styles.addButtonInner}><AddIcon/> Add Contributor</span>
+                            </Button>
+                        </span>
+
+
+                        <AdminContributorTable addRenderCount={contributorRerenderCount}/>
+                        <Modal
+                            className={"admin-contributor-add-modal"}
+                            open={contributorAddOpen}
+                            onClose={handleContributorAddClose}
+                        >
+                            <AdminContributorAddModal onChange={() => {handleContributorAddUpdate()}}/>
+                        </Modal>
+                    </div>
+                </Paper>
+
+                <Paper style={styles.paperCenter} className={"technology-tag-view"} elevation={10}>
+                    <div className={"paper-inner"} style={styles.paperInner}>
                   <span>
                       <Typography color={"primary"} variant={"h4"}>
                           Technology Tags
@@ -175,19 +175,19 @@ const AdminConsole = (props) => {
                   </span>
 
 
-                      <AdminTechnologyTagTable addRenderCount={technologyTagRerenderCount}/>
-                      <Modal
-                          className={"admin-technology-tag-add-modal"}
-                          open={technologyTagAddOpen}
-                          onClose={handleTechnologyTagAddClose}
-                      >
-                          <AdminTechnologyTagAddModal onChange={() => {handleTechnologyTagAddUpdate()}}/>
-                      </Modal>
-                  </div>
-              </Paper>
+                        <AdminTechnologyTagTable addRenderCount={technologyTagRerenderCount} />
+                        <Modal
+                            className={"admin-technology-tag-add-modal"}
+                            open={technologyTagAddOpen}
+                            onClose={handleTechnologyTagAddClose}
+                        >
+                            <AdminTechnologyTagAddModal onChange={() => {handleTechnologyTagAddUpdate()}}/>
+                        </Modal>
+                    </div>
+                </Paper>
 
-              <Paper style={styles.paperRight} className={"course-view"} elevation={10}>
-                  <div className={"paper-inner"} style={styles.paperInner}>
+                <Paper style={styles.paperRight} className={"course-view"} elevation={10}>
+                    <div className={"paper-inner"} style={styles.paperInner}>
                   <span>
                       <Typography color={"primary"} variant={"h4"}>
                           Courses
@@ -199,20 +199,20 @@ const AdminConsole = (props) => {
                   </span>
 
 
-                      <AdminCourseTable addRenderCount={courseRerenderCount}/>
-                      <Modal
-                          className={"admin-course-add-modal"}
-                          open={courseAddOpen}
-                          onClose={handleCourseAddClose}
-                      >
-                          <AdminCourseAddModal onChange={() => {handleCourseAddUpdate()}}/>
-                      </Modal>
-                  </div>
-              </Paper>
-          </div>
+                        <AdminCourseTable addRenderCount={courseRerenderCount}/>
+                        <Modal
+                            className={"admin-course-add-modal"}
+                            open={courseAddOpen}
+                            onClose={handleCourseAddClose}
+                        >
+                            <AdminCourseAddModal onChange={() => {handleCourseAddUpdate()}}/>
+                        </Modal>
+                    </div>
+                </Paper>
+            </div>
 
-      </div>
-  );
+        </div>
+    );
 };
 
 export default AdminConsole;
