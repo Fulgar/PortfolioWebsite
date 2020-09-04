@@ -49,7 +49,7 @@ const styles = {
 	},
 	paperInner: {
 		display: "block"
-	},
+	}
 };
 
 const ITEM_HEIGHT = 48;
@@ -68,11 +68,14 @@ const AdminProjectAddModal = (props) => {
 	const [newProjectTitle, setNewProjectTitle] = useState("");
 	const [newProjectDescription, setNewProjectDescription] = useState("");
 	const [newProjectGithub, setNewProjectGithub] = useState("");
-	const [newProjectType, setNewProjectType] = useState(null);
-	const [newCourse, setNewCourse] = useState(null);
+	const [newProjectType, setNewProjectType] = useState("");
+	const [newCourse, setNewCourse] = useState("");
 	const [newContributors, setNewContributors] = useState([]);
 	const [newTechnologyTags, setNewTechnologyTags] = useState([]);
 	const [newDemoMedia, setNewDemoMedia] = useState([]);
+
+	// Used to store each newly submitted DemoMedia upon submission of DemoMediaAdd
+	const [addDemoMediaData, setAddDemoMediaData] = useState({});
 
 	// Container for all ProjectType database rows
 	const [projectTypeData, setProjectTypeData] = useState([]);
@@ -150,33 +153,50 @@ const AdminProjectAddModal = (props) => {
 	}, []);
 
 	useEffect(() => {
-		console.log("ProjectAddModal Render : newProjectTitle")
+		console.log("ProjectAddModal Render : newProjectTitle");
 	}, [newProjectTitle]);
 	useEffect(() => {
-		console.log("ProjectAddModal Render : newProjectDescription")
+		console.log("ProjectAddModal Render : newProjectDescription");
 	}, [newProjectDescription]);
 	useEffect(() => {
-		console.log("ProjectAddModal Render : newProjectGithub")
+		console.log("ProjectAddModal Render : newProjectGithub");
 	}, [newProjectGithub]);
 	useEffect(() => {
-		console.log("ProjectAddModal Render : newProjectType")
+		console.log("ProjectAddModal Render : newProjectType");
 	}, [newProjectType]);
 	useEffect(() => {
-		console.log("ProjectAddModal Render : newCourse")
+		console.log("ProjectAddModal Render : newCourse");
 	}, [newCourse]);
 	useEffect(() => {
-		console.log("ProjectAddModal Render : newContributors")
+		console.log("ProjectAddModal Render : newContributors");
 	}, [newContributors]);
 	useEffect(() => {
-		console.log("ProjectAddModal Render : newTechnologyTags")
+		console.log("ProjectAddModal Render : newTechnologyTags");
 	}, [newTechnologyTags]);
-	useEffect(() => {
-		console.log("ProjectAddModal Render : newDemoMedia")
-	}, [newDemoMedia]);
 
 	useEffect(() => {
-		console.log("ProjectAddModal Render : submitted")
+		console.log("ProjectAddModal Render : submitted");
 	}, [submitted]);
+
+	useEffect(() => {
+		console.log("ProjectAddModal Render : addDemoMediaData");
+		console.log(addDemoMediaData);
+
+		if (JSON.stringify(addDemoMediaData) !== "{}") {
+			console.log("DEBUG: handleDemoMediaAddUpdate()");
+			console.log("DEBUG: submittedDemoMediaData: ");
+			console.log(addDemoMediaData);
+			let tempDemoMediaData = [...newDemoMedia];
+			tempDemoMediaData.push({...addDemoMediaData});
+			setNewDemoMedia(tempDemoMediaData);
+			setDemoMediaAddOpen(false);
+		}
+	}, [addDemoMediaData]);
+
+	useEffect(() => {
+		console.log("ProjectAddModal Render : newDemoMedia");
+		console.log(newDemoMedia);
+	}, [newDemoMedia]);
 
 	function handleChange() {
 		console.log("DEBUG: handleChange() [AdminProjectAddModal]");
@@ -219,11 +239,9 @@ const AdminProjectAddModal = (props) => {
 		console.log("DEBUG: handleDemoMediaAddClose()");
 		setDemoMediaAddOpen(false);
 	};
-	const handleDemoMediaAddUpdate = () => {
-		console.log("DEBUG: handleDemoMediaAddUpdate()");
-		handleDemoMediaAddClose();
-		setDemoMediaRerenderCount(demoMediaRerenderCount + 1);
-	};
+	// TODO: Need to pass demoMediaData thru from DemoMediaAddModal to DemoMediaTable
+	// TODO: , so maybe instead of using render count for triggering updates, I just use the data itself (For edit and delete update methods as well)
+	// Moved to useEffect
 	const [demoMediaRerenderCount, setDemoMediaRerenderCount] = useState(0);
 
 	if (submitted) {
@@ -404,8 +422,8 @@ const AdminProjectAddModal = (props) => {
                                     </Button>
                                 </span>
 
-								<AdminDemoMediaTable addRenderCount={demoMediaRerenderCount} mode={"projectAdd"}
-								                     tempData={newDemoMedia}/>
+								<AdminDemoMediaTable mode={"projectAdd"}
+								                     parentData={newDemoMedia}/>
 								<Modal
 									className={"admin-demoMedia-add-modal"}
 									open={demoMediaAddOpen}
@@ -413,7 +431,7 @@ const AdminProjectAddModal = (props) => {
 								>
 									<AdminDemoMediaAddModal
 										mode={"projectAdd"}
-										onChange={() => {handleDemoMediaAddUpdate()}}
+										onChange={(submittedDemoMediaData) => {setAddDemoMediaData(submittedDemoMediaData)}}
 									/>
 								</Modal>
 							</div>

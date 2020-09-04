@@ -172,13 +172,13 @@ const AdminDemoMediaTable = (props) => {
 
         // If Adding a new non-existent project
         else if (props.mode === "projectAdd") {
-            console.log("Render: useEffect : projectAdd");
-            // If demoMedia was added then there should be a difference in data in the arrays
-            if (props.tempData !== demoMediaData) {
-                setDemoMediaData(props.tempData);
-                setIsDemoMediaLoaded(true);
-                setBodyData(null);
-            }
+            // console.log("Render: useEffect : projectAdd");
+            // // If demoMedia was added then there should be a difference in data in the arrays
+            // if (props.parentData !== demoMediaData) {
+            //     setDemoMediaData(props.parentData);
+            //     setIsDemoMediaLoaded(true);
+            //     setBodyData(null);
+            // }
         }
 
         else {
@@ -186,7 +186,27 @@ const AdminDemoMediaTable = (props) => {
             console.error("props.mode = " + props.mode);
         }
 
-    }, [props.addRenderCount, props.tempData, deleteRenderCount, editRenderCount]);
+    }, [props.addRenderCount, deleteRenderCount, editRenderCount]);
+
+    // Render every time time props.parentData is altered
+    useEffect(() => {
+        if (props.mode === "projectAdd") {
+            if (props.parentData.length !== 0) {
+                if (props.parentData !== demoMediaData) {
+                    setDemoMediaData(props.parentData);
+
+                    setIsDemoMediaLoaded(true);
+                    setBodyData(null);
+                }
+            }
+            else {
+                if (demoMediaData.length === 0) {
+                    setIsDemoMediaLoaded(true);
+                    setBodyData(null);
+                }
+            }
+        }
+    }, [props.parentData]);
 
 
     // if (props.mode === "projectEdit") {
@@ -208,7 +228,7 @@ const AdminDemoMediaTable = (props) => {
                     const demoMediaDataObj = demoMediaData[i];
                     let demoMediaID = demoMediaDataObj["demoMediaID"];
                     let demoMediaTitle = demoMediaDataObj["mediaTitle"];
-                    let demoMediaType = demoMediaDataObj["demoMediaType"];
+                    let demoMediaType = demoMediaDataObj["mediaType"];
                     let demoURL = demoMediaDataObj["url"];
                     let projectID = demoMediaDataObj["projectID"];
 
