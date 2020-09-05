@@ -304,7 +304,7 @@ const AdminDemoMediaTable = (props) => {
                                 <AdminDemoMediaDeleteModal
                                     mode={props.mode}
                                     demoMediaIndex={deleteIndex}
-                                    allDemoData={demoMediaData}
+                                    selectedDemoDataObj={demoMediaData[editIndex]}
                                     onChange={(newDemoData) => {handleDemoMediaDeleteUpdate(newDemoData)}}
                                 />
                             )
@@ -330,7 +330,7 @@ const AdminDemoMediaTable = (props) => {
                                 <AdminDemoMediaEditModal
                                     mode={props.mode}
                                     demoMediaIndex={editIndex}
-                                    allDemoData={demoMediaData}
+                                    selectedDemoDataObj={demoMediaData[editIndex]}
                                     onChange={() => {handleDemoMediaEditUpdate()}}
                                 />
                             )

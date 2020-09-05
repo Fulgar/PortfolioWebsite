@@ -132,7 +132,7 @@ const AdminDemoMediaAddModal = (props) => {
                     />
 
                     <FormControl variant={"outlined"} style={styles.formContent}>
-                        <InputLabel id="demoMediaType-select-label">DemoMediaTypes</InputLabel>
+                        <InputLabel id="demoMediaType-select-label">Media Type</InputLabel>
                         <Select
                             required
                             className={"demoMediaType-select-form"}
