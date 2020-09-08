@@ -73,6 +73,7 @@ const AdminDemoMediaAddModal = (props) => {
 
     const handleSubmit = async () => {
         const data = {
+            "demoMediaID": "",
             "mediaTitle": newDemoMediaTitle,
             "mediaCaption": newDemoMediaCaption,
             "mediaType": newDemoMediaType,

@@ -239,6 +239,13 @@ const AdminProjectAddModal = (props) => {
 		console.log("DEBUG: handleDemoMediaAddClose()");
 		setDemoMediaAddOpen(false);
 	};
+
+	// Function is fired every time demoMediaData in DemoMediaTable component is changed
+	// and is different from ProjectAdd demoMediaData
+	const handleDemoMediaTableDataChange = (newData) => {
+		setNewDemoMedia([...newData]);
+	};
+
 	// TODO: Need to pass demoMediaData thru from DemoMediaAddModal to DemoMediaTable
 	// TODO: , so maybe instead of using render count for triggering updates, I just use the data itself (For edit and delete update methods as well)
 	// Moved to useEffect
@@ -423,7 +430,9 @@ const AdminProjectAddModal = (props) => {
                                 </span>
 
 								<AdminDemoMediaTable mode={"projectAdd"}
-								                     parentData={newDemoMedia}/>
+								                     parentData={newDemoMedia}
+								                     handleDataChange={(newData) => handleDemoMediaTableDataChange(newData)}
+								/>
 								<Modal
 									className={"admin-demoMedia-add-modal"}
 									open={demoMediaAddOpen}

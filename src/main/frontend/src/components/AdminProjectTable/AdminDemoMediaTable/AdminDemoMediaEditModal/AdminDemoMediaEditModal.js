@@ -30,6 +30,7 @@ const styles = {
 
 const AdminDemoMediaEditModal = (props) => {
 	// Form data
+	const [newDemoMediaID] = useState(props.mode === "projectAdd" ? "" : props.selectedDemoDataObj["demoMediaID"]);
 	const [newDemoMediaTitle, setNewDemoMediaTitle] = useState(props.selectedDemoDataObj["mediaTitle"]);
 	const [newDemoMediaCaption, setNewDemoMediaCaption] = useState(props.selectedDemoDataObj["mediaCaption"]);
 	const [newDemoMediaType, setNewDemoMediaType] = useState(props.selectedDemoDataObj["mediaType"]);
@@ -73,6 +74,7 @@ const AdminDemoMediaEditModal = (props) => {
 
 	const handleSubmit = async () => {
 		const data = {
+			"demoMediaID": newDemoMediaID,
 			"mediaTitle": newDemoMediaTitle,
 			"mediaCaption": newDemoMediaCaption,
 			"mediaType": newDemoMediaType,
@@ -84,9 +86,9 @@ const AdminDemoMediaEditModal = (props) => {
 			handleChange(data);
 		}
 		if (props.mode === "projectEdit") {
-			await fetch("/portfolio/demoMedia/create",
+			await fetch("/portfolio/demoMedia/update",
 				{
-					method: "POST",
+					method: "PUT",
 					mode: "cors",
 					cache: "no-cache",
 					credentials: "same-origin",

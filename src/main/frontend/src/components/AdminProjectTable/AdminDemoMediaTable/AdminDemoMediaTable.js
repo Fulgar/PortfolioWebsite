@@ -144,7 +144,9 @@ const AdminDemoMediaTable = (props) => {
         }
         else if (props.mode === "projectAdd") {
             handleDemoMediaEditClose();
-            setDemoMediaData(newData);
+            let tempData = [...demoMediaData];
+            tempData[editIndex] = newData;
+            setDemoMediaData(tempData);
         }
     };
 
@@ -188,7 +190,7 @@ const AdminDemoMediaTable = (props) => {
 
     }, [props.addRenderCount, deleteRenderCount, editRenderCount]);
 
-    // Render every time time props.parentData is altered
+    // Render every time props.parentData is altered
     useEffect(() => {
         if (props.mode === "projectAdd") {
             if (props.parentData.length !== 0) {
@@ -207,6 +209,17 @@ const AdminDemoMediaTable = (props) => {
             }
         }
     }, [props.parentData]);
+
+    // Render every time demoMediaData is altered
+    useEffect(() => {
+        if (props.mode === "projectAdd") {
+            if (demoMediaData.length !== 0) {
+                if (demoMediaData !== props.parentData) {
+                    props.handleDataChange(demoMediaData);
+                }
+            }
+        }
+    }, [demoMediaData]);
 
 
     // if (props.mode === "projectEdit") {
@@ -331,14 +344,14 @@ const AdminDemoMediaTable = (props) => {
                                     mode={props.mode}
                                     demoMediaIndex={editIndex}
                                     selectedDemoDataObj={demoMediaData[editIndex]}
-                                    onChange={() => {handleDemoMediaEditUpdate()}}
+                                    onChange={(newDemoData) => {handleDemoMediaEditUpdate(newDemoData)}}
                                 />
                             )
                             : (
                                 <AdminDemoMediaEditModal
                                     mode={props.mode}
                                     demoMediaID={editSelectID}
-                                    onChange={() => {handleDemoMediaEditUpdate()}}
+                                    onChange={() => {handleDemoMediaEditUpdate(null)}}
                                 />
                             )
                     }
