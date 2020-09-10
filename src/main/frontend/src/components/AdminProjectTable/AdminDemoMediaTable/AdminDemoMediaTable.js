@@ -100,7 +100,7 @@ const AdminDemoMediaTable = (props) => {
     };
     // Re-render count from deletion
     const [deleteRenderCount, setDeleteRenderCount] = useState(0);
-    const handleDemoMediaDeleteUpdate = (newData) => {
+    const handleDemoMediaDeleteUpdate = () => {
         console.log("DEBUG: handleDemoMediaDeleteUpdate()");
         if (props.mode === "projectEdit") {
             handleDemoMediaDeleteClose();
@@ -108,7 +108,21 @@ const AdminDemoMediaTable = (props) => {
         }
         else if (props.mode === "projectAdd") {
             handleDemoMediaDeleteClose();
-            setDemoMediaData(newData);
+            // setDemoMediaData(newData);
+            let tempData = [...demoMediaData];
+            tempData.splice(deleteIndex, 1);
+            setDemoMediaData([...tempData]);
+            setBodyData(null);
+            // TODO: Current Bug: Upon deletion submission table updates corectly, but when ALL rows are deleted
+            // TODO: and then 1 new row is added, the resulting effect is the previous row is also added back with the new row
+            // Test scenario:
+            // Add "1"
+            // Add "2"
+            // Delete "1"
+            // Delete "2"
+            // Add "3"
+
+            // Current result is "2" and "3" are added
         }
     };
 
@@ -317,15 +331,15 @@ const AdminDemoMediaTable = (props) => {
                                 <AdminDemoMediaDeleteModal
                                     mode={props.mode}
                                     demoMediaIndex={deleteIndex}
-                                    selectedDemoDataObj={demoMediaData[editIndex]}
-                                    onChange={(newDemoData) => {handleDemoMediaDeleteUpdate(newDemoData)}}
+                                    selectedDemoDataObj={demoMediaData[deleteIndex]}
+                                    onChange={handleDemoMediaDeleteUpdate}
                                 />
                             )
                             : (
                                 <AdminDemoMediaDeleteModal
                                     mode={props.mode}
                                     demoMediaID={deleteSelectID}
-                                    onChange={() => {handleDemoMediaDeleteUpdate(null)}}
+                                    onChange={handleDemoMediaDeleteUpdate}
                                 />
                             )
                     }
