@@ -80,11 +80,9 @@ const AdminDemoMediaTable = (props) => {
     // DemoMedia Delete Modal fields
     const [demoMediaDeleteOpen, setDemoMediaDeleteOpen] = useState(false);
     const handleDemoMediaDeleteOpen = () => {
-        console.log("DEBUG: handleDemoMediaDeleteOpen()");
         setDemoMediaDeleteOpen(true);
     };
     const handleDemoMediaDeleteClose = () => {
-        console.log("DEBUG: handleDemoMediaDeleteClose()");
         setDemoMediaDeleteOpen(false);
     };
     // Represents the row that is selected for deletion by ID
@@ -93,7 +91,6 @@ const AdminDemoMediaTable = (props) => {
     const [deleteIndex, setDeleteIndex] = useState(-1);
 
     const deleteModal = (demoMediaID, index) => {
-        console.log("DEBUG: deleteModal()");
         setDeleteSelectID(demoMediaID);
         setDeleteIndex(index);
         handleDemoMediaDeleteOpen();
@@ -101,7 +98,6 @@ const AdminDemoMediaTable = (props) => {
     // Re-render count from deletion
     const [deleteRenderCount, setDeleteRenderCount] = useState(0);
     const handleDemoMediaDeleteUpdate = () => {
-        console.log("DEBUG: handleDemoMediaDeleteUpdate()");
         if (props.mode === "projectEdit") {
             handleDemoMediaDeleteClose();
             setDeleteRenderCount(deleteRenderCount + 1);
@@ -113,16 +109,6 @@ const AdminDemoMediaTable = (props) => {
             tempData.splice(deleteIndex, 1);
             setDemoMediaData([...tempData]);
             setBodyData(null);
-            // TODO: Current Bug: Upon deletion submission table updates corectly, but when ALL rows are deleted
-            // TODO: and then 1 new row is added, the resulting effect is the previous row is also added back with the new row
-            // Test scenario:
-            // Add "1"
-            // Add "2"
-            // Delete "1"
-            // Delete "2"
-            // Add "3"
-
-            // Current result is "2" and "3" are added
         }
     };
 
@@ -130,11 +116,9 @@ const AdminDemoMediaTable = (props) => {
     // DemoMedia Edit Modal fields
     const [demoMediaEditOpen, setDemoMediaEditOpen] = useState(false);
     const handleDemoMediaEditOpen = () => {
-        console.log("DEBUG: handleDemoMediaEditOpen()");
         setDemoMediaEditOpen(true);
     };
     const handleDemoMediaEditClose = () => {
-        console.log("DEBUG: handleDemoMediaEditClose()");
         setDemoMediaEditOpen(false);
     };
     // Represents the row that is selected for editing by ID
@@ -143,7 +127,6 @@ const AdminDemoMediaTable = (props) => {
     const [editIndex, setEditIndex] = useState(-1);
 
     const editModal = (demoMediaID, index) => {
-        console.log("DEBUG: editModal()");
         setEditSelectID(demoMediaID);
         setEditIndex(index);
         handleDemoMediaEditOpen();
@@ -151,7 +134,6 @@ const AdminDemoMediaTable = (props) => {
     // Re-render count from edit-update
     const [editRenderCount, setEditRenderCount] = useState(0);
     const handleDemoMediaEditUpdate = (newData) => {
-        console.log("DEBUG: handleDemoMediaEditUpdate()");
         if (props.mode === "projectEdit") {
             handleDemoMediaEditClose();
             setEditRenderCount(editRenderCount + 1);
@@ -166,10 +148,8 @@ const AdminDemoMediaTable = (props) => {
 
     // Is executed only on first render of component and upon update of addRenderCount
     useEffect(() => {
-        console.log("Render: useEffect");
         // If Editing an existing project
         if (props.mode === "projectEdit") {
-            console.log("Render: useEffect : projectEdit");
             // Fetch all DemoMedia database data via GET request
             fetch("/portfolio/demoMedia/byProject/" + props.projectID)
                 .then(res => res.json())
@@ -227,10 +207,8 @@ const AdminDemoMediaTable = (props) => {
     // Render every time demoMediaData is altered
     useEffect(() => {
         if (props.mode === "projectAdd") {
-            if (demoMediaData.length !== 0) {
-                if (demoMediaData !== props.parentData) {
-                    props.handleDataChange(demoMediaData);
-                }
+            if (demoMediaData !== props.parentData) {
+                props.handleDataChange(demoMediaData);
             }
         }
     }, [demoMediaData]);
@@ -314,7 +292,7 @@ const AdminDemoMediaTable = (props) => {
                                             </TableRow>
                                         );
                                     })
-                                    : console.log("No DemoMedia detected in bodyData: bodyData = " + bodyData)
+                                    : {}
                             }
                         </TableBody>
                     </Table>

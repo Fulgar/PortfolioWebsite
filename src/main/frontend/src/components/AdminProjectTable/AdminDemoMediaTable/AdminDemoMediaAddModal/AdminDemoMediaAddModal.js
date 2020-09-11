@@ -49,25 +49,7 @@ const AdminDemoMediaAddModal = (props) => {
     // Submission status
     const [submitted, setSubmitted] = useState(false);
 
-    useEffect(() => {
-        console.log("newDemoMediaTitle = " + newDemoMediaTitle)
-    }, [newDemoMediaTitle]);
-    useEffect(() => {
-        console.log("newDemoMediaCaption = " + newDemoMediaCaption)
-    }, [newDemoMediaCaption]);
-    useEffect(() => {
-        console.log("newDemoMediaType = " + newDemoMediaType)
-    }, [newDemoMediaType]);
-    useEffect(() => {
-        console.log("newDemoMediaURL = " + newDemoMediaURL)
-    }, [newDemoMediaURL]);
-    useEffect(() => {
-        console.log("newDemoMediaProjectID = " + newDemoMediaProjectID)
-    }, [newDemoMediaProjectID]);
-
     function handleChange(demoMediaData) {
-        console.log("AdminDemoMediaAddModal - handleChange() - demoMediaData = " + demoMediaData);
-        console.log(demoMediaData);
         props.onChange(demoMediaData);
     }
 

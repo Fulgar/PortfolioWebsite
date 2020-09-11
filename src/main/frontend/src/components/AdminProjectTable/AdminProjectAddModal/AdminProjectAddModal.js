@@ -153,50 +153,13 @@ const AdminProjectAddModal = (props) => {
 	}, []);
 
 	useEffect(() => {
-		console.log("ProjectAddModal Render : newProjectTitle");
-	}, [newProjectTitle]);
-	useEffect(() => {
-		console.log("ProjectAddModal Render : newProjectDescription");
-	}, [newProjectDescription]);
-	useEffect(() => {
-		console.log("ProjectAddModal Render : newProjectGithub");
-	}, [newProjectGithub]);
-	useEffect(() => {
-		console.log("ProjectAddModal Render : newProjectType");
-	}, [newProjectType]);
-	useEffect(() => {
-		console.log("ProjectAddModal Render : newCourse");
-	}, [newCourse]);
-	useEffect(() => {
-		console.log("ProjectAddModal Render : newContributors");
-	}, [newContributors]);
-	useEffect(() => {
-		console.log("ProjectAddModal Render : newTechnologyTags");
-	}, [newTechnologyTags]);
-
-	useEffect(() => {
-		console.log("ProjectAddModal Render : submitted");
-	}, [submitted]);
-
-	useEffect(() => {
-		console.log("ProjectAddModal Render : addDemoMediaData");
-		console.log(addDemoMediaData);
-
 		if (JSON.stringify(addDemoMediaData) !== "{}") {
-			console.log("DEBUG: handleDemoMediaAddUpdate()");
-			console.log("DEBUG: submittedDemoMediaData: ");
-			console.log(addDemoMediaData);
 			let tempDemoMediaData = [...newDemoMedia];
 			tempDemoMediaData.push({...addDemoMediaData});
-			setNewDemoMedia(tempDemoMediaData);
+			setNewDemoMedia([...tempDemoMediaData]);
 			setDemoMediaAddOpen(false);
 		}
 	}, [addDemoMediaData]);
-
-	useEffect(() => {
-		console.log("ProjectAddModal Render : newDemoMedia");
-		console.log(newDemoMedia);
-	}, [newDemoMedia]);
 
 	function handleChange() {
 		console.log("DEBUG: handleChange() [AdminProjectAddModal]");
@@ -232,11 +195,9 @@ const AdminProjectAddModal = (props) => {
 	// DemoMedia "Add" Modal fields
 	const [demoMediaAddOpen, setDemoMediaAddOpen] = useState(false);
 	const handleDemoMediaAddOpen = () => {
-		console.log("DEBUG: handleDemoMediaAddOpen()");
 		setDemoMediaAddOpen(true);
 	};
 	const handleDemoMediaAddClose = () => {
-		console.log("DEBUG: handleDemoMediaAddClose()");
 		setDemoMediaAddOpen(false);
 	};
 

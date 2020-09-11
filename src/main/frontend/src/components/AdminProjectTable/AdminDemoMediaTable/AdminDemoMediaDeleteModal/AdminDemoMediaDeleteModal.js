@@ -29,7 +29,6 @@ const styles = {
 };
 
 const AdminDemoMediaDeleteModal = (props) => {
-    console.log(props.selectedDemoDataObj);
     // Form data
     const [newDemoMediaID] = useState(props.mode === "projectAdd" ? "" : props.selectedDemoDataObj["demoMediaID"]);
     const [newDemoMediaTitle] = useState(props.selectedDemoDataObj["mediaTitle"]);
