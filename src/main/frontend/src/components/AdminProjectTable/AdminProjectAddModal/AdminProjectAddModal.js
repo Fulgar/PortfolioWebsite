@@ -152,6 +152,8 @@ const AdminProjectAddModal = (props) => {
 			);
 	}, []);
 
+	useEffect(() => {console.log(newCourse);}, [newCourse]);
+
 	useEffect(() => {
 		if (JSON.stringify(addDemoMediaData) !== "{}") {
 			let tempDemoMediaData = [...newDemoMedia];
@@ -167,16 +169,19 @@ const AdminProjectAddModal = (props) => {
 	}
 
 	const handleSubmit = async () => {
-		const data = {
-			"projectTitle": newProjectTitle,
-			"projectTypeName": newProjectType,
-			"courseName": newCourse,
-			"contributors": newContributors,
-			"techTags": newTechnologyTags,
-			"demoMedia": newDemoMedia
+		const newProjectData = {
+			"title": newProjectTitle,
+			"description": newProjectDescription,
+			"githubLink": newProjectGithub,
+			"projectTypeID": newProjectType["projectTypeID"],
+			"courseID": newCourse["courseID"]
 		};
 
-		const response = await fetch("/portfolio/project/create",
+		// Stores POST response for Project Table insert
+		// NOTE: Must use "await projectInsertResult" when accessing after fetch request
+		let projectInsertResult = null;
+
+		const projectCreateResponse = await fetch("/portfolio/project/create",
 			{
 				method: "POST",
 				mode: "cors",
@@ -187,8 +192,17 @@ const AdminProjectAddModal = (props) => {
 				},
 				redirect: "follow",
 				referrerPolicy: "no-referrer",
-				body: JSON.stringify(data)
-			}).then(setSubmitted(true));
+				body: JSON.stringify(newProjectData)
+			}).then((response) => {
+				console.log("THEN CALLED");
+				projectInsertResult = response.json();
+				// setSubmitted(true);
+			});
+		console.log("AFTER FETCH");
+
+		let createdProject = await projectCreateResponse;
+		console.log("createdProject: ");
+		console.log(await projectInsertResult);
 	};
 
 	// DemoMedia Module fields
@@ -408,8 +422,8 @@ const AdminProjectAddModal = (props) => {
 						</Paper>
 
 						<br/><br/>
-						<Button style={{margin: "1em auto"}} color={"primary"} variant={"contained"} onClick={() => {
-							handleSubmit()
+						<Button style={{margin: "1em auto"}} color={"primary"} variant={"contained"} onClick={ async () => {
+							await handleSubmit()
 						}}>
 							Submit
 						</Button>
