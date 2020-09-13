@@ -51,6 +51,7 @@ public class DemoMediaEndpoint
 	@Consumes(MediaType.APPLICATION_JSON)
 	public DemoMediaDTO create(DemoMediaDTO demoMediaDTO) throws SQLException
 	{
+		System.out.println("DemoMediaDTO Create: " + demoMediaDTO);
 		return demoMediaService.createDemoMedia(demoMediaDTO);
 	}
 

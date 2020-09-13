@@ -181,7 +181,7 @@ const AdminProjectAddModal = (props) => {
 		// NOTE: Must use "await projectInsertResult" when accessing after fetch request
 		let projectInsertResult = null;
 
-		const projectCreateResponse = await fetch("/portfolio/project/create",
+		await fetch("/portfolio/project/create",
 			{
 				method: "POST",
 				mode: "cors",
@@ -194,15 +194,55 @@ const AdminProjectAddModal = (props) => {
 				referrerPolicy: "no-referrer",
 				body: JSON.stringify(newProjectData)
 			}).then((response) => {
-				console.log("THEN CALLED");
 				projectInsertResult = response.json();
 				// setSubmitted(true);
 			});
-		console.log("AFTER FETCH");
 
-		let createdProject = await projectCreateResponse;
-		console.log("createdProject: ");
-		console.log(await projectInsertResult);
+		let createdProject = await projectInsertResult;
+		let projectID = createdProject["projectID"];
+
+		// If newDemoMedia exists
+		if (newDemoMedia.length > 0) {
+			newDemoMedia.map(async (demo, i) => {
+				const newDemoMediaData = {
+					"url": demo["url"],
+					"mediaType": demo["mediaType"],
+					"mediaTitle": demo["mediaTitle"],
+					"mediaCaption": demo["mediaCaption"],
+					"projectID": projectID
+				};
+				console.log(newDemoMediaData);
+				await fetch("/portfolio/demoMedia/create",
+					{
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json"
+						},
+						body: JSON.stringify(newDemoMediaData)
+					}).then((response) => {
+					projectInsertResult = response.json();
+					// setSubmitted(true);
+				});
+			});
+		}
+
+		// If newContributors exists
+		if (newContributors.length > 0) {
+
+		}
+		else {
+			console.error("No contributors detected!")
+		}
+
+		// If newTechnologyTags exists
+		if (newTechnologyTags.length > 0) {
+
+		}
+		else {
+			console.error("No technology tags detected!")
+		}
+
+		setSubmitted(true);
 	};
 
 	// DemoMedia Module fields

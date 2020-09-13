@@ -60,4 +60,15 @@ public class ContributorDTO implements Serializable
 	{
 		this.githubProfileLink = githubProfileLink;
 	}
+
+	@Override
+	public String toString()
+	{
+		return "ContributorDTO{" +
+				"contributorID=" + contributorID +
+				", firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", githubProfileLink='" + githubProfileLink + '\'' +
+				'}';
+	}
 }

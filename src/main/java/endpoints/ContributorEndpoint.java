@@ -52,6 +52,7 @@ public class ContributorEndpoint
 	@Consumes(MediaType.APPLICATION_JSON)
 	public ContributorDTO create(ContributorDTO contributorDTO) throws SQLException
 	{
+		System.out.println("ContributorDTO Create: " + contributorDTO);
 		return contributorService.createContributor(contributorDTO);
 	}
 
