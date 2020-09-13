@@ -219,16 +219,27 @@ const AdminProjectAddModal = (props) => {
 							"Content-Type": "application/json"
 						},
 						body: JSON.stringify(newDemoMediaData)
-					}).then((response) => {
-					projectInsertResult = response.json();
-					// setSubmitted(true);
-				});
+					});
 			});
 		}
 
 		// If newContributors exists
 		if (newContributors.length > 0) {
-
+			newContributors.map(async (contributor, i) => {
+				const newContributorsData = {
+					"contributorID": contributor["contributorID"],
+					"projectID": projectID
+				};
+				console.log(newContributorsData);
+				await fetch("/portfolio/project_contributor/create",
+					{
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json"
+						},
+						body: JSON.stringify(newContributorsData)
+					});
+			});
 		}
 		else {
 			console.error("No contributors detected!")
@@ -236,7 +247,21 @@ const AdminProjectAddModal = (props) => {
 
 		// If newTechnologyTags exists
 		if (newTechnologyTags.length > 0) {
-
+			newTechnologyTags.map(async (technology, i) => {
+				const newTechnologyTagsData = {
+					"technologyTagID": technology["technologyID"],
+					"projectID": projectID
+				};
+				console.log(newTechnologyTagsData);
+				await fetch("/portfolio/project_TechnologyTag/create",
+					{
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json"
+						},
+						body: JSON.stringify(newTechnologyTagsData)
+					});
+			});
 		}
 		else {
 			console.error("No technology tags detected!")
