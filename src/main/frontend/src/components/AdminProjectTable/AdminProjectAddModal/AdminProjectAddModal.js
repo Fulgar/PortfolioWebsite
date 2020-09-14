@@ -286,8 +286,6 @@ const AdminProjectAddModal = (props) => {
 		setNewDemoMedia([...newData]);
 	};
 
-	// TODO: Need to pass demoMediaData thru from DemoMediaAddModal to DemoMediaTable
-	// TODO: , so maybe instead of using render count for triggering updates, I just use the data itself (For edit and delete update methods as well)
 	// Moved to useEffect
 	const [demoMediaRerenderCount, setDemoMediaRerenderCount] = useState(0);
 
