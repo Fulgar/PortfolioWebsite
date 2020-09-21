@@ -97,6 +97,7 @@ const AdminProjectEditModal = (props) => {
     const [isAllContributorsLoaded, setIsAllContributorsLoaded] = useState(false);
     const [isCurrentProjectDataLoaded, setIsCurrentProjectDataLoaded] = useState(false);
     const [isCurrentContributorDataLoaded, setIsCurrentContributorDataLoaded] = useState(false);
+    const [isCurrentTechnologyTagDataLoaded, setIsCurrentTechnologyTagDataLoaded] = useState(false);
 
     // Submission status
     const [submitted, setSubmitted] = useState(false);
@@ -213,6 +214,29 @@ const AdminProjectEditModal = (props) => {
         }
 
     }, [isAllContributorsLoaded]);
+
+    // Fires on first render and once all techTags are loaded in
+    useEffect(() => {
+        if (isAllTechnologyTagsLoaded) {
+            // Fetches all TechnologyTag table data for currently selected Project
+            fetch("/portfolio/technologyTag/byProject/" + props.projectID)
+                .then(res => res.json())
+                .then(
+                    (result) => {
+                        let tempTechTags = [...newTechnologyTags];
+                        result.map((techTag) => {
+                            tempTechTags.push(techTag);
+                        });
+                        setNewTechnologyTags([...tempTechTags]);
+                        setIsCurrentTechnologyTagDataLoaded(true);
+                    },
+                    (error) => {
+                        console.error(error);
+                    }
+                );
+        }
+
+    }, [isAllTechnologyTagsLoaded]);
 
     // TODO: Not needed in PE
     useEffect(() => {
@@ -354,7 +378,7 @@ const AdminProjectEditModal = (props) => {
         handleChange();
     }
     if (!isAllProjectTypesLoaded || !isAllCoursesLoaded || !isAllTechnologyTagsLoaded || !isAllContributorsLoaded
-        || !isCurrentProjectDataLoaded || !isCurrentContributorDataLoaded) {
+        || !isCurrentProjectDataLoaded || !isCurrentContributorDataLoaded || !isCurrentTechnologyTagDataLoaded) {
         return <Paper>Loading</Paper>
     } else {
         return (
