@@ -96,6 +96,7 @@ const AdminProjectEditModal = (props) => {
     const [isAllTechnologyTagsLoaded, setIsAllTechnologyTagsLoaded] = useState(false);
     const [isAllContributorsLoaded, setIsAllContributorsLoaded] = useState(false);
     const [isCurrentProjectDataLoaded, setIsCurrentProjectDataLoaded] = useState(false);
+    const [isCurrentContributorDataLoaded, setIsCurrentContributorDataLoaded] = useState(false);
 
     // Submission status
     const [submitted, setSubmitted] = useState(false);
@@ -190,7 +191,28 @@ const AdminProjectEditModal = (props) => {
 
     }, [isAllProjectTypesLoaded, isAllCoursesLoaded]);
 
-    useEffect(() => {console.log(newCourse);}, [newCourse]);
+    // Fires on first render and once all contributors are loaded in
+    useEffect(() => {
+        if (isAllContributorsLoaded) {
+            // Fetches all Contributor table data for currently selected Project
+            fetch("/portfolio/contributor/byProject/" + props.projectID)
+                .then(res => res.json())
+                .then(
+                    (result) => {
+                        let tempContributors = [...newContributors];
+                        result.map((contributor) => {
+                            tempContributors.push(contributor);
+                        });
+                        setNewContributors([...tempContributors]);
+                        setIsCurrentContributorDataLoaded(true);
+                    },
+                    (error) => {
+                        console.error(error);
+                    }
+                );
+        }
+
+    }, [isAllContributorsLoaded]);
 
     // TODO: Not needed in PE
     useEffect(() => {
@@ -331,7 +353,8 @@ const AdminProjectEditModal = (props) => {
     if (submitted) {
         handleChange();
     }
-    if (!isAllProjectTypesLoaded || !isAllCoursesLoaded || !isAllTechnologyTagsLoaded || !isAllContributorsLoaded || !isCurrentProjectDataLoaded) {
+    if (!isAllProjectTypesLoaded || !isAllCoursesLoaded || !isAllTechnologyTagsLoaded || !isAllContributorsLoaded
+        || !isCurrentProjectDataLoaded || !isCurrentContributorDataLoaded) {
         return <Paper>Loading</Paper>
     } else {
         return (
@@ -415,15 +438,17 @@ const AdminProjectEditModal = (props) => {
                                     setNewContributors(e.target.value)
                                 }}
                                 input={<Input/>}
-                                renderValue={(selected) => (
+                                renderValue={(selected) => {
 
-                                    <div style={{display: "inline-flex", flexWrap: "wrap"}}>
-                                        {selected.map((value) => (
-                                            <Chip color={"secondary"} key={value.contributorID}
-                                                  label={value.firstName + " " + value.lastName}/>
-                                        ))}
-                                    </div>
-                                )}
+                                    return (
+                                        <div style={{display: "inline-flex", flexWrap: "wrap"}}>
+                                            {selected.map((value) => (
+                                                <Chip color={"secondary"} key={value.contributorID}
+                                                      label={value.firstName + " " + value.lastName}/>
+                                            ))}
+                                        </div>
+                                    );
+                                }}
                                 MenuProps={MenuProps}
                             >
                                 {allContributorData.map((contributorObj) => (
