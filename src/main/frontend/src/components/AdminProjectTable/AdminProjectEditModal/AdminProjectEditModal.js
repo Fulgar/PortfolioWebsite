@@ -374,6 +374,36 @@ const AdminProjectEditModal = (props) => {
     // Moved to useEffect
     const [demoMediaRerenderCount, setDemoMediaRerenderCount] = useState(0);
 
+    // Returns an array of all selected contributors' ID's
+    const getSelectedContributorIDs = () => {
+        let selectedContributorIDs = [];
+        newContributors.map((contributor) => {
+            selectedContributorIDs.push(contributor["contributorID"]);
+        });
+        return selectedContributorIDs;
+    };
+
+    // Returns a string that contains the first and last name of a contributor, separated by a space
+    const getContributorLabel = (contributorID) => {
+        let valObj = allContributorData.find(el => el["contributorID"] === contributorID);
+        return valObj.firstName + " " + valObj.lastName;
+    };
+
+    // Returns an array of all selected technologyTags' ID's
+    const getSelectedTechnologyTagIDs = () => {
+        let selectedTechnologyTagIDs = [];
+        newTechnologyTags.map((technologyTag) => {
+            selectedTechnologyTagIDs.push(technologyTag["technologyID"]);
+        });
+        return selectedTechnologyTagIDs;
+    };
+
+    // Returns a string that contains the name of the technologyTag
+    const getTechnologyTagLabel = (technologyTagID) => {
+        let valObj = allTechnologyTagData.find(el => el["technologyID"] === technologyTagID);
+        return valObj.technologyName;
+    };
+
     if (submitted) {
         handleChange();
     }
@@ -457,18 +487,22 @@ const AdminProjectEditModal = (props) => {
                                 labelId={"contributor-select-label"}
                                 label={"Contributors"}
                                 multiple
-                                value={newContributors}
+                                value={getSelectedContributorIDs()}
                                 onChange={(e) => {
-                                    setNewContributors(e.target.value)
+                                    let tempContributors = [];
+                                    e.target.value.map((contributorID) => {
+                                        tempContributors.push(allContributorData.find(el => el["contributorID"] === contributorID));
+                                    });
+                                    setNewContributors([...tempContributors]);
                                 }}
                                 input={<Input/>}
                                 renderValue={(selected) => {
-
                                     return (
                                         <div style={{display: "inline-flex", flexWrap: "wrap"}}>
                                             {selected.map((value) => (
-                                                <Chip color={"secondary"} key={value.contributorID}
-                                                      label={value.firstName + " " + value.lastName}/>
+                                                <Chip color={"secondary"} key={value}
+                                                      label={getContributorLabel(value)}
+                                                />
                                             ))}
                                         </div>
                                     );
@@ -476,7 +510,7 @@ const AdminProjectEditModal = (props) => {
                                 MenuProps={MenuProps}
                             >
                                 {allContributorData.map((contributorObj) => (
-                                    <MenuItem key={contributorObj.contributorID} value={contributorObj}>
+                                    <MenuItem key={contributorObj.contributorID} value={contributorObj["contributorID"]}>
                                         <span>{contributorObj.firstName} {contributorObj.lastName}</span>
                                     </MenuItem>
                                 ))}
@@ -516,24 +550,28 @@ const AdminProjectEditModal = (props) => {
                                 labelId={"technologyTag-select-label"}
                                 label={"TechnologyTags"}
                                 multiple
-                                value={newTechnologyTags}
+                                value={getSelectedTechnologyTagIDs()}
                                 onChange={(e) => {
-                                    setNewTechnologyTags(e.target.value)
+                                    let tempTechnologyTags = [];
+                                    e.target.value.map((technologyTagID) => {
+                                        tempTechnologyTags.push(allTechnologyTagData.find(el => el["technologyID"] === technologyTagID));
+                                    });
+                                    setNewTechnologyTags([...tempTechnologyTags]);
                                 }}
                                 input={<Input/>}
                                 renderValue={(selected) => (
 
                                     <div style={{display: "inline-flex", flexWrap: "wrap"}}>
                                         {selected.map((value) => (
-                                            <Chip color={"secondary"} key={value.technologyID}
-                                                  label={value.technologyName}/>
+                                            <Chip color={"secondary"} key={value}
+                                                  label={getTechnologyTagLabel(value)}/>
                                         ))}
                                     </div>
                                 )}
                                 MenuProps={MenuProps}
                             >
                                 {allTechnologyTagData.map((technologyTagObj) => (
-                                    <MenuItem key={technologyTagObj.technologyID} value={technologyTagObj}>
+                                    <MenuItem key={technologyTagObj.technologyID} value={technologyTagObj["technologyID"]}>
                                         <span>{technologyTagObj.technologyName}</span>
                                     </MenuItem>
                                 ))}
