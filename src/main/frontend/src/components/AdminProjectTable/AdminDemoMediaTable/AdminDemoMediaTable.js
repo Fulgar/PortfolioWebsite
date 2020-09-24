@@ -311,6 +311,7 @@ const AdminDemoMediaTable = (props) => {
                                 <AdminDemoMediaDeleteModal
                                     mode={props.mode}
                                     demoMediaID={deleteSelectID}
+                                    projectID={props.projectID}
                                     onChange={handleDemoMediaDeleteUpdate}
                                 />
                             )
