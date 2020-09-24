@@ -168,13 +168,7 @@ const AdminDemoMediaTable = (props) => {
 
         // If Adding a new non-existent project
         else if (props.mode === "projectAdd") {
-            // console.log("Render: useEffect : projectAdd");
-            // // If demoMedia was added then there should be a difference in data in the arrays
-            // if (props.parentData !== demoMediaData) {
-            //     setDemoMediaData(props.parentData);
-            //     setIsDemoMediaLoaded(true);
-            //     setBodyData(null);
-            // }
+            // Do nothing
         }
 
         else {

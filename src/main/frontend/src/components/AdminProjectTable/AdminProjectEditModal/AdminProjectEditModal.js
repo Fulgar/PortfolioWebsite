@@ -364,15 +364,12 @@ const AdminProjectEditModal = (props) => {
     const handleDemoMediaAddClose = () => {
         setDemoMediaAddOpen(false);
     };
-
-    // Function is fired every time demoMediaData in DemoMediaTable component is changed
-    // and is different from ProjectEdit demoMediaData
-    const handleDemoMediaTableDataChange = (newData) => {
-        setNewDemoMedia([...newData]);
+    const handleDemoMediaAddUpdate = () => {
+        handleDemoMediaAddClose();
+        setDemoMediaRerenderCount(demoMediaRerenderCount + 1);
     };
-
-    // Moved to useEffect
     const [demoMediaRerenderCount, setDemoMediaRerenderCount] = useState(0);
+
 
     // Returns an array of all selected contributors' ID's
     const getSelectedContributorIDs = () => {
@@ -593,9 +590,8 @@ const AdminProjectEditModal = (props) => {
                                     </Button>
                                 </span>
 
-                                <AdminDemoMediaTable mode={"projectEdit"}
-                                                     parentData={newDemoMedia}
-                                                     handleDataChange={(newData) => handleDemoMediaTableDataChange(newData)}
+                                <AdminDemoMediaTable mode={"projectEdit"} projectID={props.projectID}
+                                                     addRenderCount={demoMediaRerenderCount}
                                 />
                                 <Modal
                                     className={"admin-demoMedia-add-modal"}
@@ -604,7 +600,7 @@ const AdminProjectEditModal = (props) => {
                                 >
                                     <AdminDemoMediaAddModal
                                         mode={"projectEdit"}
-                                        onChange={(submittedDemoMediaData) => {setAddDemoMediaData(submittedDemoMediaData)}}
+                                        onChange={() => {handleDemoMediaAddUpdate()}}
                                     />
                                 </Modal>
                             </div>
