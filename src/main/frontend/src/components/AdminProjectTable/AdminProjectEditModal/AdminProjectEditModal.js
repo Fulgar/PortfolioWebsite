@@ -600,6 +600,7 @@ const AdminProjectEditModal = (props) => {
                                 >
                                     <AdminDemoMediaAddModal
                                         mode={"projectEdit"}
+                                        projectID={props.projectID}
                                         onChange={() => {handleDemoMediaAddUpdate()}}
                                     />
                                 </Modal>

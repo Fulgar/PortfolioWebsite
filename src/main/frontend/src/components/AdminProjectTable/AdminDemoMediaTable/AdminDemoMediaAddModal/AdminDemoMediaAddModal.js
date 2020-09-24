@@ -54,8 +54,17 @@ const AdminDemoMediaAddModal = (props) => {
     }
 
     const handleSubmit = async () => {
-        const data = {
+        // Data to be sent up to ProjectAdd component
+        const transferData = {
             "demoMediaID": "",
+            "mediaTitle": newDemoMediaTitle,
+            "mediaCaption": newDemoMediaCaption,
+            "mediaType": newDemoMediaType,
+            "url": newDemoMediaURL,
+            "projectID": newDemoMediaProjectID
+        };
+        // Data to be sent to backend API via POST request
+        const postData = {
             "mediaTitle": newDemoMediaTitle,
             "mediaCaption": newDemoMediaCaption,
             "mediaType": newDemoMediaType,
@@ -64,7 +73,7 @@ const AdminDemoMediaAddModal = (props) => {
         };
 
         if (props.mode === "projectAdd") {
-            handleChange(data);
+            handleChange(transferData);
         }
         if (props.mode === "projectEdit") {
             await fetch("/portfolio/demoMedia/create",
@@ -78,7 +87,7 @@ const AdminDemoMediaAddModal = (props) => {
                     },
                     redirect: "follow",
                     referrerPolicy: "no-referrer",
-                    body: JSON.stringify(data)
+                    body: JSON.stringify(postData)
                 }).then(setSubmitted(true));
         }
     };
