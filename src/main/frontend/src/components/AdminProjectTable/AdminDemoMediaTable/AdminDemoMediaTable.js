@@ -337,6 +337,7 @@ const AdminDemoMediaTable = (props) => {
                                 <AdminDemoMediaEditModal
                                     mode={props.mode}
                                     demoMediaID={editSelectID}
+                                    projectID={props.projectID}
                                     onChange={() => {handleDemoMediaEditUpdate(null)}}
                                 />
                             )

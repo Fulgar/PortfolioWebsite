@@ -30,14 +30,12 @@ const styles = {
 
 const AdminDemoMediaEditModal = (props) => {
 	// Form data
-	const [newDemoMediaID] = useState(props.mode === "projectAdd" ? "" : props.selectedDemoDataObj["demoMediaID"]);
-	const [newDemoMediaTitle, setNewDemoMediaTitle] = useState(props.selectedDemoDataObj["mediaTitle"]);
-	const [newDemoMediaCaption, setNewDemoMediaCaption] = useState(props.selectedDemoDataObj["mediaCaption"]);
-	const [newDemoMediaType, setNewDemoMediaType] = useState(props.selectedDemoDataObj["mediaType"]);
-	const [newDemoMediaURL, setNewDemoMediaURL] = useState(props.selectedDemoDataObj["url"]);
-	const [newDemoMediaProjectID] = useState(
-		props.mode === "projectAdd" ? "" : props.projectID
-	);
+	const [newDemoMediaID] = useState(props.mode === "projectAdd" ? "" : props.demoMediaID);
+	const [newDemoMediaTitle, setNewDemoMediaTitle] = useState(props.mode === "projectAdd" ? props.selectedDemoDataObj["mediaTitle"] : "");
+	const [newDemoMediaCaption, setNewDemoMediaCaption] = useState(props.mode === "projectAdd" ? props.selectedDemoDataObj["mediaCaption"] : "");
+	const [newDemoMediaType, setNewDemoMediaType] = useState(props.mode === "projectAdd" ? props.selectedDemoDataObj["mediaType"] : "");
+	const [newDemoMediaURL, setNewDemoMediaURL] = useState(props.mode === "projectAdd" ? props.selectedDemoDataObj["url"] : "");
+	const [newDemoMediaProjectID] = useState(props.mode === "projectAdd" ? "" : props.projectID);
 
 	// Array of all accepted types of demoMedia
 	const demoMediaTypeData = [
@@ -50,25 +48,9 @@ const AdminDemoMediaEditModal = (props) => {
 	// Submission status
 	const [submitted, setSubmitted] = useState(false);
 
-	useEffect(() => {
-		console.log("newDemoMediaTitle = " + newDemoMediaTitle)
-	}, [newDemoMediaTitle]);
-	useEffect(() => {
-		console.log("newDemoMediaCaption = " + newDemoMediaCaption)
-	}, [newDemoMediaCaption]);
-	useEffect(() => {
-		console.log("newDemoMediaType = " + newDemoMediaType)
-	}, [newDemoMediaType]);
-	useEffect(() => {
-		console.log("newDemoMediaURL = " + newDemoMediaURL)
-	}, [newDemoMediaURL]);
-	useEffect(() => {
-		console.log("newDemoMediaProjectID = " + newDemoMediaProjectID)
-	}, [newDemoMediaProjectID]);
+	const [isDataLoaded, setIsDataLoaded] = useState(false);
 
 	function handleChange(demoMediaData) {
-		console.log("AdminDemoMediaEditModal - handleChange() - demoMediaData = " + demoMediaData);
-		console.log(demoMediaData);
 		props.onChange(demoMediaData);
 	}
 
@@ -102,76 +84,109 @@ const AdminDemoMediaEditModal = (props) => {
 		}
 	};
 
+	// Is called only on the first render
+	useEffect(() => {
+		if (props.mode === "projectAdd") {
+			setIsDataLoaded(true);
+		}
+		if (props.mode === "projectEdit") {
+			// Fetch all DemoMedia database data via GET request
+			fetch("/portfolio/demoMedia/" + newDemoMediaID)
+				.then(res => res.json())
+				.then(
+					(result) => {
+						setNewDemoMediaTitle(result["mediaTitle"]);
+						setNewDemoMediaCaption(result["mediaCaption"]);
+						setNewDemoMediaType(result["mediaType"]);
+						setNewDemoMediaURL(result["url"]);
+						setIsDataLoaded(true);
+					},
+					(error) => {
+						console.error(error);
+					}
+				);
+		}
+	}, []);
+
 	if (submitted) {
 		handleChange();
 	}
-	return (
-		<Paper style={styles.modalStyle} elevation={10} className="AdminDemoMediaEditModal">
-			<div className={"DemoMediaEditModalInner"}>
-				<Typography color={"primary"} variant={"h4"}>
-					Edit DemoMedia
-				</Typography>
-				<br/><br/><br/><br/>
-				<form style={styles.form} autoComplete={"off"}>
-					<TextField
-						required
-						id={"demoMediaTitleInput"}
-						label={"DemoMedia Title"}
-						defaultValue={newDemoMediaTitle}
-						variant={"outlined"}
-						style={styles.formContent}
-						onChange={(e) => {setNewDemoMediaTitle(e.target.value)}}
-					/>
-
-					<TextField
-						required
-						id={"demoMediaCaptionInput"}
-						label={"Caption"}
-						defaultValue={newDemoMediaCaption}
-						variant={"outlined"}
-						style={styles.formContent}
-						onChange={(e) => {setNewDemoMediaCaption(e.target.value)}}
-					/>
-
-					<FormControl variant={"outlined"} style={styles.formContent}>
-						<InputLabel id="demoMediaType-select-label">Media Type</InputLabel>
-						<Select
+	if (isDataLoaded) {
+		return (
+			<Paper style={styles.modalStyle} elevation={10} className="AdminDemoMediaEditModal">
+				<div className={"DemoMediaEditModalInner"}>
+					<Typography color={"primary"} variant={"h4"}>
+						Edit DemoMedia
+					</Typography>
+					<br/><br/><br/><br/>
+					<form style={styles.form} autoComplete={"off"}>
+						<TextField
 							required
-							className={"demoMediaType-select-form"}
-							labelId={"demoMediaType-select-label"}
-							label={"Media Type"}
-							value={newDemoMediaType}
-							onChange={(e) => {
-								setNewDemoMediaType(e.target.value)
-							}}
-						>
-							{demoMediaTypeData.map((demoMediaTypeStr, i) => (
-								<MenuItem key={i} value={demoMediaTypeStr}>
-									<span>{demoMediaTypeStr}</span>
-								</MenuItem>
-							))}
-						</Select>
-					</FormControl>
+							id={"demoMediaTitleInput"}
+							label={"DemoMedia Title"}
+							defaultValue={newDemoMediaTitle}
+							variant={"outlined"}
+							style={styles.formContent}
+							onChange={(e) => {setNewDemoMediaTitle(e.target.value)}}
+						/>
 
-					<TextField
-						required
-						id={"demoMediaURLInput"}
-						label={"URL"}
-						defaultValue={newDemoMediaURL}
-						variant={"outlined"}
-						style={styles.formContent}
-						onChange={(e) => {setNewDemoMediaURL(e.target.value)}}
-					/>
+						<TextField
+							required
+							id={"demoMediaCaptionInput"}
+							label={"Caption"}
+							defaultValue={newDemoMediaCaption}
+							variant={"outlined"}
+							style={styles.formContent}
+							onChange={(e) => {setNewDemoMediaCaption(e.target.value)}}
+						/>
 
-					<br/><br/>
-					<Button color={"primary"} variant={"contained"} onClick={async () => { await handleSubmit()}}>
-						Submit
-					</Button>
-				</form>
+						<FormControl variant={"outlined"} style={styles.formContent}>
+							<InputLabel id="demoMediaType-select-label">Media Type</InputLabel>
+							<Select
+								required
+								className={"demoMediaType-select-form"}
+								labelId={"demoMediaType-select-label"}
+								label={"Media Type"}
+								value={newDemoMediaType}
+								onChange={(e) => {
+									setNewDemoMediaType(e.target.value)
+								}}
+							>
+								{demoMediaTypeData.map((demoMediaTypeStr, i) => (
+									<MenuItem key={i} value={demoMediaTypeStr}>
+										<span>{demoMediaTypeStr}</span>
+									</MenuItem>
+								))}
+							</Select>
+						</FormControl>
+
+						<TextField
+							required
+							id={"demoMediaURLInput"}
+							label={"URL"}
+							defaultValue={newDemoMediaURL}
+							variant={"outlined"}
+							style={styles.formContent}
+							onChange={(e) => {setNewDemoMediaURL(e.target.value)}}
+						/>
+
+						<br/><br/>
+						<Button color={"primary"} variant={"contained"} onClick={async () => { await handleSubmit()}}>
+							Submit
+						</Button>
+					</form>
+				</div>
+
+			</Paper>
+		);
+	}
+	else {
+		return (
+			<div>
+				Loading...
 			</div>
-
-		</Paper>
-	);
+		);
+	}
 };
 
 
