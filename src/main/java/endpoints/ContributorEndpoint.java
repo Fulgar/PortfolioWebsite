@@ -21,7 +21,7 @@ public class ContributorEndpoint
 	@GET
 	@Path("/getAll")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<ContributorDTO> getAll() throws SQLException, ListEmptyException
+	public List<ContributorDTO> getAll() throws SQLException
 	{
 		return contributorService.getAllContributors();
 	}
@@ -39,7 +39,7 @@ public class ContributorEndpoint
 	@GET
 	@Path("/byProject/{ProjectID}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<ContributorDTO> getByProjectID(@PathParam("ProjectID") int ProjectID) throws SQLException, ListEmptyException
+	public List<ContributorDTO> getByProjectID(@PathParam("ProjectID") int ProjectID) throws SQLException
 	{
 		return contributorService.getContributorsByProjectID(ProjectID);
 	}

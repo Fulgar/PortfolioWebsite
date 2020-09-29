@@ -72,11 +72,6 @@ const AdminProjectEditModal = (props) => {
     const [newCourse, setNewCourse] = useState("");
     const [newContributors, setNewContributors] = useState([]);
     const [newTechnologyTags, setNewTechnologyTags] = useState([]);
-    const [newDemoMedia, setNewDemoMedia] = useState([]);
-
-    // TODO: Not needed in PE
-    // Used to store each newly submitted DemoMedia upon submission of DemoMediaAdd
-    const [addDemoMediaData, setAddDemoMediaData] = useState({});
 
     // Container for all ProjectType database rows
     const [allProjectTypeData, setAllProjectTypeData] = useState([]);
@@ -238,15 +233,6 @@ const AdminProjectEditModal = (props) => {
 
     }, [isAllTechnologyTagsLoaded]);
 
-    // TODO: Not needed in PE
-    useEffect(() => {
-        if (JSON.stringify(addDemoMediaData) !== "{}") {
-            let tempDemoMediaData = [...newDemoMedia];
-            tempDemoMediaData.push({...addDemoMediaData});
-            setNewDemoMedia([...tempDemoMediaData]);
-            setDemoMediaAddOpen(false);
-        }
-    }, [addDemoMediaData]);
 
     function handleChange() {
         console.log("DEBUG: handleChange() [AdminProjectEditModal]");
@@ -255,6 +241,7 @@ const AdminProjectEditModal = (props) => {
 
     const handleSubmit = async () => {
         const newProjectData = {
+            "projectID": props.projectID,
             "title": newProjectTitle,
             "description": newProjectDescription,
             "githubLink": newProjectGithub,
@@ -262,13 +249,12 @@ const AdminProjectEditModal = (props) => {
             "courseID": newCourse["courseID"]
         };
 
-        // Stores POST response for Project Table insert
-        // NOTE: Must use "await projectInsertResult" when accessing after fetch request
-        let projectInsertResult = null;
+        // Stores PUT response for Project Table update
+        let projectUpdateResult = null;
 
-        await fetch("/portfolio/project/create",
+        await fetch("/portfolio/project/update",
             {
-                method: "POST",
+                method: "PUT",
                 mode: "cors",
                 cache: "no-cache",
                 credentials: "same-origin",
@@ -279,77 +265,161 @@ const AdminProjectEditModal = (props) => {
                 referrerPolicy: "no-referrer",
                 body: JSON.stringify(newProjectData)
             }).then((response) => {
-            projectInsertResult = response.json();
-            // setSubmitted(true);
+            projectUpdateResult = response.json();
         });
 
-        let createdProject = await projectInsertResult;
-        let projectID = createdProject["projectID"];
+        // Check to see if changes to technologyTag selection has been made, and if so make changes to database
+        let oldTechTags = [];
+        if (isAllTechnologyTagsLoaded) {
+            // Fetches all TechnologyTag table data for currently selected Project
+            await fetch("/portfolio/technologyTag/byProject/" + props.projectID)
+                .then(res => res.json())
+                .then(
+                    (result) => {
+                        oldTechTags = [...result];
+                        // If there is a difference in technology tags on the database versus the technology tags on the form data
+                        if (JSON.stringify(oldTechTags) !== JSON.stringify(newTechnologyTags)) {
+                            let deleteTechIDList = [];
+                            let addTechIDList = [];
 
-        // If newDemoMedia exists
-        if (newDemoMedia.length > 0) {
-            newDemoMedia.map(async (demo, i) => {
-                const newDemoMediaData = {
-                    "url": demo["url"],
-                    "mediaType": demo["mediaType"],
-                    "mediaTitle": demo["mediaTitle"],
-                    "mediaCaption": demo["mediaCaption"],
-                    "projectID": projectID
-                };
-                console.log(newDemoMediaData);
-                await fetch("/portfolio/demoMedia/create",
-                    {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify(newDemoMediaData)
-                    });
-            });
+                            oldTechTags.map((oldTech) => {
+                                let wasOldTechRemoved = true;
+                                newTechnologyTags.map((newTech) => {
+                                    if (oldTech.technologyID === newTech.technologyID) {
+                                        wasOldTechRemoved = false;
+                                    }
+                                });
+
+                                if (wasOldTechRemoved) {
+                                    // Push technologyTag ID to list to be deleted
+                                    deleteTechIDList.push(oldTech.technologyID);
+                                }
+                            });
+
+                            // Iterate through newTechnologyTags list to see if any elements are new
+                            newTechnologyTags.map((newTech, i) => {
+                                let wasNewTechAdded = true;
+                                oldTechTags.map((oldTech, j) => {
+                                    if (newTech.technologyID === oldTech.technologyID) {
+                                        wasNewTechAdded = false;
+                                    }
+                                });
+
+                                if (wasNewTechAdded) {
+                                    //Push technologyTag ID to list to be created
+                                    addTechIDList.push(newTech.technologyID);
+                                }
+                            });
+
+                            // If there are any techID's in the deleteList send a DELETE request
+                            if (deleteTechIDList.length > 0) {
+                                deleteTechIDList.map(async (techID) => {
+                                    await fetch("/portfolio/project_TechnologyTag/" + props.projectID + "/" + techID,
+                                        {
+                                            method: "DELETE"
+                                        });
+                                });
+                            }
+
+                            // If there are any techID's in the addList send a POST request
+                            if (addTechIDList.length > 0) {
+                                addTechIDList.map(async (techID) => {
+                                    await fetch("/portfolio/project_TechnologyTag/create",
+                                        {
+                                            method: "POST",
+                                            headers: {
+                                                "Content-Type": "application/json"
+                                            },
+                                            body: JSON.stringify({
+                                                "projectID": props.projectID,
+                                                "technologyTagID": techID
+                                            })
+                                        });
+                                });
+                            }
+                        }
+                    },
+                    (error) => {
+                        console.error(error);
+                    }
+                );
         }
 
-        // If newContributors exists
-        if (newContributors.length > 0) {
-            newContributors.map(async (contributor, i) => {
-                const newContributorsData = {
-                    "contributorID": contributor["contributorID"],
-                    "projectID": projectID
-                };
-                console.log(newContributorsData);
-                await fetch("/portfolio/project_contributor/create",
-                    {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify(newContributorsData)
-                    });
-            });
-        }
-        else {
-            console.error("No contributors detected!")
-        }
+        // Check to see if changes to contributor selection has been made, and if so make changes to database
+        let oldContributors = [];
+        if (isAllContributorsLoaded) {
+            // Fetches all Contributor table data for currently selected Project
+            await fetch("/portfolio/contributor/byProject/" + props.projectID)
+                .then(res => res.json())
+                .then(
+                    (result) => {
+                        oldContributors = [...result];
+                        // If there is a difference in contributors on the database versus the contributors on the form data
+                        if (JSON.stringify(oldContributors) !== JSON.stringify(newContributors)) {
+                            let deleteContributorIDList = [];
+                            let addContributorIDList = [];
 
-        // If newTechnologyTags exists
-        if (newTechnologyTags.length > 0) {
-            newTechnologyTags.map(async (technology, i) => {
-                const newTechnologyTagsData = {
-                    "technologyTagID": technology["technologyID"],
-                    "projectID": projectID
-                };
-                console.log(newTechnologyTagsData);
-                await fetch("/portfolio/project_TechnologyTag/create",
-                    {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify(newTechnologyTagsData)
-                    });
-            });
-        }
-        else {
-            console.error("No technology tags detected!")
+                            oldContributors.map((oldContributor) => {
+                                let wasOldContributorRemoved = true;
+                                newContributors.map((newContributor) => {
+                                    if (oldContributor.contributorID === newContributor.contributorID) {
+                                        wasOldContributorRemoved = false;
+                                    }
+                                });
+
+                                if (wasOldContributorRemoved) {
+                                    // Push contributor ID to list to be deleted
+                                    deleteContributorIDList.push(oldContributor.contributorID);
+                                }
+                            });
+
+                            // Iterate through newContributors list to see if any elements are new
+                            newContributors.map((newContributor, i) => {
+                                let wasNewContributorAdded = true;
+                                oldContributors.map((oldContributor, j) => {
+                                    if (newContributor.contributorID === oldContributor.contributorID) {
+                                        wasNewContributorAdded = false;
+                                    }
+                                });
+
+                                if (wasNewContributorAdded) {
+                                    //Push contributor ID to list to be created
+                                    addContributorIDList.push(newContributor.contributorID);
+                                }
+                            });
+
+                            // If there are any contributorID's in the deleteList send a DELETE request
+                            if (deleteContributorIDList.length > 0) {
+                                deleteContributorIDList.map(async (contributorID) => {
+                                    await fetch("/portfolio/project_contributor/" + props.projectID + "/" + contributorID,
+                                        {
+                                            method: "DELETE"
+                                        });
+                                });
+                            }
+
+                            // If there are any contributorID's in the addList send a POST request
+                            if (addContributorIDList.length > 0) {
+                                addContributorIDList.map(async (contributorID) => {
+                                    await fetch("/portfolio/project_contributor/create",
+                                        {
+                                            method: "POST",
+                                            headers: {
+                                                "Content-Type": "application/json"
+                                            },
+                                            body: JSON.stringify({
+                                                "projectID": props.projectID,
+                                                "contributorID": contributorID
+                                            })
+                                        });
+                                });
+                            }
+                        }
+                    },
+                    (error) => {
+                        console.error(error);
+                    }
+                );
         }
 
         setSubmitted(true);

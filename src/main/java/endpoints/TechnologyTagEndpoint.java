@@ -21,7 +21,7 @@ public class TechnologyTagEndpoint
 	@GET
 	@Path("/getAll")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<TechnologyTagDTO> getAll() throws SQLException, ListEmptyException
+	public List<TechnologyTagDTO> getAll() throws SQLException
 	{
 		return technologyTagService.getAllTechnologyTags();
 	}
@@ -39,7 +39,7 @@ public class TechnologyTagEndpoint
 	@GET
 	@Path("/byProject/{ProjectID}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<TechnologyTagDTO> getByProjectID(@PathParam("ProjectID") int ProjectID) throws SQLException, ListEmptyException
+	public List<TechnologyTagDTO> getByProjectID(@PathParam("ProjectID") int ProjectID) throws SQLException
 	{
 		return technologyTagService.getTechnologyTagsByProjectID(ProjectID);
 	}
