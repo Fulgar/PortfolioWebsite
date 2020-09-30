@@ -39,15 +39,15 @@ public class CourseService
 	 * @throws SQLException
 	 * @throws DTONullException
 	 */
-	public CourseDTO getCourseByID(int ID) throws SQLException, DTONullException
+	public CourseDTO getCourseByID(int ID) throws SQLException
 	{
 		// Unsanitized result
 		CourseDTO result = courseDAO.getCourseByID(ID);
 
-		// If list is empty throw exception
+		// If result is null return blank DTO
 		if (result == null)
 		{
-			throw new DTONullException();
+			return new CourseDTO(-1, "", "");
 		}
 
 		return result;
@@ -66,10 +66,10 @@ public class CourseService
 		// Unsanitized result
 		CourseDTO result = courseDAO.getCourseByProjectID(ProjectID);
 
-		// If list is empty throw exception
+		// If result is null return blank DTO
 		if (result == null)
 		{
-			throw new DTONullException();
+			return new CourseDTO(-1, "", "");
 		}
 
 		return result;

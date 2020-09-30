@@ -139,7 +139,61 @@ const AdminProjectDeleteModal = (props) => {
     }, []);
 
     const handleSubmit = async () => {
+        // If there are any demoMedia's associated with project, delete them
+        if (demoMediaData.length > 0) {
+            demoMediaData.map(async (demoMediaObj) => {
+                await deleteDemoMedia(demoMediaObj.demoMediaID);
+            });
+        }
 
+        // If there are any contributor's associated with project, delete the associations
+        if (contributorData.length > 0) {
+            contributorData.map(async (contributorObj) => {
+                await deleteProjectContributor(contributorObj.contributorID);
+            });
+        }
+
+        // If there are any technologyTag's associated with project, delete the associations
+        if (technologyTagData.length > 0) {
+            technologyTagData.map(async (technologyTagObj) => {
+                await deleteProjectTechnologyTag(technologyTagObj.technologyID);
+            });
+        }
+
+        await deleteProject();
+        return await props.onChange();
+    };
+
+    // Deletes the association between a project and a contributor
+    const deleteProjectContributor = async (contributorID) => {
+        return await fetch("/portfolio/project_contributor/" + props.projectID + "/" + contributorID,
+            {
+                method: "DELETE"
+            });
+    };
+
+    // Deletes the association between a project and a technology tag
+    const deleteProjectTechnologyTag = async (technologyTagID) => {
+        return await fetch("/portfolio/project_TechnologyTag/" + props.projectID + "/" + technologyTagID,
+            {
+                method: "DELETE"
+            });
+    };
+
+    // Deletes a selected demoMedia object
+    const deleteDemoMedia = async (demoMediaID) => {
+        return await fetch("/portfolio/demoMedia/" + demoMediaID,
+            {
+                method: "DELETE"
+            });
+    };
+
+    // Deletes the project
+    const deleteProject = async () => {
+        return await fetch("/portfolio/project/" + props.projectID,
+            {
+                method: "DELETE"
+            });
     };
 
     if (!isProjectDataLoaded || !isContributorDataLoaded || !isTechnologyTagDataLoaded
