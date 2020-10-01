@@ -41,16 +41,10 @@ public class Project_ContributorService
 	 * @throws SQLException
 	 * @throws ListEmptyException
 	 */
-	public List<Project_ContributorDTO> getProject_ContributorsByProjectID(int projectID) throws SQLException, ListEmptyException
+	public List<Project_ContributorDTO> getProject_ContributorsByProjectID(int projectID) throws SQLException
 	{
 		// Unsanitized result
 		List<Project_ContributorDTO> result = project_ContributorDAO.getProject_ContributorsByProjectID(projectID);
-
-		// If list is empty throw exception
-		if (result.size() == 0)
-		{
-			throw new ListEmptyException();
-		}
 
 		return result;
 	}
@@ -63,16 +57,10 @@ public class Project_ContributorService
 	 * @throws SQLException
 	 * @throws ListEmptyException
 	 */
-	public List<Project_ContributorDTO> getProject_ContributorsByContributorID(int contributorID) throws SQLException, ListEmptyException
+	public List<Project_ContributorDTO> getProject_ContributorsByContributorID(int contributorID) throws SQLException
 	{
 		// Unsanitized result
 		List<Project_ContributorDTO> result = project_ContributorDAO.getProject_ContributorsByContributorID(contributorID);
-
-		// If list is empty throw exception
-		if (result.size() == 0)
-		{
-			throw new ListEmptyException();
-		}
 
 		return result;
 	}

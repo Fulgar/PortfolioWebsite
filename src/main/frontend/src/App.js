@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 import Homepage from "./components/Homepage/Homepage";
 import NavBar from "./components/NavBar/NavBar";
@@ -6,7 +6,7 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
+    Link, Redirect
 } from "react-router-dom";
 import AboutMe from "./components/AboutMe/AboutMe";
 import Projects from "./components/Projects/Projects";
@@ -14,6 +14,9 @@ import {Button, createMuiTheme, MuiThemeProvider} from '@material-ui/core';
 import CssBaseline from "@material-ui/core/CssBaseline"
 import { AppBar, Toolbar, Typography } from "@material-ui/core";
 import ProjectPage from "./components/ProjectPage/ProjectPage";
+import AdminConsole from "./components/AdminConsole/AdminConsole";
+import AdminLogin from "./components/AdminLogin/AdminLogin";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 
 const theme = createMuiTheme({
     palette: {
@@ -22,6 +25,9 @@ const theme = createMuiTheme({
         },
         secondary: {
             main: "#CCA43B"
+        },
+        error: {
+            main: "#FF0000"
         },
         background: {
             paper: "#E5E5E5",
@@ -44,38 +50,56 @@ const theme = createMuiTheme({
 });
 
 function App() {
-  return (
-    <div className="App">
-        <Router>
-            <MuiThemeProvider theme={ theme }>
-                <CssBaseline/>
-                <NavBar/>
-                <div className={ "main-body" }>
-                    <Switch>
-                        <Route path={ "/about" }>
-                            <AboutMe/>
-                        </Route>
+    // Admin Authorization
+    const [authorizedAdmin, setAuthorizedAdmin] = useState(false);
 
-                        <Route exact path={ "/projects" }>
-                            <Projects/>
-                        </Route>
+    function handleAuthChange(newValue) {
+        setAuthorizedAdmin(newValue);
+    }
 
-                        <Route path={ `/projects/:projectID` } render={(props) => {
-                            return <ProjectPage projectID={props.match.params.projectID}/>
-                        }}/>
+    return (
+        <div className="App">
+            <Router>
+                <MuiThemeProvider theme={ theme }>
+                    <CssBaseline/>
+                    <NavBar/>
+                    <div className={ "main-body" }>
+                        <Switch>
+                            <Route path={ "/about" }>
+                                <AboutMe/>
+                            </Route>
 
-                        <Route exact path={ "/" }>
-                            <Homepage/>
-                        </Route>
+                            <Route exact path={ "/projects" }>
+                                <Projects/>
+                            </Route>
 
-                        <Route>
-                            <b style={{fontSize: 2 + 'em'}}>Unknown page URL</b>
-                        </Route>
-                    </Switch>
-                </div>
-            </MuiThemeProvider>
-        </Router>
-    </div>
+                            <Route path={ `/projects/:projectID` } render={(props) => {
+                                return <ProjectPage projectID={props.match.params.projectID}/>
+                            }}/>
+
+                            <Route exact path={ "/admin" }>
+                                {
+                                    authorizedAdmin
+                                        ? <Redirect to={"/admin/view"}/>
+                                        : <AdminLogin authorizedAdmin={authorizedAdmin} onChange={(newValue) => handleAuthChange(newValue)}
+                                    />
+                                }
+                            </Route>
+
+                            <PrivateRoute path={ "/admin/view" } authorizedAdmin={authorizedAdmin} component={ AdminConsole }/>
+
+                            <Route exact path={ "/" }>
+                                <Homepage/>
+                            </Route>
+
+                            <Route>
+                                <Typography color={"secondary"} variant={"h6"}>Unknown Page URL</Typography>
+                            </Route>
+                        </Switch>
+                    </div>
+                </MuiThemeProvider>
+            </Router>
+        </div>
   );
 }
 

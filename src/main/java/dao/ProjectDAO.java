@@ -78,6 +78,12 @@ public class ProjectDAO
 		// Executes statement
 		int update = DatabaseWrapper.getQueryUpdate(QUERY, dbConnection);
 
+		String ID_QUERY = "SELECT LAST_INSERT_ID()";
+		ResultSet rs = DatabaseWrapper.getQueryResult(ID_QUERY, dbConnection);
+		rs.first();
+		// Sets projectID to last inserted row's auto incremented projectID
+		project.setProjectID(rs.getInt("last_insert_id()"));
+
 		dbConnection.close();
 
 		return project;

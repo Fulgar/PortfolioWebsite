@@ -5,6 +5,7 @@ import services.ContributorService;
 import services.DTONullException;
 import services.ListEmptyException;
 
+import javax.annotation.security.RolesAllowed;
 import javax.print.attribute.standard.Media;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -20,7 +21,7 @@ public class ContributorEndpoint
 	@GET
 	@Path("/getAll")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<ContributorDTO> getAll() throws SQLException, ListEmptyException
+	public List<ContributorDTO> getAll() throws SQLException
 	{
 		return contributorService.getAllContributors();
 	}
@@ -38,22 +39,37 @@ public class ContributorEndpoint
 	@GET
 	@Path("/byProject/{ProjectID}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<ContributorDTO> getByProjectID(@PathParam("ProjectID") int ProjectID) throws SQLException, ListEmptyException
+	public List<ContributorDTO> getByProjectID(@PathParam("ProjectID") int ProjectID) throws SQLException
 	{
 		return contributorService.getContributorsByProjectID(ProjectID);
 	}
 
 
 	@POST
+	@RolesAllowed({"User"})
 	@Path("/create")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public ContributorDTO create(ContributorDTO contributorDTO) throws SQLException
 	{
+		System.out.println("ContributorDTO Create: " + contributorDTO);
 		return contributorService.createContributor(contributorDTO);
 	}
 
+
+	@PUT
+	@RolesAllowed({"User"})
+	@Path("/update")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public ContributorDTO update(ContributorDTO contributorDTO) throws SQLException
+	{
+		return contributorService.updateContributor(contributorDTO);
+	}
+
+
 	@DELETE
+	@RolesAllowed({"User"})
 	@Path("/{ID}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void remove(@PathParam("ID") int ID) throws SQLException

@@ -5,6 +5,7 @@ import services.DemoMediaService;
 import services.DTONullException;
 import services.ListEmptyException;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.sql.SQLException;
@@ -44,15 +45,30 @@ public class DemoMediaEndpoint
 
 
 	@POST
+	@RolesAllowed({"User"})
 	@Path("/create")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public DemoMediaDTO create(DemoMediaDTO demoMediaDTO) throws SQLException
 	{
+		System.out.println("DemoMediaDTO Create: " + demoMediaDTO);
 		return demoMediaService.createDemoMedia(demoMediaDTO);
 	}
 
+
+	@PUT
+	@RolesAllowed({"User"})
+	@Path("/update")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public DemoMediaDTO update(DemoMediaDTO demoMediaDTO) throws SQLException
+	{
+		return demoMediaService.updateDemoMedia(demoMediaDTO);
+	}
+
+
 	@DELETE
+	@RolesAllowed({"User"})
 	@Path("/{ID}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void remove(@PathParam("ID") int ID) throws SQLException

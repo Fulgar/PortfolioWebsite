@@ -52,10 +52,13 @@ public class CourseDAO
 
 		ResultSet rs = DatabaseWrapper.getQueryResult(QUERY, dbConnection);
 
-		CourseMapper mapper = new CourseMapper();
+		while (rs.next())
+		{
+			CourseMapper mapper = new CourseMapper();
+			rs.first();
+			course = mapper.rowMap(rs);
+		}
 
-		rs.first();
-		course = mapper.rowMap(rs);
 
 		dbConnection.close();
 
@@ -76,10 +79,12 @@ public class CourseDAO
 
 		ResultSet rs = DatabaseWrapper.getQueryResult(QUERY, dbConnection);
 
-		CourseMapper mapper = new CourseMapper();
-
-		rs.first();
-		course = mapper.rowMap(rs);
+		while (rs.next())
+		{
+			CourseMapper mapper = new CourseMapper();
+			rs.first();
+			course = mapper.rowMap(rs);
+		}
 
 		dbConnection.close();
 

@@ -84,4 +84,17 @@ public class DemoMediaDTO implements Serializable
 	{
 		this.projectID = projectID;
 	}
+
+	@Override
+	public String toString()
+	{
+		return "DemoMediaDTO{" +
+				"demoMediaID=" + demoMediaID +
+				", url='" + url + '\'' +
+				", mediaType='" + mediaType + '\'' +
+				", mediaTitle='" + mediaTitle + '\'' +
+				", mediaCaption='" + mediaCaption + '\'' +
+				", projectID=" + projectID +
+				'}';
+	}
 }

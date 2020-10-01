@@ -5,6 +5,7 @@ import services.CourseService;
 import services.DTONullException;
 import services.ListEmptyException;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.sql.SQLException;
@@ -44,6 +45,7 @@ public class CourseEndpoint
 
 
 	@POST
+	@RolesAllowed({"User"})
 	@Path("/create")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -52,7 +54,20 @@ public class CourseEndpoint
 		return courseService.createCourse(courseDTO);
 	}
 
+
+	@PUT
+	@RolesAllowed({"User"})
+	@Path("/update")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public CourseDTO update(CourseDTO courseDTO) throws SQLException
+	{
+		return courseService.updateCourse(courseDTO);
+	}
+
+
 	@DELETE
+	@RolesAllowed({"User"})
 	@Path("/{ID}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void remove(@PathParam("ID") int ID) throws SQLException

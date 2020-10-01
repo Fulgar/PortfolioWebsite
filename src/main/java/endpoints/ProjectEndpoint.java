@@ -9,6 +9,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.sql.SQLException;
 import java.util.List;
+import javax.annotation.security.RolesAllowed;
 
 @Path("/project")
 public class ProjectEndpoint
@@ -35,6 +36,7 @@ public class ProjectEndpoint
 
 
 	@POST
+	@RolesAllowed({"User"})
 	@Path("/create")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -43,7 +45,20 @@ public class ProjectEndpoint
 		return projectService.createProject(projectDTO);
 	}
 
+
+	@PUT
+	@RolesAllowed({"User"})
+	@Path("/update")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public ProjectDTO update(ProjectDTO projectDTO) throws SQLException
+	{
+		return projectService.updateProject(projectDTO);
+	}
+
+
 	@DELETE
+	@RolesAllowed({"User"})
 	@Path("/{ID}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void remove(@PathParam("ID") int ID) throws SQLException
