@@ -60,7 +60,7 @@ const Homepage = () => (
 
                 <Paper style={{margin: 1 + "em", display: "flex", alignItems: "center", minWidth: 150 + "px"}} elevation={10}>
                     <Typography variant={"subtitle1"}>
-                        Resume: <a href={"https://jasonjamescodes.imfast.io/Resume/Resume.pdf"}>Link</a>
+                        Resume: <a href={"https://jasonjamescodes.surge.sh/Resume/Resume.pdf"}>Link</a>
                     </Typography>
                 </Paper>
 
