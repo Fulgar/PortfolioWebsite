@@ -8,11 +8,11 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "babel": "^6.23.0",
+    "lodash": "latest",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1",
-    "lodash": "latest"
+    "react-scripts": "3.4.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -38,9 +38,9 @@
   },
   "devDependencies": {
     "@babel/core": "^7.3.4",
+    "@babel/polyfill": "^7.10.4",
     "@babel/preset-env": "^7.3.4",
     "@babel/preset-react": "^7.0.0",
-    "@babel/polyfill": "^7.10.4",
     "@material-ui/icons": "^4.9.1",
     "babel-loader": "^8.0.5",
     "babel-plugin-transform-class-properties": "^6.24.1",

@@ -30,7 +30,7 @@ const Homepage = () => (
 
                 <Paper style={{margin: 1 + "em", display: "flex", alignItems: "center", minWidth: 150 + "px"}} elevation={10}>
                     <Typography variant={"subtitle1"}>
-                        Career Status: Looking for Work
+                        Career Status: Currently Employed
                     </Typography>
                 </Paper>
 
