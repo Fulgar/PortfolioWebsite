@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import './Homepage.css';
 import portrait from "../../images/JacketTie1.jpg"
 import linkedLogo from "../../images/social-media-logos/linkedinLogo.png"
@@ -13,8 +12,6 @@ import pythonLogo from "../../images/tech-logos/pythonLogo.png"
 import cppLogo from "../../images/tech-logos/cppLogo.jpg"
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
-import Link from "@material-ui/core/Link";
 import Button from "@material-ui/core/Button";
 
 const Homepage = () => (

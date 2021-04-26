@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import './AboutMe.css';
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
@@ -19,13 +18,15 @@ const AboutMe = () => (
                   A Brief History & Introduction
               </Typography>
               <Typography style={{textAlign: "left"}} variant={"body1"}>
-                  Hello, my name is Jason James, and welcome to my website! I am a 24-year-old recent
-                  college graduate, who is seeking employment in Software Engineering. I have lived in Cobb County, GA throughout my
-                  entire life. My hobbies consist of programming, video games, and running (mostly when the weather is nice!). I started
-                  programming some time back in early high school by developing mods and server plugins (Java) for the video game,
-                  “Minecraft”, for my friends and I to enjoy. Programming has always excited me ever since as it allows for so many
-                  challenging problems and puzzles to solve. I am currently seeking a career in Web Development as either a Full Stack,
-                  Frontend, or Backend Engineer at an entry level capacity.
+                  Hello, my name is Jason James, and welcome to my website! I am a recent college graduate and a software engineer, currently
+                  working for Marriott Vacations Worldwide. I live in western Cobb County (NW Suburbs of Atlanta), GA, and have lived there most
+                  of my life. My hobbies consist of programming, video games, and running. I began my journey of becoming a software engineer when
+                  I was a freshmen in high school, when I discovered the possibility of programming mods and plugins for various videos games. At
+                  the time I spent a lot of time developing server plugins (Java) for the video game, "Minecraft", for the main purpose of my friends
+                  and I enjoying it for our own personal fun outside of school. I've discovered over time that the reason why I love software
+                  engineering and programming, isn't the act of reading and writing code, but BUILDING things and understanding how other things works.
+                  It's a field that actively promotes the idea of "Oh you don't know how to use this tool? Just go look up the documentation for it
+                  and learn as you go!". Currently, my main professional interests are in Full Stack web development.
               </Typography>
 
               <Divider variant={"middle"}/>
@@ -34,7 +35,7 @@ const AboutMe = () => (
                   Education
               </Typography>
               <Typography style={{textAlign: "left"}} variant={"body1"}>
-                  I have just graduated in the Summer of 2020 from Kennesaw State University with a Bachelor of
+                  I graduated in the Summer of 2020 from Kennesaw State University with a Bachelor of
                   Science Degree in Computer Science. I am also largely self-taught.
               </Typography>
 
