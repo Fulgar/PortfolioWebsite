@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import PropTypes from 'prop-types';
 import './NavBar.css';
 import {AppBar, Toolbar, Typography} from "@material-ui/core";
 import Tabs from "@material-ui/core/Tabs";
@@ -36,9 +35,6 @@ const NavBar = () => {
                   <Tab label={"About Me"} value={"/about"} component={Link} to={"/about"}/>
                   <Tab label={"Projects"} value={"/projects"} component={Link} to={"/projects"}/>
               </Tabs>
-              <Typography style={{marginLeft: "auto", fontSize: 1.1 + "em"}} variant={"subtitle2"}>
-                  Jason James
-              </Typography>
           </Toolbar>
       </AppBar>
   </div>

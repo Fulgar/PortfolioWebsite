@@ -23,7 +23,7 @@ const Homepage = () => (
             }}>
                 <img className={"portrait-img"} src={portrait} alt={"Jason James"}/>
                 <Typography style={{paddingTop: 1 + "em", paddingBottom: 1 + "em"}} variant={"h3"}>
-                    {!isMobile ? "Jason James" : "Mobile James"}
+                    Jason James
                 </Typography>
 
                 <Paper style={{margin: 1 + "em", display: "flex", alignItems: "center", minWidth: 150 + "px"}} elevation={10}>

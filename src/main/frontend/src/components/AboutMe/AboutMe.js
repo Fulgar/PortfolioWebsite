@@ -3,15 +3,24 @@ import './AboutMe.css';
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
+import {isMobile} from 'react-device-detect';
+
+const styles = {
+    aboutPaper: {
+        borderColor: "#CCA43B", borderWidth: 0.40 + "em", padding: 5 + "em"
+    },
+    mobileAboutPaper: {
+        borderColor: "#CCA43B", borderWidth: 0.40 + "em", padding: 2 + "em"
+    }
+};
 
 const AboutMe = () => (
   <div className="AboutMe">
       <Typography style={{padding: 1 + "em"}} color={"secondary"} variant={"h3"}>
           ABOUT ME
       </Typography>
-      <div className={ "mid-content" }>
-          <Paper className={ "about-paper"} style={{
-              borderColor: "#CCA43B", borderWidth: 0.40 + "em", padding: 5 + "em"}}
+      <div className={!isMobile ? "mid-content" : "mobile-mid-content"}>
+          <Paper className={ "about-paper"} style={!isMobile ? styles.aboutPaper : styles.mobileAboutPaper}
                  variant={"outlined"}>
 
               <Typography variant={"h6"}>
@@ -21,7 +30,7 @@ const AboutMe = () => (
                   Hello, my name is Jason James, and welcome to my website! I am a recent college graduate and a software engineer, currently
                   working for Marriott Vacations Worldwide. I live in western Cobb County (NW Suburbs of Atlanta), GA, and have lived there most
                   of my life. My hobbies consist of programming, video games, and running. I began my journey of becoming a software engineer when
-                  I was a freshmen in high school, when I discovered the possibility of programming mods and plugins for various videos games. At
+                  I was a freshmen in high school, and I discovered the possibility of programming mods and plugins for various videos games. At
                   the time I spent a lot of time developing server plugins (Java) for the video game, "Minecraft", for the main purpose of my friends
                   and I enjoying it for our own personal fun outside of school. I've discovered over time that the reason why I love software
                   engineering and programming, isn't the act of reading and writing code, but BUILDING things and understanding how other things works.
