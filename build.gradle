@@ -16,16 +16,33 @@ repositories {
     mavenCentral()
 }
 
-task buildReact(type: Exec, dependsOn: ['npmInstall']) {
+//task buildReact(type: Exec, dependsOn: ['npmInstall']) {
+//    workingDir("src/main/frontend")
+//    inputs.dir("src/main/frontend")
+//    group BasePlugin.BUILD_GROUP
+//    if (System.getProperty("os.name").toUpperCase().contains("WINDOWS")){
+//        commandLine("npm.cmd", "run", "webpack")
+//    } else {
+//        commandLine("npm", "run", "webpack")
+//    }
+//
+//}
+
+task buildReactV2(type: Exec, dependsOn: ['npmInstall']) {
     workingDir("src/main/frontend")
     inputs.dir("src/main/frontend")
     group BasePlugin.BUILD_GROUP
     if (System.getProperty("os.name").toUpperCase().contains("WINDOWS")){
-        commandLine("npm.cmd", "run", "webpack")
+        commandLine("npm.cmd", "run", "build")
     } else {
-        commandLine("npm", "run", "webpack")
+        commandLine("npm", "run", "build")
     }
 
+}
+
+task copyBuildDir(type: Copy, dependsOn: ['buildReactV2']) {
+    from "src/main/frontend/build"
+    into "src/main/webapp/"
 }
 
 task npmInstall(type: Exec) {
@@ -39,22 +56,22 @@ task npmInstall(type: Exec) {
     }
 }
 
-task stage() {
-    dependsOn clean, war
-}
-war.mustRunAfter(clean)
+//task stage() {
+//    dependsOn clean, war
+//}
+//war.mustRunAfter(clean)
+//
+//
+//task copyToLib(type: Copy) {
+//    into "$buildDir/server"
+//    from(configurations.compile) {
+//        include "webapp-runner*"
+//    }
+//}
+//
+//stage.dependsOn(copyToLib)
 
-
-task copyToLib(type: Copy) {
-    into "$buildDir/server"
-    from(configurations.compile) {
-        include "webapp-runner*"
-    }
-}
-
-stage.dependsOn(copyToLib)
-
-build.dependsOn buildReact
+build.dependsOn copyBuildDir
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
