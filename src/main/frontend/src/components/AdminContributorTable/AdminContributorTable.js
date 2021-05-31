@@ -126,7 +126,7 @@ const AdminContributorTable = (props) => {
     // Is executed only on first render of component and upon update of addRenderCount
     useEffect(() => {
         // Fetch all Contributor database data via GET request
-        fetch("/portfolio/contributor/getAll")
+        fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/contributor/getAll")
             .then(res => res.json())
             .then(
                 (result) => {

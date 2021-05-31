@@ -121,7 +121,7 @@ const AdminCourseTable = (props) => {
     // Is executed only on first render of component and upon update of addRenderCount
     useEffect(() => {
         // Fetch all Course database data via GET request
-        fetch("/portfolio/course/getAll")
+        fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/course/getAll")
             .then(res => res.json())
             .then(
                 (result) => {

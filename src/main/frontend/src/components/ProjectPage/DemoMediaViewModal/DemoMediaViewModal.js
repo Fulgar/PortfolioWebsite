@@ -132,9 +132,15 @@ const DemoMediaViewModal = (props) => {
 	console.log(props.demoMediaData);
 	return (
 		<div className="DemoMediaViewModal">
+			<div className={"media-title"}>
+				<Typography variant={"h2"} color={"secondary"}>{props.demoMediaData.mediaTitle}</Typography>
+			</div>
 			{
 				getDemoContent()
 			}
+			<div className={"media-description"}>
+				<Typography variant={"body1"} color={"secondary"}>{props.demoMediaData.mediaCaption}</Typography>
+			</div>
 			<Close className={"close-modal-button"} style={styles.modalButton} color={"secondary"} onClick={props.handleDemoMediaViewClose}/>
 			<ArrowBack className={getLeftButtonClasses()} style={styles.modalButton} color={"secondary"} onClick={handleLeftButton}/>
 			<ArrowForward className={getRightButtonClasses()} style={styles.modalButton} color={"secondary"} onClick={handleRightButton}/>

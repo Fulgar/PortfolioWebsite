@@ -35,7 +35,7 @@ const AdminCourseAddModal = (props) => {
             "subjectName": newSubjectName
         };
 
-        const response = await fetch("/portfolio/course/create",
+        const response = await fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/course/create",
             {
                 method: "POST",
                 mode: "cors",

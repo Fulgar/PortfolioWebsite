@@ -50,7 +50,7 @@ const AdminTechnologyTagEditModal = (props) => {
             "technologyName": newTechnologyName,
         };
 
-        return await fetch("/portfolio/technologyTag/update",
+        return await fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/technologyTag/update",
             {
                 method: "PUT",
                 headers: {
@@ -62,7 +62,7 @@ const AdminTechnologyTagEditModal = (props) => {
 
     useEffect(() => {
         // Fetch targeted TechnologyTag database data via GET request
-        fetch("/portfolio/technologyTag/" + props.technologyID)
+        fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/technologyTag/" + props.technologyID)
             .then(res => res.json())
             .then(
                 (result) => {

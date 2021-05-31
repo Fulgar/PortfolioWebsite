@@ -54,7 +54,7 @@ const AdminContributorEditModal = (props) => {
             "githubProfileLink": newGithubProfile
         };
 
-        return await fetch("/portfolio/contributor/update",
+        return await fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/contributor/update",
             {
                 method: "PUT",
                 headers: {
@@ -66,7 +66,7 @@ const AdminContributorEditModal = (props) => {
 
     useEffect(() => {
         // Fetch targeted Contributor database data via GET request
-        fetch("/portfolio/contributor/" + props.contributorID)
+        fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/contributor/" + props.contributorID)
             .then(res => res.json())
             .then(
                 (result) => {

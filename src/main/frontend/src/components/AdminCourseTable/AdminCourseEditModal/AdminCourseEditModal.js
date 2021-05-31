@@ -52,7 +52,7 @@ const AdminCourseEditModal = (props) => {
             "subjectName": newSubjectName
         };
 
-        return await fetch("/portfolio/course/update",
+        return await fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/course/update",
             {
                 method: "PUT",
                 headers: {
@@ -64,7 +64,7 @@ const AdminCourseEditModal = (props) => {
 
     useEffect(() => {
         // Fetch targeted Course database data via GET request
-        fetch("/portfolio/course/" + props.courseID)
+        fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/course/" + props.courseID)
             .then(res => res.json())
             .then(
                 (result) => {

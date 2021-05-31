@@ -28,7 +28,7 @@ const AdminLogin = (props) => {
     const sendLoginRequest = () => {
         const url = "/portfolio/getAuthorization";
         // Fetch all Project database data via GET request
-        fetch(url)
+        fetch(process.env.REACT_APP_API_BASE_URL + url)
             .then(res => res.json())
             .then(
                 (result) => {

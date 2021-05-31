@@ -54,14 +54,14 @@ const AdminTechnologyTagDeleteModal = (props) => {
     };
 
     const deleteTechnologyTag = async () => {
-        return await fetch("/portfolio/technologyTag/" + props.technologyID,
+        return await fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/technologyTag/" + props.technologyID,
             {
                 method: "DELETE"
             }).then(setSubmitted(true));
     };
 
     const deleteProjectTechnologyTag = async (projectID) => {
-        return await fetch("/portfolio/project_TechnologyTag/" + projectID + "/" + props.technologyID,
+        return await fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/project_TechnologyTag/" + projectID + "/" + props.technologyID,
             {
                 method: "DELETE"
             });
@@ -69,7 +69,7 @@ const AdminTechnologyTagDeleteModal = (props) => {
 
     useEffect(() => {
         // Fetch targeted TechnologyTag database data via GET request
-        fetch("/portfolio/technologyTag/" + props.technologyID)
+        fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/technologyTag/" + props.technologyID)
             .then(res => res.json())
             .then(
                 (result) => {
@@ -83,7 +83,7 @@ const AdminTechnologyTagDeleteModal = (props) => {
             );
 
         // Fetch targeted Project_TechnologyTag association database data via GET request
-        fetch("/portfolio/project_TechnologyTag/technologyTagID/" + props.technologyID)
+        fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/project_TechnologyTag/technologyTagID/" + props.technologyID)
             .then(res => res.json())
             .then(
                 (result) => {

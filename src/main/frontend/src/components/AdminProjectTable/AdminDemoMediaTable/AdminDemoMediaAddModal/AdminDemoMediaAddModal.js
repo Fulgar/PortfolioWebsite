@@ -76,7 +76,7 @@ const AdminDemoMediaAddModal = (props) => {
             handleChange(transferData);
         }
         if (props.mode === "projectEdit") {
-            await fetch("/portfolio/demoMedia/create",
+            await fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/demoMedia/create",
                 {
                     method: "POST",
                     mode: "cors",

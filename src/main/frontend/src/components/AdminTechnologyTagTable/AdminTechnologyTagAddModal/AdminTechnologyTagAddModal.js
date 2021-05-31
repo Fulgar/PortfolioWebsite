@@ -33,7 +33,7 @@ const AdminTechnologyTagAddModal = (props) => {
             "technologyName": newTechnologyName
         };
 
-        const response = await fetch("/portfolio/technologyTag/create",
+        const response = await fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/technologyTag/create",
             {
                 method: "POST",
                 mode: "cors",

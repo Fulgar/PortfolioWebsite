@@ -99,7 +99,7 @@ const AdminProjectEditModal = (props) => {
 
     useEffect(() => {
         // Fetch all ProjectType database data via GET request
-        fetch("/portfolio/projectType/getAll")
+        fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/projectType/getAll")
             .then(res => res.json())
             .then(
                 (result) => {
@@ -112,7 +112,7 @@ const AdminProjectEditModal = (props) => {
             );
 
         // Fetch all Course database data via GET request
-        fetch("/portfolio/course/getAll")
+        fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/course/getAll")
             .then(res => res.json())
             .then(
                 (result) => {
@@ -125,7 +125,7 @@ const AdminProjectEditModal = (props) => {
             );
 
         // Fetch all TechnologyTag database data via GET request
-        fetch("/portfolio/technologyTag/getAll")
+        fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/technologyTag/getAll")
             .then(res => res.json())
             .then(
                 (result) => {
@@ -138,7 +138,7 @@ const AdminProjectEditModal = (props) => {
             );
 
         // Fetch all Contributor database data via GET request
-        fetch("/portfolio/contributor/getAll")
+        fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/contributor/getAll")
             .then(res => res.json())
             .then(
                 (result) => {
@@ -155,7 +155,7 @@ const AdminProjectEditModal = (props) => {
     useEffect(() => {
         if (isAllProjectTypesLoaded && isAllCoursesLoaded) {
             // Fetches all Project table data for currently selected Project
-            fetch("/portfolio/project/" + props.projectID)
+            fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/project/" + props.projectID)
                 .then(res => res.json())
                 .then(
                     (result) => {
@@ -191,7 +191,7 @@ const AdminProjectEditModal = (props) => {
     useEffect(() => {
         if (isAllContributorsLoaded) {
             // Fetches all Contributor table data for currently selected Project
-            fetch("/portfolio/contributor/byProject/" + props.projectID)
+            fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/contributor/byProject/" + props.projectID)
                 .then(res => res.json())
                 .then(
                     (result) => {
@@ -214,7 +214,7 @@ const AdminProjectEditModal = (props) => {
     useEffect(() => {
         if (isAllTechnologyTagsLoaded) {
             // Fetches all TechnologyTag table data for currently selected Project
-            fetch("/portfolio/technologyTag/byProject/" + props.projectID)
+            fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/technologyTag/byProject/" + props.projectID)
                 .then(res => res.json())
                 .then(
                     (result) => {
@@ -252,7 +252,7 @@ const AdminProjectEditModal = (props) => {
         // Stores PUT response for Project Table update
         let projectUpdateResult = null;
 
-        await fetch("/portfolio/project/update",
+        await fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/project/update",
             {
                 method: "PUT",
                 mode: "cors",
@@ -272,7 +272,7 @@ const AdminProjectEditModal = (props) => {
         let oldTechTags = [];
         if (isAllTechnologyTagsLoaded) {
             // Fetches all TechnologyTag table data for currently selected Project
-            await fetch("/portfolio/technologyTag/byProject/" + props.projectID)
+            await fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/technologyTag/byProject/" + props.projectID)
                 .then(res => res.json())
                 .then(
                     (result) => {
@@ -314,7 +314,7 @@ const AdminProjectEditModal = (props) => {
                             // If there are any techID's in the deleteList send a DELETE request
                             if (deleteTechIDList.length > 0) {
                                 deleteTechIDList.map(async (techID) => {
-                                    await fetch("/portfolio/project_TechnologyTag/" + props.projectID + "/" + techID,
+                                    await fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/project_TechnologyTag/" + props.projectID + "/" + techID,
                                         {
                                             method: "DELETE"
                                         });
@@ -324,7 +324,7 @@ const AdminProjectEditModal = (props) => {
                             // If there are any techID's in the addList send a POST request
                             if (addTechIDList.length > 0) {
                                 addTechIDList.map(async (techID) => {
-                                    await fetch("/portfolio/project_TechnologyTag/create",
+                                    await fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/project_TechnologyTag/create",
                                         {
                                             method: "POST",
                                             headers: {
@@ -349,7 +349,7 @@ const AdminProjectEditModal = (props) => {
         let oldContributors = [];
         if (isAllContributorsLoaded) {
             // Fetches all Contributor table data for currently selected Project
-            await fetch("/portfolio/contributor/byProject/" + props.projectID)
+            await fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/contributor/byProject/" + props.projectID)
                 .then(res => res.json())
                 .then(
                     (result) => {
@@ -391,7 +391,7 @@ const AdminProjectEditModal = (props) => {
                             // If there are any contributorID's in the deleteList send a DELETE request
                             if (deleteContributorIDList.length > 0) {
                                 deleteContributorIDList.map(async (contributorID) => {
-                                    await fetch("/portfolio/project_contributor/" + props.projectID + "/" + contributorID,
+                                    await fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/project_contributor/" + props.projectID + "/" + contributorID,
                                         {
                                             method: "DELETE"
                                         });
@@ -401,7 +401,7 @@ const AdminProjectEditModal = (props) => {
                             // If there are any contributorID's in the addList send a POST request
                             if (addContributorIDList.length > 0) {
                                 addContributorIDList.map(async (contributorID) => {
-                                    await fetch("/portfolio/project_contributor/create",
+                                    await fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/project_contributor/create",
                                         {
                                             method: "POST",
                                             headers: {

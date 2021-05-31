@@ -60,7 +60,7 @@ const AdminProjectDeleteModal = (props) => {
     // Is called on the first render of component
     useEffect(() => {
         // Fetch targeted Project database data via GET request
-        fetch("/portfolio/project/" + props.projectID)
+        fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/project/" + props.projectID)
             .then(res => res.json())
             .then(
                 (result) => {
@@ -73,7 +73,7 @@ const AdminProjectDeleteModal = (props) => {
             );
 
         // Fetch targeted Contributor database data via GET request
-        fetch("/portfolio/contributor/byProject/" + props.projectID)
+        fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/contributor/byProject/" + props.projectID)
             .then(res => res.json())
             .then(
                 (result) => {
@@ -86,7 +86,7 @@ const AdminProjectDeleteModal = (props) => {
             );
 
         // Fetch targeted TechnologyTag database data via GET request
-        fetch("/portfolio/technologyTag/byProject/" + props.projectID)
+        fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/technologyTag/byProject/" + props.projectID)
             .then(res => res.json())
             .then(
                 (result) => {
@@ -99,7 +99,7 @@ const AdminProjectDeleteModal = (props) => {
             );
 
         // Fetch targeted Course database data via GET request
-        fetch("/portfolio/course/byProject/" + props.projectID)
+        fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/course/byProject/" + props.projectID)
             .then(res => res.json())
             .then(
                 (result) => {
@@ -112,7 +112,7 @@ const AdminProjectDeleteModal = (props) => {
             );
 
         // Fetch targeted DemoMedia database data via GET request
-        fetch("/portfolio/demoMedia/byProject/" + props.projectID)
+        fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/demoMedia/byProject/" + props.projectID)
             .then(res => res.json())
             .then(
                 (result) => {
@@ -125,7 +125,7 @@ const AdminProjectDeleteModal = (props) => {
             );
 
         // Fetch targeted ProjectType database data via GET request
-        fetch("/portfolio/projectType/byProject/" + props.projectID)
+        fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/projectType/byProject/" + props.projectID)
             .then(res => res.json())
             .then(
                 (result) => {
@@ -166,7 +166,7 @@ const AdminProjectDeleteModal = (props) => {
 
     // Deletes the association between a project and a contributor
     const deleteProjectContributor = async (contributorID) => {
-        return await fetch("/portfolio/project_contributor/" + props.projectID + "/" + contributorID,
+        return await fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/project_contributor/" + props.projectID + "/" + contributorID,
             {
                 method: "DELETE"
             });
@@ -174,7 +174,7 @@ const AdminProjectDeleteModal = (props) => {
 
     // Deletes the association between a project and a technology tag
     const deleteProjectTechnologyTag = async (technologyTagID) => {
-        return await fetch("/portfolio/project_TechnologyTag/" + props.projectID + "/" + technologyTagID,
+        return await fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/project_TechnologyTag/" + props.projectID + "/" + technologyTagID,
             {
                 method: "DELETE"
             });
@@ -182,7 +182,7 @@ const AdminProjectDeleteModal = (props) => {
 
     // Deletes a selected demoMedia object
     const deleteDemoMedia = async (demoMediaID) => {
-        return await fetch("/portfolio/demoMedia/" + demoMediaID,
+        return await fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/demoMedia/" + demoMediaID,
             {
                 method: "DELETE"
             });
@@ -190,7 +190,7 @@ const AdminProjectDeleteModal = (props) => {
 
     // Deletes the project
     const deleteProject = async () => {
-        return await fetch("/portfolio/project/" + props.projectID,
+        return await fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/project/" + props.projectID,
             {
                 method: "DELETE"
             });

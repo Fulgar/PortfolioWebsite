@@ -151,7 +151,7 @@ const AdminDemoMediaTable = (props) => {
         // If Editing an existing project
         if (props.mode === "projectEdit") {
             // Fetch all DemoMedia database data via GET request
-            fetch("/portfolio/demoMedia/byProject/" + props.projectID)
+            fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/demoMedia/byProject/" + props.projectID)
                 .then(res => res.json())
                 .then(
                     (result) => {

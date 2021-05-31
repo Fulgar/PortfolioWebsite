@@ -100,7 +100,7 @@ const AdminProjectAddModal = (props) => {
 
 	useEffect(() => {
 		// Fetch all ProjectType database data via GET request
-		fetch("/portfolio/projectType/getAll")
+		fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/projectType/getAll")
 			.then(res => res.json())
 			.then(
 				(result) => {
@@ -113,7 +113,7 @@ const AdminProjectAddModal = (props) => {
 			);
 
 		// Fetch all Course database data via GET request
-		fetch("/portfolio/course/getAll")
+		fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/course/getAll")
 			.then(res => res.json())
 			.then(
 				(result) => {
@@ -126,7 +126,7 @@ const AdminProjectAddModal = (props) => {
 			);
 
 		// Fetch all TechnologyTag database data via GET request
-		fetch("/portfolio/technologyTag/getAll")
+		fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/technologyTag/getAll")
 			.then(res => res.json())
 			.then(
 				(result) => {
@@ -139,7 +139,7 @@ const AdminProjectAddModal = (props) => {
 			);
 
 		// Fetch all Contributor database data via GET request
-		fetch("/portfolio/contributor/getAll")
+		fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/contributor/getAll")
 			.then(res => res.json())
 			.then(
 				(result) => {
@@ -181,7 +181,7 @@ const AdminProjectAddModal = (props) => {
 		// NOTE: Must use "await projectInsertResult" when accessing after fetch request
 		let projectInsertResult = null;
 
-		await fetch("/portfolio/project/create",
+		await fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/project/create",
 			{
 				method: "POST",
 				mode: "cors",
@@ -212,7 +212,7 @@ const AdminProjectAddModal = (props) => {
 					"projectID": projectID
 				};
 				console.log(newDemoMediaData);
-				await fetch("/portfolio/demoMedia/create",
+				await fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/demoMedia/create",
 					{
 						method: "POST",
 						headers: {
@@ -231,7 +231,7 @@ const AdminProjectAddModal = (props) => {
 					"projectID": projectID
 				};
 				console.log(newContributorsData);
-				await fetch("/portfolio/project_contributor/create",
+				await fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/project_contributor/create",
 					{
 						method: "POST",
 						headers: {
@@ -253,7 +253,7 @@ const AdminProjectAddModal = (props) => {
 					"projectID": projectID
 				};
 				console.log(newTechnologyTagsData);
-				await fetch("/portfolio/project_TechnologyTag/create",
+				await fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/project_TechnologyTag/create",
 					{
 						method: "POST",
 						headers: {
