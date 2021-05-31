@@ -6,17 +6,49 @@ import Typography from "@material-ui/core/Typography";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import {ArrowForward, ArrowBack} from "@material-ui/icons";
+import {Slideshow} from "@material-ui/icons";
+import {isMobile} from "react-device-detect";
+import Modal from "@material-ui/core/Modal";
+import DemoMediaViewModal from "./DemoMediaViewModal/DemoMediaViewModal";
 
 
 const styles = {
    projectPaper: {
-        borderColor: "#CCA43B", borderWidth: 0.40 + "em", padding: 5 + "em"
+        borderColor: "#CCA43B", borderWidth: 0.40 + "em", padding: 3 + "em"
+    },
+    mobileProjectPaper: {
+        borderColor: "#CCA43B", borderWidth: 0.30 + "em", padding: 0 + "em"
     },
     halfPaperContainer: {
         margin: 2 + "em",
         display: "grid",
         gridTemplateColumns: "50% 50%"
+    },
+    mobileHalfPaperContainer: {
+        margin: 1 + "em",
+        display: "grid",
+        gridTemplateColumns: "50% 50%"
+    },
+    leftPaper: {
+        marginRight: 2 + "em"
+    },
+    rightPaper: {
+        marginLeft: 2 + "em"
+    },
+    fullPaper: {
+        margin: 2 + "em"
+    },
+    mobileLeftPaper: {
+        marginRight: 1 + "em"
+    },
+    mobileRightPaper: {
+        marginLeft: 1 + "em"
+    },
+    mobileFullPaper: {
+        margin: 1 + "em"
+    },
+    allPapers: {
+        padding: 1 + "em"
     },
     listItem: {
        textAlign: "center"
@@ -28,6 +60,12 @@ const styles = {
     demoMediaContent: {
         maxWidth: 100 + "%",
         maxHeight: 80 + "vh"
+    },
+    mediaModalOpenIcon: {
+        margin: "auto",
+        width: 25 + "%",
+        height: 25 + "%",
+        cursor: "pointer"
     }
 };
 
@@ -69,126 +107,20 @@ const ProjectPage = (props) => {
     // Container for all selected Project data
     const [projectTypeData, setProjectTypeData] = useState({});
 
-
-    // Contains the index of the currently viewed demoMedia file
-    const [demoMediaIndex, setDemoMediaIndex] = useState(0);
-
-    // Method for returning DemoMedia of IMG type
-    const getDemoImage = (url, altText) => {
-        return (<img src={url} alt={altText}
-            style={{maxWidth: "inherit", maxHeight: "inherit"}}/>
-        );
+    // DemoMedia View Modal fields
+    const [demoMediaViewOpen, setDemoMediaViewOpen] = useState(false);
+    const handleDemoMediaViewOpen = () => {
+        setDemoMediaViewOpen(true);
+    };
+    const handleDemoMediaViewClose = () => {
+        setDemoMediaViewOpen(false);
     };
 
-    // Method for returning DemoMedia of VID type
-    const getDemoVideo = (url) => {
-        return (<video controls={true} style={{maxWidth: "inherit", maxHeight: "inherit"}}>
-                <source src={url} type={"video/mp4"}/>
-            </video>
-        );
-    };
-
-    // Method for returning DemoMedia of TXT type
-    const getDemoText = (url) => {
-        return (<p><iframe src={url} style={{maxWidth: "inherit", maxHeight: "inherit", frameBorder: 0,
-                minWidth: 100 + "%", minHeight: 50 + "vh"}}>
-                Browser not compatible
-            </iframe></p>
-        );
-    };
-
-    // Method for returning DemoMedia of PDF type
-    const getDemoPDF = (url) => {
-        return (<iframe src={url} style={{maxWidth: "inherit", maxHeight: 100 + "%", frameBorder: 0,
-            minWidth: 100 + "%", minHeight: 80 + "vh"}}>
-                Browser not compatible
-            </iframe>
-        );
-    };
-
-    // Method for returning appropriate DemoMedia content
-    const getDemoContent = () => {
-        if (isDemoMediaLoaded) {
-            if (demoMediaData[demoMediaIndex] !== undefined) {
-                const demoRow = demoMediaData[demoMediaIndex];
-                const mediaType = demoRow["mediaType"];
-                const mediaTitle = demoRow["mediaTitle"];
-                const mediaURL = demoRow["url"];
-
-                switch (mediaType) {
-                    case "IMG":
-                        return getDemoImage(mediaURL, mediaTitle);
-                    case "VID":
-                        return getDemoVideo(mediaURL);
-                    case "TXT":
-                        return getDemoText(mediaURL);
-                    case "PDF":
-                        return getDemoPDF(mediaURL);
-                    default:
-                        return (<Typography variant={"body1"}>Demo Media does not exist</Typography>);
-                }
-            }
-        }
-    };
-
-    // Method that determines if there is a previous demoMedia
-    const doesLeftMediaExist = () => {
-        if (isDemoMediaLoaded) {
-            if (demoMediaData[demoMediaIndex] !== undefined) {
-                return demoMediaData[demoMediaIndex - 1] !== undefined;
-            }
-        }
-    };
-
-    // Method that determines if there is a next demoMedia
-    const doesRightMediaExist = () => {
-        if (isDemoMediaLoaded) {
-            if (demoMediaData[demoMediaIndex] !== undefined) {
-                return demoMediaData[demoMediaIndex + 1] !== undefined;
-            }
-        }
-    };
-
-    // Determines mouse cursor over Left button
-    const getLeftButtonCursor = () => {
-        let result = "default";
-        if (isDemoMediaLoaded) {
-            if (doesLeftMediaExist()) {
-                result = "pointer";
-            }
-        }
-        return result;
-    };
-
-    // Determines mouse cursor over Right button
-    const getRightButtonCursor = () => {
-        let result = "default";
-        if (isDemoMediaLoaded) {
-            if (doesRightMediaExist()) {
-                result = "pointer";
-            }
-        }
-        return result;
-    };
-
-    // Method that handles the onClick of the Left DemoMedia navigation button
-    const handleLeftButton = () => {
-        if (doesLeftMediaExist()) {
-            setDemoMediaIndex(demoMediaIndex - 1);
-        }
-    };
-
-    // Method that handles the onClick of the Right DemoMedia navigation button
-    const handleRightButton = () => {
-        if (doesRightMediaExist()) {
-            setDemoMediaIndex(demoMediaIndex + 1);
-        }
-    };
 
     // Is executed only on first render of Projects component
     useEffect(() => {
         // Fetch selected Project database data via GET request
-        fetch("/portfolio/project/" + projectID)
+        fetch("http://10.251.240.195:8080/portfolio/project/" + projectID)
             .then(res => res.json())
             .then(
                 (result) => {
@@ -202,7 +134,7 @@ const ProjectPage = (props) => {
             );
 
         // Fetch selected DemoMedia database data via GET request
-        fetch("/portfolio/demoMedia/byProject/" + projectID)
+        fetch("http://10.251.240.195:8080/portfolio/demoMedia/byProject/" + projectID)
             .then(res => res.json())
             .then(
                 (result) => {
@@ -216,7 +148,7 @@ const ProjectPage = (props) => {
             );
 
         // Fetch selected Contributor database data via GET request
-        fetch("/portfolio/contributor/byProject/" + projectID)
+        fetch("http://10.251.240.195:8080/portfolio/contributor/byProject/" + projectID)
             .then(res => res.json())
             .then(
                 (result) => {
@@ -230,7 +162,7 @@ const ProjectPage = (props) => {
             );
 
         // Fetch selected TechnologyTag database data via GET request
-        fetch("/portfolio/technologyTag/byProject/" + projectID)
+        fetch("http://10.251.240.195:8080/portfolio/technologyTag/byProject/" + projectID)
             .then(res => res.json())
             .then(
                 (result) => {
@@ -244,7 +176,7 @@ const ProjectPage = (props) => {
             );
 
         // Fetch selected ProjectType database data via GET request
-        fetch("/portfolio/projectType/byProject/" + projectID)
+        fetch("http://10.251.240.195:8080/portfolio/projectType/byProject/" + projectID)
             .then(res => res.json())
             .then(
                 (result) => {
@@ -264,7 +196,7 @@ const ProjectPage = (props) => {
         if (isProjectLoaded) {
             if (projectData["courseID"] !== undefined) {
                 // Fetch selected Course database data via GET request
-                fetch("/portfolio/course/byProject/" + projectID)
+                fetch("http://10.251.240.195:8080/portfolio/course/byProject/" + projectID)
                     .then(res => res.json())
                     .then(
                         (result) => {
@@ -282,7 +214,7 @@ const ProjectPage = (props) => {
     , [isProjectLoaded]); // Depends on isProjectLoaded changing in order to re-execute
 
     return (
-        <div className="ProjectPage">
+        <div className={!isMobile ? "ProjectPage" : "mobile-mid-content"}>
             <Typography style={{padding: 1 + "em"}} color={"secondary"} variant={"h3"}>
                 {
                     // If projectData is loaded display project title
@@ -293,11 +225,10 @@ const ProjectPage = (props) => {
                 }
             </Typography>
 
-            <Paper className={"project-paper"} style={{
-                borderColor: "#CCA43B", borderWidth: 0.40 + "em", padding: 3 + "em"}}
+            <Paper className={"project-paper"} style={!isMobile ? styles.projectPaper : styles.mobileProjectPaper}
                    variant={"outlined"}>
 
-                <Paper style={{margin: 2 + "em", padding: 1 + "em"}} className={"description-paper"} elevation={10}>
+                <Paper style={!isMobile ? {...styles.allPapers, ...styles.fullPaper} : {...styles.allPapers, ...styles.mobileFullPaper}} className={"description-paper"} elevation={10}>
                     <Typography variant={"h6"}>Description:</Typography>
                     <Typography variant={"body1"}>
                         {
@@ -310,8 +241,8 @@ const ProjectPage = (props) => {
                     </Typography>
                 </Paper>
 
-                <div style={styles.halfPaperContainer} className={"top-half-paper-container"}>
-                    <Paper style={{marginRight: 2 + "em", padding: 1 + "em"}} className={"github-project-paper"} elevation={10}>
+                <div style={!isMobile ? styles.halfPaperContainer : styles.mobileHalfPaperContainer} className={"top-half-paper-container"}>
+                    <Paper style={!isMobile ? {...styles.allPapers, ...styles.leftPaper} : {...styles.allPapers, ...styles.mobileLeftPaper}} className={"github-project-paper"} elevation={10}>
                         <Typography variant={"h6"}>Github Project:</Typography>
                         <Typography variant={"body1"}>
                             {
@@ -324,7 +255,7 @@ const ProjectPage = (props) => {
                         </Typography>
                     </Paper>
 
-                    <Paper style={{marginLeft: 2 + "em", padding: 1 + "em"}} className={"project-type-paper"} elevation={10}>
+                    <Paper style={!isMobile ? {...styles.allPapers, ...styles.rightPaper} : {...styles.allPapers, ...styles.mobileRightPaper}} className={"project-type-paper"} elevation={10}>
                         <Typography variant={"h6"}>Project Type:</Typography>
                         <Typography variant={"body1"}>
                             {
@@ -338,43 +269,29 @@ const ProjectPage = (props) => {
                     </Paper>
                 </div>
 
-                <Paper style={{margin: 2 + "em", padding: 1 + "em"}} className={"demo-media"} elevation={10}>
+                <Paper style={!isMobile ? {...styles.allPapers, ...styles.fullPaper} : {...styles.allPapers, ...styles.mobileFullPaper}} className={"demo-media"} elevation={10}>
                     <Typography variant={"h6"}>Demo Media:</Typography>
                     {
-                        // TODO: DemoMedia display
                         // If demoMedia data is loaded then display content
                         // If not, then display if there is an error or if it is currently still loading
-                        (isDemoMediaLoaded === true && demoMediaData[demoMediaIndex] !== undefined)
+                        (isDemoMediaLoaded === true)
                             ? (<div style={styles.demoMediaPlayer} className={"demo-media-player"}>
-                                    <div style={styles.demoMediaContent} className={"demo-media-content"}>
-                                        {
-                                            getDemoContent()
-                                        }
-                                    </div>
+                                    <Slideshow style={styles.mediaModalOpenIcon} onClick={handleDemoMediaViewOpen}/>
 
-                                    <Paper className={"demo-caption"} style={{margin: "1.5em 4em 1.5em", padding: 1 + "em"}} elevation={10}>
-                                        <Typography variant={"h6"}
-                                                    style={{fontSize: 1.25 + "em"}}>{demoMediaData[demoMediaIndex]["mediaTitle"]}: </Typography>
-                                        <Typography variant={"body1"}>{demoMediaData[demoMediaIndex]["mediaCaption"]}</Typography>
-                                    </Paper>
-
-                                    <ArrowBack button style={{
-                                        width: 3 + "em", height: 3 + "em",
-                                        marin: "auto auto auto 0", cursor: getLeftButtonCursor()
-                                    }} onClick={handleLeftButton}/>
-
-                                    <ArrowForward button style={{
-                                        width: 3 + "em", height: 3 + "em",
-                                        marin: "auto 0 auto auto", cursor: getRightButtonCursor()
-                                    }} onClick={handleRightButton}/>
+                                    <Modal
+                                        className={"demo-media-view-modal"}
+                                        open={demoMediaViewOpen}
+                                        onClose={handleDemoMediaViewClose}>
+                                        <DemoMediaViewModal demoMediaData={demoMediaData} handleDemoMediaViewClose={handleDemoMediaViewClose}/>
+                                    </Modal>
                                 </div>
                             )
                             : ((demoMediaError) ? (<span>DEMO MEDIA NOT FOUND</span>) : (<span>There is no Demo Media associated with this project</span>))
                     }
                 </Paper>
 
-                <div style={styles.halfPaperContainer} className={"bottom-half-paper-container"}>
-                    <Paper style={{marginRight: 2 + "em", padding: 1 + "em"}} className={"contributors-paper"} elevation={10}>
+                <div style={!isMobile ? styles.halfPaperContainer : styles.mobileHalfPaperContainer} className={"bottom-half-paper-container"}>
+                    <Paper style={!isMobile ? {...styles.allPapers, ...styles.leftPaper} : {...styles.allPapers, ...styles.mobileLeftPaper}} className={"contributors-paper"} elevation={10}>
                         <Typography variant={"h6"}>Contributors:</Typography>
                         {
                             // If contributorData is loaded display contributor info
@@ -397,7 +314,7 @@ const ProjectPage = (props) => {
                         }
                     </Paper>
 
-                    <Paper style={{marginLeft: 2 + "em", padding: 1 + "em"}} className={"tech-tags-paper"} elevation={10}>
+                    <Paper style={!isMobile ? {...styles.allPapers, ...styles.rightPaper} : {...styles.allPapers, ...styles.mobileRightPaper}} className={"tech-tags-paper"} elevation={10}>
                         <Typography variant={"h6"}>Technology Tags:</Typography>
                         {
                             // If technologyTagData is loaded display technologyTag info
