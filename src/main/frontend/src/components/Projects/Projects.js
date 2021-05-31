@@ -15,6 +15,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import MenuItem from "@material-ui/core/MenuItem";
+import {isMobile} from "react-device-detect";
 
 
 // Styles Object
@@ -23,7 +24,7 @@ const styles = {
         borderLeftWidth: 1 + "px", borderRightWidth: 1 + "px",
         borderLeftStyle: "solid", borderRightStyle: "solid",
         borderTopWidth: 0 + "px", borderBottomWidth: 0 + "px",
-        borderColor: "#242F40"
+        borderColor: "#242F40", padding: 1 + "em"
     },
     tableHeadCell: {
         borderLeftWidth: 1 + "px", borderRightWidth: 1 + "px",
@@ -34,12 +35,29 @@ const styles = {
     tableHeadCellInner: {
         display: "flex", justifyContent: "center", alignItems: "center"
     },
+    tableBodyCellInner: {
+        overflow: "hidden",
+        textOverflow: "ellipsis",
+        display: "block"
+    },
     tableHead: {
         borderBottomWidth: 1 + "px", borderBottomStyle: "solid", borderColor: "#242F40"
     },
     table: {
         borderWidth: 1 + "px", borderBottomWidth: 2 + "px", borderRightWidth: 2 + "px",
-        borderColor: "#242F40", borderStyle: "solid"
+        borderColor: "#242F40", borderStyle: "solid",
+        tableLayout: "fixed", width: 100 + "%"
+    },
+    projectsPaper: {
+        borderColor: "#CCA43B", borderWidth: 0.40 + "em", padding: 5 + "em"
+    },
+    mobileProjectsPaper: {
+        borderColor: "#CCA43B", borderWidth: 0.30 + "em", padding: 0.25 + "em"
+    },
+    tableRow: {
+        boxShadow: "0px 8px 9px -5px rgba(0, 0, 0, 0.2), 0px 15px 22px 2px rgba(0, 0, 0, 0.14), 0px 6px 28px 5px rgba(0, 0, 0, 0.12)",
+        borderRadius: 4 + "px",
+        backgroundColor: "#E5E5E5"
     }
 };
 
@@ -103,28 +121,48 @@ const Projects = () => {
     };
 
     // Contains corresponding labels and properties for Table head
-    const [header, setHeader] = useState([
-        {
-            name: "Project Title",
-            prop: "projectTitle"
-        },
-        {
-            name: "Type",
-            prop: "projectTypeName"
-        },
-        {
-            name: " Course Subject*",
-            prop: "subjectName"
-        },
-        {
-            name: "Course*",
-            prop: "courseName"
-        },
-        {
-            name: "Technology Tags",
-            prop: "technologyTagNames"
-        }
-    ]);
+    let header = [];
+    if (!isMobile) {
+        header = [
+            {
+                name: "Project Title",
+                prop: "projectTitle"
+            },
+            {
+                name: "Type",
+                prop: "projectTypeName"
+            },
+            {
+                name: " Course Subject*",
+                prop: "subjectName"
+            },
+            {
+                name: "Course*",
+                prop: "courseName"
+            },
+            {
+                name: "Technology Tags",
+                prop: "technologyTagNames"
+            }
+        ]
+    }
+    else {
+        header = [
+            {
+                name: "Project Title",
+                prop: "projectTitle"
+            },
+            {
+                name: "Type",
+                prop: "projectTypeName"
+            },
+            {
+                name: "Technology Tags",
+                prop: "technologyTagNames"
+            }
+        ]
+    }
+
 
     // Contains the revised and order bodyData
     let sortedBodyData = [];
@@ -247,7 +285,7 @@ const Projects = () => {
                 // CourseID and its associations can be null/undefined
                 let subjectName = "";
                 let courseName = "";
-                if (courseID !== undefined) {
+                if (courseID !== undefined && !isMobile) {
                     const courseDataObj = courseData.find(element => element["courseID"] === courseID);
                     subjectName = courseDataObj["subjectName"];
                     courseName = courseDataObj["courseName"];
@@ -265,14 +303,24 @@ const Projects = () => {
                 }
 
                 // Push table body data to temp container
-                newBodyData.push({
-                    projectID: projectID,
-                    projectTitle: projectTitle,
-                    projectTypeName: projectTypeName,
-                    subjectName: subjectName,
-                    courseName: courseName,
-                    technologyTagNames: techTagNames
-                });
+                if (!isMobile) {
+                    newBodyData.push({
+                        projectID: projectID,
+                        projectTitle: projectTitle,
+                        projectTypeName: projectTypeName,
+                        subjectName: subjectName,
+                        courseName: courseName,
+                        technologyTagNames: techTagNames
+                    });
+                }
+                else {
+                    newBodyData.push({
+                        projectID: projectID,
+                        projectTitle: projectTitle,
+                        projectTypeName: projectTypeName,
+                        technologyTagNames: techTagNames
+                    });
+                }
             }
 
             // Sets the state field of bodyData to new data
@@ -287,13 +335,12 @@ const Projects = () => {
 
         // Render
         return (
-            <div className="Projects">
+            <div className={!isMobile ? "Projects" : "mobile-mid-content"}>
                 <Typography style={{padding: 1 + "em"}} color={"secondary"} variant={"h3"}>
                     PROJECTS
                 </Typography>
 
-                <Paper className={"projects-paper"} style={{
-                    borderColor: "#CCA43B", borderWidth: 0.40 + "em", padding: 5 + "em"}}
+                <Paper className={"projects-paper"} style={!isMobile ? styles.projectsPaper : styles.mobileProjectsPaper}
                        variant={"outlined"}>
                     <div style={{textAlign: "right", alignItems: "right", float: "right"}}
                          className={"filter-menu-container"}>
@@ -323,7 +370,7 @@ const Projects = () => {
                     <TableContainer>
                         <Table style={styles.table}>
                             <TableHead style={styles.tableHead}>
-                                <TableRow style={{cursor: "pointer"}} component={ Paper } elevation={15}>
+                                <TableRow style={{cursor: "pointer", ...styles.tableRow}}>
                                     {
                                         header.map((head, i) => {
                                             return <TableCell style={styles.tableHeadCell} key={`th-${i}`} onClick={() => {
@@ -351,12 +398,18 @@ const Projects = () => {
                                     sortedBodyData.map((body, i) => {
                                         // Only return body row if there are no current filter rules against it
                                         if (filterIndex === 0 || (filterIndex !== 0 && body.technologyTagNames.includes(filterList[filterIndex])))
-                                            return <TableRow component={ Paper } elevation={15} key={`tr-${i}`}>
-                                            <TableCell style={styles.tableBodyCell}><a href={`/projects/${body.projectID}`}>{body.projectTitle}</a></TableCell>
+                                            return <TableRow style={styles.tableRow} key={`tr-${i}`}>
+                                                <TableCell style={styles.tableBodyCell}><a href={`/projects/${body.projectID}`}><span style={styles.tableBodyCellInner}>{body.projectTitle}</span></a></TableCell>
                                             <TableCell style={styles.tableBodyCell}>{body.projectTypeName}</TableCell>
-                                            <TableCell style={styles.tableBodyCell}>{body.subjectName}</TableCell>
-                                            <TableCell style={styles.tableBodyCell}>{body.courseName}</TableCell>
-                                            <TableCell style={styles.tableBodyCell}>{body.technologyTagNames.join(", ")}</TableCell>
+                                                {
+                                                    !isMobile ? (<React.Fragment>
+                                                            <TableCell style={styles.tableBodyCell}><span style={styles.tableBodyCellInner}>{body.subjectName}</span></TableCell>
+                                                            <TableCell style={styles.tableBodyCell}><span style={styles.tableBodyCellInner}>{body.courseName}</span></TableCell>
+                                                                </React.Fragment>) :
+                                                                (<React.Fragment/>)
+                                                }
+
+                                                <TableCell style={styles.tableBodyCell}><span style={styles.tableBodyCellInner}>{body.technologyTagNames.join(", ")}</span></TableCell>
                                         </TableRow>
                                     })
                                 }

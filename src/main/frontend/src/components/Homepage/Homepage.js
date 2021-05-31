@@ -13,10 +13,11 @@ import cppLogo from "../../images/tech-logos/cppLogo.jpg"
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+import {isMobile} from 'react-device-detect';
 
 const Homepage = () => (
     <div className="Homepage">
-        <div className={"main-content"}>
+        <div className={!isMobile ? "main-content" : "mobile-main-content"}>
             <Paper variant={"outlined"} style={{
                 borderColor: "#CCA43B", borderWidth: 0.40 + "em", padding: 3 + "em"
             }}>
@@ -63,7 +64,7 @@ const Homepage = () => (
 
             </Paper>
 
-            <div className={"right-content"}>
+            <div className={!isMobile ? "right-content" : "mobile-bottom-content"}>
                 <Typography style={{paddingBottom: 2 + "em"}} color={"secondary"} variant={"h2"}>
                     Hello World
                     <br/><br/>

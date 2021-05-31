@@ -1,9 +1,7 @@
-src/main/java/dao/DatabaseTest.java
-src/main/java/endpoints/TestEndpoint.java
 out/*
 build/
 .gradle/*
 gradle.properties
 /.idea/
-/src/main/java/services/TestService.java
-/src/main/webapp/react/
+/src/main/webapp/*
+!/src/main/webapp/WEB-INF/*
