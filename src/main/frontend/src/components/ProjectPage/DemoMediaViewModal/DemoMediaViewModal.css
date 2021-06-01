@@ -9,7 +9,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgba(50, 50, 50, 0.5);
+    background-color: rgba(50, 50, 50, 0.75);
 }
 
 .close-modal-button {
@@ -40,6 +40,17 @@
 }
 
 .demo-media-content {
+    min-width: 100%;
+    min-height: 80%;
     max-width: 100%;
     max-height: 100%;
+}
+
+.demo-media-content .react-pdf__Document .react-pdf__Page canvas{
+    display: inline;
+    margin: auto;
+}
+
+.demo-text-p iframe html body{
+    color: #CCA43B;
 }
