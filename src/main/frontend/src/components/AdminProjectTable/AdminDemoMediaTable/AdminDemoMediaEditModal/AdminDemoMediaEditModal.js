@@ -68,7 +68,7 @@ const AdminDemoMediaEditModal = (props) => {
 			handleChange(data);
 		}
 		if (props.mode === "projectEdit") {
-			await fetch("/portfolio/demoMedia/update",
+			await fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/demoMedia/update",
 				{
 					method: "PUT",
 					mode: "cors",
@@ -91,7 +91,7 @@ const AdminDemoMediaEditModal = (props) => {
 		}
 		if (props.mode === "projectEdit") {
 			// Fetch all DemoMedia database data via GET request
-			fetch("/portfolio/demoMedia/" + newDemoMediaID)
+			fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/demoMedia/" + newDemoMediaID)
 				.then(res => res.json())
 				.then(
 					(result) => {

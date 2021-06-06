@@ -38,7 +38,7 @@ const AdminDemoMediaDeleteModal = (props) => {
     // Called when submission button is clicked
     const handleSubmit = async () => {
         if (props.mode === "projectEdit") {
-            await fetch("/portfolio/demoMedia/" + newDemoMediaID,
+            await fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/demoMedia/" + newDemoMediaID,
                 {
                     method: "DELETE"
                 }).then(props.onChange());
@@ -52,7 +52,7 @@ const AdminDemoMediaDeleteModal = (props) => {
         }
         if (props.mode === "projectEdit") {
             // Fetch all DemoMedia database data via GET request
-            fetch("/portfolio/demoMedia/" + newDemoMediaID)
+            fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/demoMedia/" + newDemoMediaID)
                 .then(res => res.json())
                 .then(
                     (result) => {

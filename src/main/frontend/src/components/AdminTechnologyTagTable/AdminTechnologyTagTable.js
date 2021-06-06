@@ -117,7 +117,7 @@ const AdminTechnologyTagTable = (props) => {
     // Is executed only on first render of component and upon update of addRenderCount
     useEffect(() => {
         // Fetch all TechnologyTag database data via GET request
-        fetch("/portfolio/technologyTag/getAll")
+        fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/technologyTag/getAll")
             .then(res => res.json())
             .then(
                 (result) => {

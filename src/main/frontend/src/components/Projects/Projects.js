@@ -188,7 +188,7 @@ const Projects = () => {
     // Is executed only on first render of Projects component
     useEffect(() => {
         // Fetch all Project database data via GET request
-        fetch("/portfolio/project/getAll")
+        fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/project/getAll")
             .then(res => res.json())
             .then(
                 (result) => {
@@ -202,7 +202,7 @@ const Projects = () => {
             );
 
         // Fetch all ProjectType database data via GET request
-        fetch("/portfolio/projectType/getAll")
+        fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/projectType/getAll")
             .then(res => res.json())
             .then(
                 (result) => {
@@ -216,7 +216,7 @@ const Projects = () => {
             );
 
         // Fetch all Course database data via GET request
-        fetch("/portfolio/course/getAll")
+        fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/course/getAll")
             .then(res => res.json())
             .then(
                 (result) => {
@@ -230,7 +230,7 @@ const Projects = () => {
             );
 
         // Fetch all TechnologyTag database data via GET request
-        fetch("/portfolio/technologyTag/getAll")
+        fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/technologyTag/getAll")
             .then(res => res.json())
             .then(
                 (result) => {
@@ -244,7 +244,7 @@ const Projects = () => {
             );
 
         // Fetch all Project_TechnologyTag database data via GET request
-        fetch("/portfolio/project_TechnologyTag/getAll")
+        fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/project_TechnologyTag/getAll")
             .then(res => res.json())
             .then(
                 (result) => {

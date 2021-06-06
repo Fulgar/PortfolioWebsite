@@ -1,14 +1,21 @@
 .DemoMediaViewModal {
-    width: 90vw;
-    height: 90vh;
+    max-width: 90vw;
+    max-height: 90vh;
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgba(50, 50, 50, 0.5);
+    background-color: rgba(50, 50, 50, 0.75);
+}
+
+@media only screen and (max-width: 700px) {
+    .DemoMediaViewModal {
+        min-width: 80vw;
+    }
 }
 
 .close-modal-button {
@@ -16,14 +23,27 @@
     top: 0;
     right: 0;
     cursor: pointer;
+    opacity: 0.8;
+}
+
+.close-modal-button:hover {
+    opacity: 1;
 }
 
 .arrow-more-content {
     cursor: pointer;
+    opacity: 0.8;
+    background-color: rgba(50, 50, 50, 0.2);
+    border-radius: 50%;
+}
+
+.arrow-more-content:hover {
+    opacity: 1;
 }
 
 .arrow-no-content {
     cursor: default;
+    opacity: 0;
 }
 
 .left-arrow {
@@ -39,6 +59,17 @@
 }
 
 .demo-media-content {
+    min-width: 100%;
+    min-height: 80%;
     max-width: 100%;
     max-height: 100%;
+}
+
+.demo-media-content .react-pdf__Document .react-pdf__Page canvas{
+    display: inline;
+    margin: auto;
+}
+
+.demo-text-p iframe html body{
+    color: #CCA43B;
 }

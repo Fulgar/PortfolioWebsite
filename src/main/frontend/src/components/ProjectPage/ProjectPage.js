@@ -120,7 +120,7 @@ const ProjectPage = (props) => {
     // Is executed only on first render of Projects component
     useEffect(() => {
         // Fetch selected Project database data via GET request
-        fetch("/portfolio/project/" + projectID)
+        fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/project/" + projectID)
             .then(res => res.json())
             .then(
                 (result) => {
@@ -134,7 +134,7 @@ const ProjectPage = (props) => {
             );
 
         // Fetch selected DemoMedia database data via GET request
-        fetch("/portfolio/demoMedia/byProject/" + projectID)
+        fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/demoMedia/byProject/" + projectID)
             .then(res => res.json())
             .then(
                 (result) => {
@@ -148,7 +148,7 @@ const ProjectPage = (props) => {
             );
 
         // Fetch selected Contributor database data via GET request
-        fetch("/portfolio/contributor/byProject/" + projectID)
+        fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/contributor/byProject/" + projectID)
             .then(res => res.json())
             .then(
                 (result) => {
@@ -162,7 +162,7 @@ const ProjectPage = (props) => {
             );
 
         // Fetch selected TechnologyTag database data via GET request
-        fetch("/portfolio/technologyTag/byProject/" + projectID)
+        fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/technologyTag/byProject/" + projectID)
             .then(res => res.json())
             .then(
                 (result) => {
@@ -176,7 +176,7 @@ const ProjectPage = (props) => {
             );
 
         // Fetch selected ProjectType database data via GET request
-        fetch("/portfolio/projectType/byProject/" + projectID)
+        fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/projectType/byProject/" + projectID)
             .then(res => res.json())
             .then(
                 (result) => {
@@ -196,7 +196,7 @@ const ProjectPage = (props) => {
         if (isProjectLoaded) {
             if (projectData["courseID"] !== undefined) {
                 // Fetch selected Course database data via GET request
-                fetch("/portfolio/course/byProject/" + projectID)
+                fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/course/byProject/" + projectID)
                     .then(res => res.json())
                     .then(
                         (result) => {

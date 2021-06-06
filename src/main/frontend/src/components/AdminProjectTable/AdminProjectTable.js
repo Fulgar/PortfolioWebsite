@@ -167,7 +167,7 @@ const AdminProjectTable = (props) => {
     // Is executed only on first render of component and upon update of addRenderCount
     useEffect(() => {
         // Fetch all Project database data via GET request
-        fetch("/portfolio/project/getAll")
+        fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/project/getAll")
             .then(res => res.json())
             .then(
                 (result) => {
@@ -182,7 +182,7 @@ const AdminProjectTable = (props) => {
             );
 
         // Fetch all ProjectType database data via GET request
-        fetch("/portfolio/projectType/getAll")
+        fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/projectType/getAll")
             .then(res => res.json())
             .then(
                 (result) => {
@@ -197,7 +197,7 @@ const AdminProjectTable = (props) => {
             );
 
         // Fetch all Course database data via GET request
-        fetch("/portfolio/course/getAll")
+        fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/course/getAll")
             .then(res => res.json())
             .then(
                 (result) => {
@@ -212,7 +212,7 @@ const AdminProjectTable = (props) => {
             );
 
         // Fetch all DemoMedia database data via GET request
-        fetch("/portfolio/demoMedia/getAll")
+        fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/demoMedia/getAll")
             .then(res => res.json())
             .then(
                 (result) => {
@@ -227,7 +227,7 @@ const AdminProjectTable = (props) => {
             );
 
         // Fetch all Project_Contributor database data via GET request
-        fetch("/portfolio/project_contributor/getAll")
+        fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/project_contributor/getAll")
             .then(res => res.json())
             .then(
                 (result) => {
@@ -242,7 +242,7 @@ const AdminProjectTable = (props) => {
             );
 
         // Fetch all TechnologyTag database data via GET request
-        fetch("/portfolio/technologyTag/getAll")
+        fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/technologyTag/getAll")
             .then(res => res.json())
             .then(
                 (result) => {
@@ -257,7 +257,7 @@ const AdminProjectTable = (props) => {
             );
 
         // Fetch all Project_TechnologyTag database data via GET request
-        fetch("/portfolio/project_TechnologyTag/getAll")
+        fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/project_TechnologyTag/getAll")
             .then(res => res.json())
             .then(
                 (result) => {

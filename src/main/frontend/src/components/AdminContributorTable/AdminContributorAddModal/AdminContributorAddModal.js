@@ -38,7 +38,7 @@ const AdminContributorAddModal = (props) => {
             "githubProfileLink": newGithubProfile
         };
 
-        const response = await fetch("/portfolio/contributor/create",
+        const response = await fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/contributor/create",
             {
                 method: "POST",
                 mode: "cors",

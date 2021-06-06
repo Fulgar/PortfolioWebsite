@@ -100,7 +100,7 @@ function registerValidSW(swUrl, config) {
 
 function checkValidServiceWorker(swUrl, config) {
   // Check if the service worker can be found. If it can't reload the page.
-  fetch(swUrl, {
+  fetch(process.env.REACT_APP_API_BASE_URL + swUrl, {
     headers: { 'Service-Worker': 'script' },
   })
     .then(response => {

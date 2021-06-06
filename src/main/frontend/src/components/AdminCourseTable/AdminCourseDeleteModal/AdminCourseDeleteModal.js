@@ -45,7 +45,7 @@ const AdminCourseDeleteModal = (props) => {
     };
 
     const deleteCourse = async () => {
-        return await fetch("/portfolio/course/" + props.courseID,
+        return await fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/course/" + props.courseID,
             {
                 method: "DELETE"
             }).then(setSubmitted(true));
@@ -53,7 +53,7 @@ const AdminCourseDeleteModal = (props) => {
 
     useEffect(() => {
         // Fetch targeted Course database data via GET request
-        fetch("/portfolio/course/" + props.courseID)
+        fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/course/" + props.courseID)
             .then(res => res.json())
             .then(
                 (result) => {
@@ -67,7 +67,7 @@ const AdminCourseDeleteModal = (props) => {
             );
 
         // Fetch all Project association database data via GET request
-        fetch("/portfolio/project/getAll")
+        fetch(process.env.REACT_APP_API_BASE_URL + "/portfolio/project/getAll")
             .then(res => res.json())
             .then(
                 (result) => {
