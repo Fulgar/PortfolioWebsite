@@ -1,6 +1,6 @@
 .AboutMe {}
 
-.mid-content {
+.about-mid-content {
     width: 100%;
     text-align: center;
     align-items: center;
@@ -9,11 +9,3 @@
     flex-direction: column;
 }
 
-.mobile-mid-content {
-    width: 100%;
-    text-align: center;
-    align-items: center;
-    padding-left: 5%;
-    padding-right: 5%;
-    flex-direction: column;
-}

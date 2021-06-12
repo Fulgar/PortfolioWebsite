@@ -19,7 +19,7 @@ const AboutMe = () => (
       <Typography style={{padding: 1 + "em"}} color={"secondary"} variant={"h3"}>
           ABOUT ME
       </Typography>
-      <div className={!isMobile ? "mid-content" : "mobile-mid-content"}>
+      <div className={!isMobile ? "about-mid-content" : "mobile-paper-main-mid-content"}>
           <Paper className={ "about-paper"} style={!isMobile ? styles.aboutPaper : styles.mobileAboutPaper}
                  variant={"outlined"}>
 
