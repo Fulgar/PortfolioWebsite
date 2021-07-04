@@ -17,7 +17,7 @@ import {isMobile} from 'react-device-detect';
 
 const Homepage = () => (
     <div className="Homepage">
-        <div className={!isMobile ? "main-content" : "mobile-main-content"}>
+        <div className={!isMobile ? "homepage-main-content" : "homepage-mobile-main-content"}>
             <Paper variant={"outlined"} style={{
                 borderColor: "#CCA43B", borderWidth: 0.40 + "em", padding: 3 + "em"
             }}>

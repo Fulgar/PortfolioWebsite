@@ -335,7 +335,7 @@ const Projects = () => {
 
         // Render
         return (
-            <div className={!isMobile ? "Projects" : "mobile-mid-content"}>
+            <div className={!isMobile ? "paper-main-mid-content" : "mobile-paper-main-mid-content"}>
                 <Typography style={{padding: 1 + "em"}} color={"secondary"} variant={"h3"}>
                     PROJECTS
                 </Typography>

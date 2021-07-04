@@ -13,20 +13,21 @@
   color: white;
 }
 
-/*.top-nav {*/
-/*  min-height: 5vh;*/
-/*  min-width: 100vw;*/
-/*  !*background-color : green;*!*/
-/*  position: fixed;*/
-/*  display: flex;*/
-/*  top: 0;*/
-/*}*/
+.paper-main-mid-content {
+  width: 100%;
+  text-align: center;
+  align-items: center;
+  padding-left: 10%;
+  padding-right: 10%;
+  flex-direction: column;
+}
 
-/*.main-body {*/
-/*  bottom: 0;*/
-/*  position: fixed;*/
-/*  min-height: 95vh;*/
-/*  min-width: 100vw;*/
-/*  max-height: 95vh;*/
-/*  overflow-y: auto;*/
-/*}*/
+.mobile-paper-main-mid-content {
+  width: 100%;
+  text-align: center;
+  align-items: center;
+  padding-left: 5%;
+  padding-right: 5%;
+  flex-direction: column;
+}
+

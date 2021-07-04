@@ -214,7 +214,7 @@ const ProjectPage = (props) => {
     , [isProjectLoaded]); // Depends on isProjectLoaded changing in order to re-execute
 
     return (
-        <div className={!isMobile ? "ProjectPage" : "mobile-mid-content"}>
+        <div className={!isMobile ? "paper-main-mid-content" : "mobile-paper-main-mid-content"}>
             <Typography style={{padding: 1 + "em"}} color={"secondary"} variant={"h3"}>
                 {
                     // If projectData is loaded display project title
