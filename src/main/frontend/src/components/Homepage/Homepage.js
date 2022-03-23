@@ -1,6 +1,6 @@
 import React from 'react';
 import './Homepage.css';
-import portrait from "../../images/JacketTie1.jpg"
+import portrait from "../../images/JacketTie2.png"
 import linkedLogo from "../../images/social-media-logos/linkedinLogo.png"
 import githubLogo from "../../images/social-media-logos/githubLogo.png"
 import reactLogo from "../../images/tech-logos/reactLogo.png"

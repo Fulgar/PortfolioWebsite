@@ -27,9 +27,9 @@ const AboutMe = () => (
                   A Brief History & Introduction
               </Typography>
               <Typography style={{textAlign: "left"}} variant={"body1"}>
-                  Hello, my name is Jason James, and welcome to my website! I am a recent college graduate and a software engineer, currently
+                  Hello, my name is Jason James, and welcome to my website! I am a software engineer, currently
                   working for Marriott Vacations Worldwide. I live in western Cobb County (NW Suburbs of Atlanta), GA, and have lived there most
-                  of my life. My hobbies consist of programming, video games, and running. I began my journey of becoming a software engineer when
+                  of my life. My hobbies consist of programming, video games, and exercising. I began my journey of becoming a software engineer when
                   I was a freshmen in high school, and I discovered the possibility of programming mods and plugins for various videos games. At
                   the time I spent a lot of time developing server plugins (Java) for the video game, "Minecraft", for the main purpose of my friends
                   and I enjoying it for our own personal fun outside of school. I've discovered over time that the reason why I love software
@@ -51,18 +51,29 @@ const AboutMe = () => (
               <Divider variant={"middle"}/>
 
               <Typography variant={"h6"}>
-                  Skills & Past Projects
+                  Tech Skills
               </Typography>
               <Typography style={{textAlign: "left"}} variant={"body1"}>
                   I have experience with programming languages such as Java, Python, JavaScript (and
-                  Typescript), SQL, and C++. I have some experience using frontend JavaScript frameworks, such
-                  as Angular and React. I have also become familiar with Java EE for backend development. I
-                  have successfully worked in a group/team environment for my Senior Project (capstone) at
-                  Kennesaw State University, in which we developed a modified variant of chess with AI support,
-                  in which we used Git with GitHub. I developed this website with a Java EE backend, MySQL
-                  DBMS, and React frontend. I also have experience with setting up, deploying, and managing a
-                  Linux server. For more detailed information on my past projects, please take a look at the
+                  Typescript), SQL, and C++. I have experience using frontend JavaScript frameworks, such
+                  as Angular and React. I am also experienced with Java EE (Spring Boot, Spring MVC, and JBoss) for backend development.
+                  I have also worked on a PHP WordPress website (Vistana.com) as well as a Java Vert.x REST CRUD API that supports
+                  a dynamic UGC platform.
+                  <br/>
+                  <br/>
+                  For more detailed information on my past projects (University + Personal), please take a look at the
                   “Projects” page/tab.
+              </Typography>
+
+              <Divider variant={"middle"}/>
+
+              <Typography variant={"h6"}>
+                  Coming Soon
+              </Typography>
+              <Typography style={{textAlign: "left"}} variant={"body1"}>
+                  <ul>
+                      <li>Jobs tab &#8594; Will be adding a page similar to Projects tab that lists jobs and relevant technologies used with a dynamic details page for each entry.</li>
+                  </ul>
               </Typography>
 
               <Divider variant={"middle"}/>
